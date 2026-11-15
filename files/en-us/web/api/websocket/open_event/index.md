@@ -1,48 +1,42 @@
 ---
-title: 'WebSocket: open event'
+title: "WebSocket: open event"
+short-title: open
 slug: Web/API/WebSocket/open_event
-tags:
-  - API
-  - Event
-  - WebSocket
-  - events
-  - open
+page-type: web-api-event
 browser-compat: api.WebSocket.open_event
 ---
-{{APIRef}}
+
+{{APIRef("WebSockets API")}}{{AvailableInWorkers}}
 
 The `open` event is fired when a connection with a `WebSocket` is opened.
 
-<table class="properties">
-  <tbody>
-    <tr>
-      <th scope="row">Bubbles</th>
-      <td>No</td>
-    </tr>
-    <tr>
-      <th scope="row">Cancelable</th>
-      <td>No</td>
-    </tr>
-    <tr>
-      <th scope="row">Interface</th>
-      <td>{{domxref("Event")}}</td>
-    </tr>
-    <tr>
-      <th scope="row">Event handler property</th>
-      <td>{{ domxref("WebSocket.onopen","onopen")}}</td>
-    </tr>
-  </tbody>
-</table>
+## Syntax
+
+Use the event name in {{domxref("EventTarget/addEventListener", "addEventListener()")}}:
+
+```js-nolint
+addEventListener("open", (event) => { })
+```
+
+Alternatively, assign to the [event handler property](/en-US/docs/Web/API/Document_Object_Model/Events#using_onevent_properties) of the interface:
+
+```js-nolint
+onopen = (event) => { }
+```
+
+## Event type
+
+A generic {{domxref("Event")}}.
 
 ## Examples
 
 ```js
 // Create WebSocket connection.
-const socket = new WebSocket('ws://localhost:8080');
+const socket = new WebSocket("ws://localhost:8080");
 
 // Connection opened
-socket.addEventListener('open', (event) => {
-  socket.send('Hello Server!');
+socket.addEventListener("open", (event) => {
+  socket.send("Hello Server!");
 });
 ```
 

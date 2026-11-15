@@ -1,31 +1,17 @@
 ---
-title: end
+title: "end: Wasm text instruction"
+short-title: end
 slug: WebAssembly/Reference/Control_flow/end
-tags:
-  - WebAssembly
-  - wasm
-  - Landing page
-  - Reference
-  - Control flow
+page-type: webassembly-instruction
+browser-compat: webassembly.instructions.end
+sidebar: webassemblysidebar
 ---
-{{WebAssemblySidebar}}
 
 **`end`** is used to end a `block`, `loop`, `if`, or `else`. In the other examples we used the s-expression syntax which doesn't require the `end`, so you won't find it in the other examples here. However, it's still useful to know about since this is what the browsers display in devtools.
 
-## Syntax
+{{InteractiveExample("Wat Demo: end", "tabbed-taller")}}
 
-```wasm
-i32.const 0
-if
-  ;; do something
-end
-```
-
-## Full working example
-
-Wasm file
-
-```wasm
+```wat interactive-example
 (module
   ;; import the browser console object, you'll need to pass this in from JavaScript
   (import "console" "log" (func $log (param i32)))
@@ -42,15 +28,28 @@ Wasm file
 )
 ```
 
-JavaScript file
+```js interactive-example
+const url = "{%wasm-url%}";
+await WebAssembly.instantiateStreaming(fetch(url), { console });
+```
 
-```js
-WebAssembly.instantiateStreaming(
-  fetch("link to .wasm file"),
-  { console }
-);
+## Syntax
+
+```wat
+i32.const 0
+if
+  ;; do something
+end
 ```
 
 | Instruction | Binary opcode |
 | ----------- | ------------- |
 | `end`       | `0x0b`        |
+
+## Specifications
+
+{{Specifications}}
+
+## Browser compatibility
+
+{{Compat}}

@@ -1,29 +1,20 @@
 ---
-title: Window.length
+title: "Window: length property"
+short-title: length
 slug: Web/API/Window/length
-tags:
-  - API
-  - Gecko
-  - HTML DOM
-  - Property
-  - Reference
-  - Window
+page-type: web-api-instance-property
 browser-compat: api.Window.length
 ---
-{{ ApiRef() }}
 
-Returns the number of frames (either {{HTMLElement("frame")}} or
-{{HTMLElement("iframe")}} elements) in the window.
+{{APIRef("HTML DOM")}}
 
-## Syntax
+The **`length`** read-only property of the {{domxref("Window")}} interface returns the number of frames (either {{HTMLElement("frame")}} or {{HTMLElement("iframe")}} elements) in the window.
 
-```js
-framesCount = window.length;
-```
+## Value
 
-- `framesCount` is the number of frames.
+A number.
 
-## Example
+## Examples
 
 ```js
 if (window.length) {

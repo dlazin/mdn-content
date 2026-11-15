@@ -1,58 +1,56 @@
 ---
-title: 'ServiceWorkerGlobalScope: periodicsync event'
+title: "ServiceWorkerGlobalScope: periodicsync event"
+short-title: periodicsync
 slug: Web/API/ServiceWorkerGlobalScope/periodicsync_event
-tags:
-  - Offline
-  - PWA
-  - Periodic Background Synchronization
-  - ServiceWorkerGlobalScope
-  - events
+page-type: web-api-event
+status:
+  - experimental
 browser-compat: api.ServiceWorkerGlobalScope.periodicsync_event
 ---
-{{draft}}{{DefaultAPISidebar("Periodic Background Sync")}}
+
+{{APIRef("Periodic Background Sync")}}{{SeeCompatTable}}{{SecureContext_Header}}{{AvailableInWorkers("service")}}
 
 The **`periodicsync`** event of the {{domxref("ServiceWorkerGlobalScope")}} interface is fired at timed intervals, specified when registering a {{domxref('PeriodicSyncManager')}}.
 
-<table class="properties">
-  <tbody>
-    <tr>
-      <th scope="row">Bubbles</th>
-      <td>No</td>
-    </tr>
-    <tr>
-      <th scope="row">Cancelable</th>
-      <td>No</td>
-    </tr>
-    <tr>
-      <th scope="row">Interface</th>
-      <td>{{domxref("PeriodicSyncEvent")}}</td>
-    </tr>
-    <tr>
-      <th scope="row">Event handler property</th>
-      <td>
-        {{domxref('ServiceWorkerGlobalScope.onperiodicsync')}}
-      </td>
-    </tr>
-  </tbody>
-</table>
+This event is not cancelable and does not bubble.
+
+## Syntax
+
+Use the event name in {{domxref("EventTarget/addEventListener", "addEventListener()")}}:
+
+```js-nolint
+addEventListener("periodicsync", (event) => { })
+```
+
+Alternatively, assign to the [event handler property](/en-US/docs/Web/API/Document_Object_Model/Events#using_onevent_properties) of the interface:
+
+```js-nolint
+onperiodicsync = (event) => { }
+```
+
+## Event type
+
+A {{domxref("PeriodicSyncEvent")}}. Inherits from {{domxref("Event")}}.
+
+{{InheritanceDiagram("PeriodicSyncEvent")}}
 
 ## Examples
 
 The following example shows how to respond to a periodic sync event in the service worker.
 
 ```js
-self.addEventListener('periodicsync', event => {
-  if (event.tag == 'get-latest-news') {
+self.addEventListener("periodicsync", (event) => {
+  if (event.tag === "get-latest-news") {
     event.waitUntil(fetchAndCacheLatestNews());
   }
 });
 ```
 
-You can also set up the event handler using the {{domxref('ServiceWorkerGlobalScope.onperiodicsync')}} property:
+You can also set up the event handler using the `onperiodicsync` property (but note that this replaces other event listeners added using `onperiodicsync`, if any):
 
 ```js
 self.onperiodicsync = (event) => {
-  ...
+  // …
 };
 ```
 
@@ -66,5 +64,4 @@ self.onperiodicsync = (event) => {
 
 ## See also
 
-- [Richer offline experiences with the Periodic Background Sync API](https://web.dev/periodic-background-sync/)
-- [A Periodic Background Sync demo app](https://webplatformapis.com/periodic_sync/periodicSync_improved.html)
+- [Richer offline experiences with the Periodic Background Sync API](https://developer.chrome.com/docs/capabilities/periodic-background-sync)

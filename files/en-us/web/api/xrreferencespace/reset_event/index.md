@@ -1,27 +1,14 @@
 ---
-title: 'XRReferenceSpace: reset event'
+title: "XRReferenceSpace: reset event"
+short-title: reset
 slug: Web/API/XRReferenceSpace/reset_event
-tags:
-  - API
-  - AR
-  - Event
-  - Graphics
-  - Reality
-  - Reference
-  - VR
-  - Virtual
-  - WebXR
-  - WebXR API
-  - WebXR Device API
-  - XR
-  - XRReferenceSpace
-  - augmented
-  - reset
+page-type: web-api-event
 browser-compat: api.XRReferenceSpace.reset_event
 ---
-{{APIRef("WebXR Device API")}}
 
-The **`reset`** event is sent to an {{domxref("XRReferenceSpace")}} object when a discontinuity is detected in either the native origin or the effective origin, causing a jump in the position or orientation of objects oriented using the reference space. This is common when the user calibrates or recalibrates an XR device, or if the device automatically changes its origin after losing tracking of the user, then re-gaining it.
+{{APIRef("WebXR Device API")}}{{SecureContext_Header}}
+
+The **`reset`** event is sent to an {{domxref("XRReferenceSpace")}} object when a discontinuity is detected in either the native origin or the effective origin, causing a jump in the position or orientation of objects oriented using the reference space. This is common when the user calibrates or recalibrates an XR device, or if the device automatically changes its origin after losing tracking of the user, then re-gaining it.
 
 In the case of {{domxref("XRBoundedReferenceSpace")}} objects, the `reset` event can also be fired when the {{domxref("XRBoundedReferenceSpace.boundsGeometry", "boundsGeometry")}} changes.
 
@@ -31,19 +18,23 @@ This event is not cancelable.
 
 ## Syntax
 
-Use the event name in methods like {{domxref("EventTarget.addEventListener", "addEventListener()")}}, or set an event handler property.
+Use the event name in {{domxref("EventTarget/addEventListener", "addEventListener()")}}:
 
-```js
-addEventListener("reset", (event) => { });
+```js-nolint
+addEventListener("reset", (event) => { })
+```
 
-onreset = (event) => { });
+Alternatively, assign to the [event handler property](/en-US/docs/Web/API/Document_Object_Model/Events#using_onevent_properties) of the interface:
+
+```js-nolint
+onreset = (event) => { }
 ```
 
 ## Event type
 
-{{domxref("XRReferenceSpaceEvent")}}.
+An {{domxref("XRReferenceSpaceEvent")}}. Inherits from {{domxref("Event")}}.
 
-## Usage notes
+## Description
 
 The `reset` event indicates that the coordinate system has been reset or reconfigured by changing the reference space's origin, moving and rotating it as indicated by the event's {{domxref("XRReferenceSpaceEvent.transform", "transform")}} property. The event is sent before any animation frame callbacks are executed to render the pending frame, to ensure that those callbacks have the updated coordinate system available.
 
@@ -55,7 +46,8 @@ There are a number of reasons why a reset might occur. Most common among them ar
 - The user is in an `unbounded` reference space and has moved far enough from the starting position (the reference space's origin) that floating-point or other forms of error or drift are problematic. The coordinate system is thus reset with its new origin at or near the user's current position.
 - The WebXR infrastructure or hardware drivers detected that the device had temporarily lost tracking, causing the hardware and software to be out of sync on position and orientation.
 
-> **Note:** A `reset` event will _not_ occur if the reference space is able to regain tracking of its previous origin, since that means the origin has not been forced to be relocated. This event is only fired when the origin has to be relocated to recover from the tracking loss.
+> [!NOTE]
+> A `reset` event will _not_ occur if the reference space is able to regain tracking of its previous origin, since that means the origin has not been forced to be relocated. This event is only fired when the origin has to be relocated to recover from the tracking loss.
 
 ### Manual resets
 
@@ -63,9 +55,9 @@ If you've spent any time using a VR headset, you've had times when you've starte
 
 ### Handling discontinuities
 
-You can handle jumps in the viewer's position by watching the Boolean {{domxref("XRPose")}} property {{domxref("XRPose.emulatedPosition", "emulatedPosition")}}. If a jump in the viewer's position coincides with `emulatedPosition` toggling from `true` to `false`, the viewer has regained tracking, and that their new position represents a correction from the previously emulated values. This is typically the desired behavior if your site or app doesn't simulate motion through the space by expressly changing the position and/or orientation of the viewer (rather than the user's physical movements being used by the XR device to introduce movement).
+You can handle jumps in the viewer's position by watching the Boolean {{domxref("XRPose")}} property {{domxref("XRPose.emulatedPosition", "emulatedPosition")}}. If a jump in the viewer's position coincides with `emulatedPosition` toggling from `true` to `false`, the viewer has regained tracking, and that their new position represents a correction from the previously emulated values. This is typically the desired behavior if your site or app doesn't simulate motion through the space by expressly changing the position and/or orientation of the viewer (rather than the user's physical movements being used by the XR device to introduce movement).
 
-However, if that kind of "teleportation" is being used, you actually want to avoid jumping the user's position after tracking recovery, this can introduce additional and potentially jarring jumping. Instead of allowing this to happen, you can integrate the `emulatedPosition` into the teleportation offset calculated prior to calling {{domxref("XRReferenceSpace.getOffsetReferenceSpace", "getOffsetReferenceSpace()")}} to create a new reference space whose updated effective origin is adjusted by the distance the viewer's position jumped since the previous frame. This way, the user's position only changes once rather than twice.
+However, if that kind of "teleportation" is being used, you actually want to avoid jumping the user's position after tracking recovery, this can introduce additional and potentially jarring jumping. Instead of allowing this to happen, you can integrate the `emulatedPosition` into the teleportation offset calculated prior to calling {{domxref("XRReferenceSpace.getOffsetReferenceSpace", "getOffsetReferenceSpace()")}} to create a new reference space whose updated effective origin is adjusted by the distance the viewer's position jumped since the previous frame. This way, the user's position only changes once rather than twice.
 
 ### The effect of discontinuity size
 
@@ -73,19 +65,19 @@ The `reset` event won't be fired when the discontinuity is small enough that the
 
 ## Examples
 
-To add a handler for the `reset` event, you can use either of two approaches. First, you can use the {{domxref("EventTarget.addEventListener", "addEventListener()")}} method:
+To add a handler for the `reset` event, you can use either of two approaches. First, you can use the {{domxref("EventTarget.addEventListener", "addEventListener()")}} method:
 
 ```js
 viewerRefSpace.addEventListener("reset", (event) => {
-  /* perform reset related tasks */
+  /* perform reset related tasks */
 });
 ```
 
-The second option is to set the `XRReferenceSpace` object's `onreset` event handler property:
+The second option is to set the `XRReferenceSpace` object's `onreset` event handler property (but note that this replaces other event listeners added using `onreset`, if any):
 
 ```js
 viewerRefSpace.onreset = (event) => {
-  /* perform reset related tasks */
+  /* perform reset related tasks */
 };
 ```
 

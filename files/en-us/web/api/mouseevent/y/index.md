@@ -1,16 +1,14 @@
 ---
-title: MouseEvent.y
+title: "MouseEvent: y property"
+short-title: y
 slug: Web/API/MouseEvent/y
-tags:
-  - API
-  - DOM
-  - Property
-  - Reference
+page-type: web-api-instance-property
 browser-compat: api.MouseEvent.y
 ---
-{{APIRef}}
 
-The **`MouseEvent.y`** property is an alias for the {{domxref("MouseEvent.clientY")}} property.
+{{APIRef("UI Events")}}
+
+The **`y`** read-only property of the {{domxref("MouseEvent")}} interface is an alias for the {{domxref("MouseEvent.clientY")}} property.
 
 ## Specifications
 

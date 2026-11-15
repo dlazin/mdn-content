@@ -1,27 +1,24 @@
 ---
 title: DecompressionStream
 slug: Web/API/DecompressionStream
-tags:
-  - API
-  - Interface
-  - Reference
-  - DecompressionStream
+page-type: web-api-interface
 browser-compat: api.DecompressionStream
 ---
-{{DefaultAPISidebar("Compression Streams API")}}
 
-The **`DecompressionStream`** interface of the {{domxref('Compression Streams API','','',' ')}} is an API for decompressing a stream of data.
+{{APIRef("Compression Streams API")}}{{AvailableInWorkers}}
+
+The **`DecompressionStream`** interface of the {{domxref('Compression Streams API','','',' ')}} decompresses a stream of data. It implements the same shape as a {{domxref("TransformStream")}}, allowing it to be used in {{domxref("ReadableStream.pipeThrough()")}} and similar methods.
 
 ## Constructor
 
-- {{domxref("DecompressionStream.DecompressionStream()")}}
+- {{domxref("DecompressionStream.DecompressionStream", "DecompressionStream()")}}
   - : Creates a new `DecompressionStream`
 
-## Properties
+## Instance properties
 
-- {{domxref("DecompressionStream.readable")}}
+- {{domxref("DecompressionStream.readable")}} {{ReadOnlyInline}}
   - : Returns the {{domxref("ReadableStream")}} instance controlled by this object.
-- {{domxref("DecompressionStream.writable")}}
+- {{domxref("DecompressionStream.writable")}} {{ReadOnlyInline}}
   - : Returns the {{domxref("WritableStream")}} instance controlled by this object.
 
 ## Examples
@@ -29,7 +26,7 @@ The **`DecompressionStream`** interface of the {{domxref('Compression Streams AP
 In this example a blob is decompressed using gzip compression.
 
 ```js
-const ds = new DecompressionStream('gzip');
+const ds = new DecompressionStream("gzip");
 const decompressedStream = blob.stream().pipeThrough(ds);
 ```
 
@@ -40,3 +37,8 @@ const decompressedStream = blob.stream().pipeThrough(ds);
 ## Browser compatibility
 
 {{Compat}}
+
+## See also
+
+- {{domxref("CompressionStream")}}
+- {{domxref("TransformStream")}}

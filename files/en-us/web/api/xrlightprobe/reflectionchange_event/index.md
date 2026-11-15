@@ -1,30 +1,29 @@
 ---
-title: 'XRLightProbe: reflectionchange event'
+title: "XRLightProbe: reflectionchange event"
+short-title: reflectionchange
 slug: Web/API/XRLightProbe/reflectionchange_event
-tags:
-  - API
-  - AR
-  - Augmented Reality
-  - Experimental
-  - Event
-  - Reference
-  - VR
-  - WebXR
-  - WebXR Device API
+page-type: web-api-event
+status:
+  - experimental
 browser-compat: api.XRLightProbe.reflectionchange_event
 ---
-{{APIRef("WebXR Device API")}}
+
+{{APIRef("WebXR Device API")}}{{SeeCompatTable}}{{SecureContext_Header}}
 
 The WebXR **`reflectionchange`** event fires each time the estimated reflection cube map changes. This happens in response to use movements through different lighting conditions or to direct changes to lighting itself. This event is not cancelable.
 
 ## Syntax
 
-Use the event name in methods like {{domxref("EventTarget.addEventListener", "addEventListener()")}}, or set an event handler property.
+Use the event name in {{domxref("EventTarget/addEventListener", "addEventListener()")}}:
 
-```js
-addEventListener('reflectionchange', () => { });
+```js-nolint
+addEventListener("reflectionchange", (event) => { })
+```
 
-onreflectionchange = event => { });
+Alternatively, assign to the [event handler property](/en-US/docs/Web/API/Document_Object_Model/Events#using_onevent_properties) of the interface:
+
+```js-nolint
+onreflectionchange = (event) => { }
 ```
 
 ## Event type
@@ -42,19 +41,19 @@ const glBinding = new XRWebGLBinding(xrSession, gl);
 const lightProbe = await xrSession.requestLightProbe();
 let glCubeMap = glBinding.getReflectionCubeMap(lightProbe);
 
-lightProbe.addEventListener('reflectionchange', () => {
+lightProbe.addEventListener("reflectionchange", () => {
   glCubeMap = glBinding.getReflectionCubeMap(lightProbe);
 });
 ```
 
 ### The `onreflectionchange` event handler property
 
-The `reflectionchange` event is also available using the `onreflectionchange` event handler property.
+The `reflectionchange` event is also available using the `onreflectionchange` event handler property (but note that this replaces other event listeners added using `onreflectionchange`, if any).
 
 ```js
-lightProbe.onreflectionchange = event => {
+lightProbe.onreflectionchange = (event) => {
   glCubeMap = glBinding.getReflectionCubeMap(lightProbe);
-});
+};
 ```
 
 ## Specifications

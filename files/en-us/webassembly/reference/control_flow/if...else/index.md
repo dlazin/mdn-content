@@ -1,42 +1,23 @@
 ---
-title: if...else
+title: "if...else: Wasm text instruction"
+short-title: if...else
 slug: WebAssembly/Reference/Control_flow/if...else
-tags:
-  - WebAssembly
-  - wasm
-  - Landing page
-  - Reference
-  - Control flow
+page-type: webassembly-instruction
+browser-compat: webassembly.instructions.if_else
+sidebar: webassemblysidebar
 ---
-{{WebAssemblySidebar}}
 
-The **`if`** statement executes a statement if the last item on the stack is true (1). If the condition is false (0), another statement can be executed
+The **`if`** statement executes a statement if the last item on the stack is true (non-zero). If the condition is false (0), another statement can be executed.
 
-## Syntax
+{{InteractiveExample("Wat Demo: if...else", "tabbed-taller")}}
 
-```wasm
-i32.const 0
-(if
-  (then
-    ;; do something
-  )
-  (else
-    ;; do something else
-  )
-)
-```
-
-## Full working example
-
-Wasm file
-
-```wasm
+```wat interactive-example
 (module
   ;; import the browser console object, you'll need to pass this in from JavaScript
   (import "console" "log" (func $log (param i32)))
 
   (func
-    i32.const 1 ;; change to positive number (true) if you want to run the if block
+    i32.const 0 ;; change to positive number (true) if you want to run the if block
     (if
       (then
         i32.const 1
@@ -53,16 +34,51 @@ Wasm file
 )
 ```
 
-JavaScript file
+```js interactive-example
+const url = "{%wasm-url%}";
+await WebAssembly.instantiateStreaming(fetch(url), { console });
+```
 
-```js
-WebAssembly.instantiateStreaming(
-  fetch("link to .wasm file"),
-  { console }
-);
+## Syntax
+
+```wat
+i32.const 0
+(if
+  (then
+    ;; do something
+  )
+  (else
+    ;; do something else
+  )
+)
+```
+
+To leave return values on the stack, add the `result` statement.
+
+```wat
+i32.const 0
+(if (result i32)
+  (then
+    ;; do something
+    (i32.const 1)
+  )
+  (else
+    ;; do something else
+    (i32.const 2)
+  )
+)
+(drop)
 ```
 
 | Instruction | Binary opcode |
 | ----------- | ------------- |
 | `if`        | `0x04`        |
 | `else`      | `0x05`        |
+
+## Specifications
+
+{{Specifications}}
+
+## Browser compatibility
+
+{{Compat}}

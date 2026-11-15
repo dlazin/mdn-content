@@ -1,34 +1,22 @@
 ---
-title: Touch.screenY
+title: "Touch: screenY property"
+short-title: screenY
 slug: Web/API/Touch/screenY
-tags:
-  - API
-  - DOM
-  - Mobile
-  - Property
-  - touch
+page-type: web-api-instance-property
 browser-compat: api.Touch.screenY
 ---
+
 {{ APIRef("Touch Events") }}
 
-## Summary
+The **`screenY`** read-only property of the {{domxref("Touch")}} interface returns the Y coordinate of the touch point relative to the screen, not including any scroll offset.
 
-Returns the Y coordinate of the touch point relative to the screen, not including any scroll offset.
+## Value
 
-## Syntax
+A number.
 
-```js
-var y = touchItem.screenY;
-```
+## Examples
 
-### Return value
-
-- `y`
-  - : The Y coordinate of the touch point relative to the screen, not including any scroll offset.
-
-## Example
-
-The [Touch.screenX example](/en-US/docs/Web/API/Touch/screenX#example) includes an example of this property's usage.
+The [Touch.screenX example](/en-US/docs/Web/API/Touch/screenX#examples) includes an example of this property's usage.
 
 ## Specifications
 

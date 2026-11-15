@@ -1,62 +1,62 @@
 ---
-title: 'EventSource: message event'
+title: "EventSource: message event"
+short-title: message
 slug: Web/API/EventSource/message_event
-tags:
-  - API
-  - Event
-  - EventSource
-  - Reference
-  - message
+page-type: web-api-event
 browser-compat: api.EventSource.message_event
 ---
-{{APIRef}}
 
-The `message` event of the {{domxref("EventSource")}} API is fired when data is received through an event source.
+{{APIRef("Server Sent Events")}}{{AvailableInWorkers}}
 
-<table class="properties">
-  <tbody>
-    <tr>
-      <th scope="row">Bubbles</th>
-      <td>No</td>
-    </tr>
-    <tr>
-      <th scope="row">Cancelable</th>
-      <td>No</td>
-    </tr>
-    <tr>
-      <th scope="row">Interface</th>
-      <td>{{domxref("MessageEvent")}}</td>
-    </tr>
-    <tr>
-      <th scope="row">Event handler property</th>
-      <td>{{domxref("EventSource.onmessage")}}</td>
-    </tr>
-  </tbody>
-</table>
+The **`message`** event of the {{domxref("EventSource")}} interface is fired when data is received through an event source.
+
+This event is not cancelable and does not bubble.
+
+## Syntax
+
+Use the event name in {{domxref("EventTarget/addEventListener", "addEventListener()")}}:
+
+```js-nolint
+addEventListener("message", (event) => { })
+```
+
+Alternatively, assign to the [event handler property](/en-US/docs/Web/API/Document_Object_Model/Events#using_onevent_properties) of the interface:
+
+```js-nolint
+onmessage = (event) => { }
+```
+
+## Event type
+
+A {{domxref("MessageEvent")}}. Inherits from {{domxref("Event")}}.
+
+{{InheritanceDiagram("MessageEvent")}}
 
 ## Examples
 
 In this basic example, an `EventSource` is created to receive events from the server; a page with the name `sse.php` is responsible for generating the events.
 
 ```js
-var evtSource = new EventSource('sse.php');
-var eventList = document.querySelector('ul');
+const evtSource = new EventSource("sse.php");
+const eventList = document.querySelector("ul");
 
-evtSource.addEventListener('message', (e) => {
-  var newElement = document.createElement("li");
+evtSource.addEventListener("message", (e) => {
+  const newElement = document.createElement("li");
 
-  newElement.textContent = "message: " + e.data;
+  newElement.textContent = `message: ${e.data}`;
   eventList.appendChild(newElement);
 });
 ```
 
-### onmessage equivalent
+### Using the `onmessage` event handler property
+
+You can also use the `onmessage` event handler property (but note that this replaces other event listeners added using `onmessage`, if any):
 
 ```js
 evtSource.onmessage = (e) => {
-  var newElement = document.createElement("li");
+  const newElement = document.createElement("li");
 
-  newElement.textContent = "message: " + e.data;
+  newElement.textContent = `message: ${e.data}`;
   eventList.appendChild(newElement);
 };
 ```

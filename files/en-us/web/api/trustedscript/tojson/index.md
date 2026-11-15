@@ -1,35 +1,57 @@
 ---
-title: TrustedScript.toJSON()
+title: "TrustedScript: toJSON() method"
+short-title: toJSON()
 slug: Web/API/TrustedScript/toJSON
-tags:
-  - API
-  - Method
-  - Reference
-  - toJSON
-  - TrustedScript
+page-type: web-api-instance-method
 browser-compat: api.TrustedScript.toJSON
 ---
-{{DefaultAPISidebar("Trusted Types API")}}
 
-The **`toJSON()`** method of the {{domxref("TrustedScript")}} interface returns a JSON representation of the stored data.
+{{APIRef("Trusted Types API")}}{{AvailableInWorkers}}
+
+The **`toJSON()`** method of the {{domxref("TrustedScript")}} interface returns a string representing the `TrustedScript` object. This is the same string that {{domxref("TrustedScript.toString()")}} returns.
+
+The method is automatically called by {{jsxref("JSON.stringify()")}} when a `TrustedScript` object is encountered during [JSON](/en-US/docs/Glossary/JSON) serialization. The serialized value can then be converted back using the {{domxref("TrustedTypePolicy.createScript()")}} method within the reviver of {{jsxref("JSON.parse()")}}, which runs the policy's transformation on it again.
 
 ## Syntax
 
-```js
-var json = TrustedScript.toJSON();
+```js-nolint
+toJSON()
 ```
+
+### Parameters
+
+None.
 
 ### Return value
 
-A {{domxref("DOMString","string")}} containing a JSON representation of the stored data.
+A string.
 
 ## Examples
 
-The constant `sanitized` is an object created via a Trusted Types policy. The `toString()` method returns a string to safely execute as a script.
+### Calling toJSON() directly
+
+This example creates a `TrustedScript` object. Calling `toJSON()` directly returns its stored string value.
 
 ```js
 const sanitized = scriptPolicy.createScript("eval('2 + 2')");
-  console.log(sanitized.toJSON());
+
+const json = sanitized.toJSON();
+console.log(json); // Same value as sanitized.toString()
+console.log(typeof json); // "string"
+```
+
+### Serializing to a JSON string
+
+The `TrustedScript` object from the previous example is serialized using {{jsxref("JSON.stringify()")}}, which calls the `toJSON()` method automatically.
+
+```js
+console.log(JSON.stringify(sanitized));
+```
+
+This would log the following JSON string, including the surrounding double quotes, which are part of the string's content:
+
+```json
+"eval('2 + 2')"
 ```
 
 ## Specifications

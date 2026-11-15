@@ -1,25 +1,18 @@
 ---
-title: Window.top
+title: "Window: top property"
+short-title: top
 slug: Web/API/Window/top
-tags:
-  - API
-  - HTML DOM
-  - NeedsExample
-  - NeedsMarkupWork
-  - Property
-  - Reference
-  - Window
+page-type: web-api-instance-property
 browser-compat: api.Window.top
 ---
-{{APIRef}}
 
-Returns a reference to the topmost window in the window hierarchy.
+{{APIRef("HTML DOM")}}
 
-## Syntax
+The **`top`** read-only property of the {{domxref("Window")}} interface returns a reference to the topmost window in the window hierarchy.
 
-```js
-var topWindow = window.top;
-```
+## Value
+
+The reference to the topmost window.
 
 ## Notes
 

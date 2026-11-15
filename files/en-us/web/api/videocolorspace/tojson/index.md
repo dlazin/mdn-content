@@ -1,39 +1,75 @@
 ---
-title: VideoColorSpace.toJSON()
+title: "VideoColorSpace: toJSON() method"
+short-title: toJSON()
 slug: Web/API/VideoColorSpace/toJSON
-tags:
-  - API
-  - Method
-  - Reference
-  - toJSON
-  - VideoColorSpace
+page-type: web-api-instance-method
 browser-compat: api.VideoColorSpace.toJSON
 ---
-{{DefaultAPISidebar("WebCodecs API")}}
 
-The **`toJSON()`** method of the {{domxref("VideoColorSpace")}} interface is a _serializer_ that returns a JSON representation of the `VideoColorSpace` object.
+{{APIRef("WebCodecs API")}}{{AvailableInWorkers("window_and_dedicated")}}
+
+The **`toJSON()`** method of the {{domxref("VideoColorSpace")}} interface returns a JSON-serializable plain object representing the `VideoColorSpace` object.
+
+The method is automatically called by {{jsxref("JSON.stringify()")}} when a `VideoColorSpace` object is encountered during [JSON](/en-US/docs/Glossary/JSON) serialization. The serialized value can then be deserialized using the {{domxref("VideoColorSpace/VideoColorSpace", "VideoColorSpace()")}} constructor within the reviver of {{jsxref("JSON.parse()")}}.
 
 ## Syntax
 
-```js
-VideoColorSpace.toJSON()
+```js-nolint
+toJSON()
 ```
 
 ### Parameters
 
 None.
 
-### Return Value
+### Return value
 
-A JSON object.
+A JSON-serializable plain object containing the following properties:
+
+- {{domxref("VideoColorSpace/fullRange", "fullRange")}}
+- {{domxref("VideoColorSpace/matrix", "matrix")}}
+- {{domxref("VideoColorSpace/primaries", "primaries")}}
+- {{domxref("VideoColorSpace/transfer", "transfer")}}
+
+Each property's value is copied as-is.
 
 ## Examples
 
-In the following example, `colorSpace` is a `VideoColorSpace` object returned from {{domxref("VideoFrame")}}. This object is then printed to the console as JSON.
+### Calling toJSON() directly
+
+Calling `toJSON()` directly returns a plain object containing the `VideoColorSpace` object's properties.
 
 ```js
-let colorSpace = VideoFrame.colorSpace
-console.log(colorSpace.toJSON());
+const colorSpace = new VideoColorSpace({
+  primaries: "bt709",
+  transfer: "bt709",
+  matrix: "bt709",
+  fullRange: true,
+});
+
+const json = colorSpace.toJSON();
+console.log(json);
+// { fullRange: true, matrix: "bt709", primaries: "bt709", transfer: "bt709" }
+console.log(typeof json); // "object"
+```
+
+### Serializing to a JSON string
+
+The `VideoColorSpace` object from the previous example is serialized using {{jsxref("JSON.stringify()")}}, which calls the `toJSON()` method automatically.
+
+```js
+console.log(JSON.stringify(colorSpace));
+```
+
+This would log a JSON string like so (formatted for readability):
+
+```json
+{
+  "fullRange": true,
+  "matrix": "bt709",
+  "primaries": "bt709",
+  "transfer": "bt709"
+}
 ```
 
 ## Specifications
@@ -43,4 +79,3 @@ console.log(colorSpace.toJSON());
 ## Browser compatibility
 
 {{Compat}}
-

@@ -1,44 +1,66 @@
 ---
-title: RTCSessionDescription.toJSON()
+title: "RTCSessionDescription: toJSON() method"
+short-title: toJSON()
 slug: Web/API/RTCSessionDescription/toJSON
-tags:
-  - Experimental
-  - Method
-  - RTCSessionDescription
-  - Reference
-  - Serializer
-  - WebRTC
+page-type: web-api-instance-method
 browser-compat: api.RTCSessionDescription.toJSON
 ---
-{{APIRef("WebRTC")}}{{SeeCompatTable}}
 
-The **`RTCSessionDescription.toJSON()`** method generates a
-{{Glossary("JSON")}} description of the object. Both properties,
-{{domxref("RTCSessionDescription.type", "type")}} and
-{{domxref("RTCSessionDescription.sdp", "sdp")}}, are contained in the generated JSON.
+{{APIRef("WebRTC")}}
+
+The **`toJSON()`** method of the {{domxref("RTCSessionDescription")}} interface returns a JSON-serializable plain object representing the `RTCSessionDescription` object.
+
+The method is automatically called by {{jsxref("JSON.stringify()")}} when an `RTCSessionDescription` object is encountered during [JSON](/en-US/docs/Glossary/JSON) serialization.
 
 ## Syntax
 
-```js
-var jsonValue = sd.toJSON();
+```js-nolint
+toJSON()
 ```
 
-The result value is a {{jsxref("JSON")}} object containing the following values:
+### Parameters
 
-- `"type"`, containing the value of the
-  {{domxref("RTCSessionDescription.type")}} property and can be one of the following
-  values: `"offer"`, `"answer"`, `"pranswer"` or
-  `null`.
-- `"sdp"`, containing a {{domxref("DOMString")}}, or `null`,
-  with the {{Glossary("SDP")}} message corresponding to
-  {{domxref("RTCSessionDescription.sdp")}} property.
+None.
 
-## Example
+### Return value
+
+A JSON-serializable plain object containing the following properties:
+
+- {{domxref("RTCSessionDescription/type", "type")}}
+- {{domxref("RTCSessionDescription/sdp", "sdp")}}
+
+Each property's value is copied as-is.
+
+## Examples
+
+### Calling toJSON() directly
+
+This example creates an `RTCSessionDescription` object. Calling `toJSON()` directly returns a plain object. Its properties have the same values as the corresponding properties of the original object.
 
 ```js
-// sd is a RTCSessionDescriptor
+const description = new RTCSessionDescription({ type: "rollback", sdp: "" });
 
-alert(JSON.stringify(sd)); // This call the toJSON() method behind the scene.
+const json = description.toJSON();
+console.log(json); // A plain object
+console.log(typeof json); // "object"
+console.log(json.type); // Same value as description.type
+```
+
+### Serializing to a JSON string
+
+The `RTCSessionDescription` object from the previous example is serialized using {{jsxref("JSON.stringify()")}}, which calls the `toJSON()` method automatically.
+
+```js
+console.log(JSON.stringify(description));
+```
+
+This would log a JSON string like so (formatted for readability):
+
+```json
+{
+  "type": "rollback",
+  "sdp": ""
+}
 ```
 
 ## Specifications

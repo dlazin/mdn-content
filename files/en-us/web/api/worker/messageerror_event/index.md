@@ -1,72 +1,68 @@
 ---
-title: 'Worker: messageerror event'
+title: "Worker: messageerror event"
+short-title: messageerror
 slug: Web/API/Worker/messageerror_event
-tags:
-  - Event
+page-type: web-api-event
 browser-compat: api.Worker.messageerror_event
 ---
-{{APIRef}}
+
+{{APIRef("Web Workers API")}}{{AvailableInWorkers("window_and_worker_except_service")}}
 
 The `messageerror` event is fired on a {{domxref('Worker')}} object when it receives a message that can't be deserialized.
 
-<table class="properties">
-  <tbody>
-    <tr>
-      <th scope="row">Bubbles</th>
-      <td>No</td>
-    </tr>
-    <tr>
-      <th scope="row">Cancelable</th>
-      <td>No</td>
-    </tr>
-    <tr>
-      <th scope="row">Interface</th>
-      <td>{{domxref("MessageEvent")}}</td>
-    </tr>
-    <tr>
-      <th scope="row">Event handler property</th>
-      <td>
-        <code
-          ><a href="/en-US/docs/Web/API/Worker/onmessageerror"
-            >onmessageerror</a
-          ></code
-        >
-      </td>
-    </tr>
-  </tbody>
-</table>
+This event is not cancellable and does not bubble.
+
+## Syntax
+
+Use the event name in {{domxref("EventTarget/addEventListener", "addEventListener()")}}:
+
+```js-nolint
+addEventListener("messageerror", (event) => { })
+```
+
+Alternatively, assign to the [event handler property](/en-US/docs/Web/API/Document_Object_Model/Events#using_onevent_properties) of the interface:
+
+```js-nolint
+onmessageerror = (event) => { }
+```
+
+## Event type
+
+A {{domxref("MessageEvent")}}. Inherits from {{domxref("Event")}}.
+
+{{InheritanceDiagram("MessageEvent")}}
 
 ## Examples
 
 Create a worker, and listen for `message` and `messageerror` events using [`addEventListener()`](/en-US/docs/Web/API/EventTarget/addEventListener):
 
 ```js
-// inside main.js
+// main.js
 
 const worker = new Worker("static/scripts/worker.js");
 
 worker.addEventListener("message", (event) => {
-    console.error(`Received message from worker: ${event}`);
+  console.error(`Received message from worker: ${event}`);
 });
 
 worker.addEventListener("messageerror", (event) => {
-    console.error(`Error receiving message from worker: ${event}`);
+  console.error(`Error receiving message from worker: ${event}`);
 });
 ```
 
-The same, but using the [`onmessageerror`](/en-US/docs/Web/API/WindowEventHandlers/onmessageerror) event handler property:
+The same, but using the `onmessageerror` event handler property (but note that this replaces other event listeners added using `onmessage` and `onmessageerror`, if any):
 
 ```js
-// inside main.js
+// main.js
 
 const worker = new Worker("static/scripts/worker.js");
 
 worker.onmessage = (event) => {
-    console.error(`Received message from worker: ${event}`);
+  console.error(`Received message from worker: ${event}`);
 };
 
 worker.onmessageerror = (event) => {
-    console.error(`Error receiving message from worker: ${event}`);
+  console.error(`Error receiving message from worker: ${event}`);
 };
 ```
 
@@ -81,4 +77,4 @@ worker.onmessageerror = (event) => {
 ## See also
 
 - [`Worker.postMessage()`](/en-US/docs/Web/API/Worker/postMessage)
-- Related events: [`message`](/docs/Web/API/Worker/message_event).
+- Related events: [`message`](/en-US/docs/Web/API/Worker/message_event)

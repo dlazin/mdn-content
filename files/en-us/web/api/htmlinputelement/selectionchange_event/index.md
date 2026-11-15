@@ -1,47 +1,37 @@
 ---
-title: 'HTMLInputElement: selectionchange event'
+title: "HTMLInputElement: selectionchange event"
+short-title: selectionchange
 slug: Web/API/HTMLInputElement/selectionchange_event
-tags:
-  - API
-  - Event
-  - Reference
-  - Selection
-  - Selection API
-  - selectionchange
-  - Experimental
+page-type: web-api-event
 browser-compat: api.HTMLInputElement.selectionchange_event
 ---
-{{APIRef}}{{SeeCompatTable}}
 
-The **`selectionchange`** event of the [Selection API](/en-US/docs/Web/API/Selection) is fired when the text selection within an {{HTMLElement("input")}} element is changed.
-This includes both changes in the selected range of characters, or if the caret moves.
+{{APIRef("Selection API")}}
 
-<table class="properties">
-  <tbody>
-    <tr>
-      <th>Bubbles</th>
-      <td>Yes</td>
-    </tr>
-    <tr>
-      <th>Cancelable</th>
-      <td>No</td>
-    </tr>
-    <tr>
-      <th>Interface</th>
-      <td>{{domxref("Event")}}</td>
-    </tr>
-    <tr>
-      <th>Event handler property</th>
-      <td>
-        {{domxref("GlobalEventHandlers.onselectionchange", "onselectionchange")}}
-      </td>
-    </tr>
-  </tbody>
-</table>
+The **`selectionchange`** event of the [Selection API](/en-US/docs/Web/API/Selection) is fired when the text selection within an {{HTMLElement("input")}} element is changed in either extent or direction, whether the selection is a caret or a range of characters.
 
-The event is usually processed by adding an event listener on the {{HTMLElement("input")}}, and in the handler function read by the {{domxref("HTMLInputElement")}} `selectionStart`, `selectionEnd` and `selectionDirection` properties.
+This event is not cancelable.
 
-It is also possible to add a listener on the global {{domxref("GlobalEventHandlers.onselectionchange","onselectionchange")}} event handler, and within the handler function use {{domxref("Document.getSelection()")}} to get the {{domxref("Selection", "Selection")}}. However this is not very useful for getting changes to _text_ selections.
+> [!NOTE]
+> When you change the selection programmatically, for example by calling {{domxref("HTMLInputElement.setSelectionRange()", "setSelectionRange()")}}, the selection updates immediately, but the `selectionchange` event is queued as a task. Its listeners run later, after the current script finishes executing. This contrasts with events such as `focus` and `click`, whose listeners run synchronously when triggered by {{domxref("HTMLElement.focus()", "focus()")}} and {{domxref("HTMLElement.click()", "click()")}}, respectively.
+
+## Syntax
+
+Use the event name in {{domxref("EventTarget/addEventListener", "addEventListener()")}}:
+
+```js-nolint
+addEventListener("selectionchange", (event) => { })
+```
+
+Alternatively, assign to the [event handler property](/en-US/docs/Web/API/Document_Object_Model/Events#using_onevent_properties) of the interface:
+
+```js-nolint
+onselectionchange = (event) => { }
+```
+
+## Event type
+
+A generic {{domxref("Event")}}.
 
 ## Examples
 
@@ -50,7 +40,9 @@ The example below shows how to get the text selected in an {{HTMLElement("input"
 ### HTML
 
 ```html
-<div>Enter and select text here:<br><input id="mytext" rows="2" cols="20"></div>
+<div>
+  Enter and select text here:<br /><input id="my-text" rows="2" cols="20" />
+</div>
 <div>selectionStart: <span id="start"></span></div>
 <div>selectionEnd: <span id="end"></span></div>
 <div>selectionDirection: <span id="direction"></span></div>
@@ -59,12 +51,12 @@ The example below shows how to get the text selected in an {{HTMLElement("input"
 ### JavaScript
 
 ```js
-const myinput = document.getElementById("mytext");
+const myInput = document.getElementById("my-text");
 
-myinput.addEventListener("selectionchange", () => {
-  document.getElementById("start").textContent = mytext.selectionStart;
-  document.getElementById("end").textContent = mytext.selectionEnd;
-  document.getElementById("direction").textContent = mytext.selectionDirection;
+myInput.addEventListener("selectionchange", () => {
+  document.getElementById("start").textContent = myInput.selectionStart;
+  document.getElementById("end").textContent = myInput.selectionEnd;
+  document.getElementById("direction").textContent = myInput.selectionDirection;
 });
 ```
 
@@ -79,7 +71,3 @@ myinput.addEventListener("selectionchange", () => {
 ## Browser compatibility
 
 {{Compat}}
-
-## See also
-
-- {{domxref("GlobalEventHandlers.onselectionchange")}}

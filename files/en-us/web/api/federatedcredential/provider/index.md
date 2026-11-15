@@ -1,33 +1,22 @@
 ---
-title: FederatedCredential.provider
+title: "FederatedCredential: provider property"
+short-title: provider
 slug: Web/API/FederatedCredential/provider
-tags:
-  - API
-  - Credential Management API
-  - FederatedCredential
-  - NeedsExample
-  - Property
-  - Reference
-  - credential management
+page-type: web-api-instance-property
+status:
+  - experimental
 browser-compat: api.FederatedCredential.provider
 ---
-{{SeeCompatTable}}{{APIRef("Credential Management API")}}
 
-The **`provider`** property of the
-{{domxref("FederatedCredential")}} interface returns a {{domxref("USVString")}}
-containing a credential's federated identity provider.
+{{SeeCompatTable}}{{APIRef("Credential Management API")}}{{SecureContext_Header}}
 
-## Syntax
+The **`provider`** read-only property of the {{domxref("FederatedCredential")}} interface returns a string containing a credential's federated identity provider.
 
-```js
-var provider = FederatedCredential.provider
-```
+## Value
 
-### Value
+A string containing a credential's federated identity provider.
 
-A {{domxref("USVString")}} containing a credential's federated identity provider.
-
-## Example
+## Examples
 
 ```js
 // TBD

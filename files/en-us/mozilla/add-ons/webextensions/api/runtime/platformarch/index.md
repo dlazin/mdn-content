@@ -1,19 +1,10 @@
 ---
 title: runtime.PlatformArch
 slug: Mozilla/Add-ons/WebExtensions/API/runtime/PlatformArch
-tags:
-  - API
-  - Add-ons
-  - Extensions
-  - Non-standard
-  - PlatformArch
-  - Reference
-  - Type
-  - WebExtensions
-  - runtime
+page-type: webextension-api-type
 browser-compat: webextensions.api.runtime.PlatformArch
+sidebar: addonsidebar
 ---
-{{AddonSidebar()}}
 
 The machine's processor architecture.
 
@@ -22,23 +13,34 @@ The machine's processor architecture.
 Values of this type are strings. Possible values are:
 
 - `"arm"`
-  - : The platform is based on arm architecture.
+  - : The platform is based on the ARM 32-bit architecture. Safari returns this value for the 64-bit architecture.
+- `"arm64"`
+  - : The platform is based on the ARM 64-bit architecture.
+- `"mips"`
+  - : The platform is based on the 32-bit MIPS instruction set architecture (ISA).
+- `"mips64"`
+  - : The platform is based on the 64-bit MIPS instruction set architecture (ISA).
+- `"riscv64"`
+  - : The platform is based on the 64-bit implementation of the RISC-V open-standard instruction set architecture (ISA).
 - `"x86-32"`
-  - : The platform is based on x86 32-bit architecture.
+  - : The platform is based on the x86 32-bit architecture.
 - `"x86-64"`
-  - : The platform is based on x86 64-bit architecture.
+  - : The platform is based on the x86 64-bit architecture.
+
+> [!NOTE]
+> Other values may be used by unofficial builds for other platforms. Where known, these values are documented in the browser compatibility listing.
+
+{{WebExtExamples}}
 
 ## Browser compatibility
 
 {{Compat}}
 
-{{WebExtExamples}}
+> [!NOTE]
+> This API is based on Chromium's [`chrome.runtime`](https://developer.chrome.com/docs/extensions/reference/api/runtime#type-PlatformArch) API. This documentation is derived from [`runtime.json`](https://chromium.googlesource.com/chromium/src/+/master/extensions/common/api/runtime.json) in the Chromium code.
 
-> **Note:** This API is based on Chromium's [`chrome.runtime`](https://developer.chrome.com/extensions/runtime#type-PlatformArch) API. This documentation is derived from [`runtime.json`](https://chromium.googlesource.com/chromium/src/+/master/extensions/common/api/runtime.json) in the Chromium code.
->
-> Microsoft Edge compatibility data is supplied by Microsoft Corporation and is included here under the Creative Commons Attribution 3.0 United States License.
-
-<div class="hidden"><pre>// Copyright 2015 The Chromium Authors. All rights reserved.
+<!--
+// Copyright 2015 The Chromium Authors. All rights reserved.
 //
 // Redistribution and use in source and binary forms, with or without
 // modification, are permitted provided that the following conditions are
@@ -65,4 +67,4 @@ Values of this type are strings. Possible values are:
 // THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
 // (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 // OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-</pre></div>
+-->

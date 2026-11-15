@@ -1,45 +1,31 @@
 ---
-title: Notification.icon
+title: "Notification: icon property"
+short-title: icon
 slug: Web/API/Notification/icon
-tags:
-  - API
-  - Notification
-  - Notifications
-  - Notifications API
-  - Property
-  - Reference
-  - icon
+page-type: web-api-instance-property
 browser-compat: api.Notification.icon
 ---
-{{APIRef("Web Notifications")}}{{AvailableInWorkers}}{{securecontext_header}}
 
-The **`icon`** read-only property of the
-{{domxref("Notification")}} interface contains the URL of an icon to be displayed as
-part of the notification, as specified in the `icon` option of the
-{{domxref("Notification.Notification","Notification()")}} constructor.
+{{APIRef("Web Notifications")}}{{securecontext_header}} {{AvailableInWorkers}}
 
-## Syntax
+The **`icon`** read-only property of the {{domxref("Notification")}} interface returns a string containing the URL of a small image that reinforces the notification — for example, an app logo or a photo of the message sender. It is displayed alongside the notification title and body.
 
-```js
-var icon = Notification.icon;
-```
+See [Notifications with different images](/en-US/docs/Web/API/ServiceWorkerRegistration/showNotification#notifications_with_different_images) for a comparison of the three image options.
 
-### Value
+## Value
 
-A {{domxref("USVString")}}.
+A string.
 
 ## Examples
 
-In our [To-do
-list app](https://github.com/mdn/to-do-notifications/tree/gh-pages) ([view the app running
-live](https://mdn.github.io/to-do-notifications/)), we use the {{domxref("Notification.Notification","Notification()")}}
+In our [To-do list app](https://github.com/mdn/dom-examples/tree/main/to-do-notifications) ([view the app running live](https://mdn.github.io/dom-examples/to-do-notifications/)), we use the {{domxref("Notification.Notification","Notification()")}}
 constructor to fire a notification, passing it arguments to specify the body, icon and
 title we want.
 
 ```js
-var notification = new Notification('To do list', {
+const notification = new Notification("To do list", {
   body: text,
-  icon: img
+  icon: img,
 });
 ```
 
@@ -53,5 +39,4 @@ var notification = new Notification('To do list', {
 
 ## See also
 
-- [Using
-  the Notifications API](/en-US/docs/Web/API/Notifications_API/Using_the_Notifications_API)
+- [Using the Notifications API](/en-US/docs/Web/API/Notifications_API/Using_the_Notifications_API)

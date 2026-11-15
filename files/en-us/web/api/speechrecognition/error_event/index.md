@@ -1,61 +1,55 @@
 ---
-title: 'SpeechRecognition: error event'
+title: "SpeechRecognition: error event"
+short-title: error
 slug: Web/API/SpeechRecognition/error_event
-tags:
-  - Event
-  - Reference
-  - Web Speech API
+page-type: web-api-event
 browser-compat: api.SpeechRecognition.error_event
 ---
-{{SeeCompatTable}} {{APIRef("Web Speech API")}}
+
+{{APIRef("Web Speech API")}}
 
 The **`error`** event of the [Web Speech API](/en-US/docs/Web/API/Web_Speech_API) {{domxref("SpeechRecognition")}} object is fired when a speech recognition error occurs.
 
-<table class="properties">
-  <tbody>
-    <tr>
-      <th scope="row">Bubbles</th>
-      <td>No</td>
-    </tr>
-    <tr>
-      <th scope="row">Cancelable</th>
-      <td>No</td>
-    </tr>
-    <tr>
-      <th scope="row">Interface</th>
-      <td>{{domxref("SpeechRecognitionErrorEvent")}}</td>
-    </tr>
-    <tr>
-      <th scope="row">Event handler property</th>
-      <td>
-        <code
-          ><a href="/en-US/docs/Web/API/SpeechRecognition/onerror"
-            >onerror</a
-          ></code
-        >
-      </td>
-    </tr>
-  </tbody>
-</table>
+## Syntax
+
+Use the event name in {{domxref("EventTarget/addEventListener", "addEventListener()")}}:
+
+```js-nolint
+addEventListener("error", (event) => { })
+```
+
+Alternatively, assign to the [event handler property](/en-US/docs/Web/API/Document_Object_Model/Events#using_onevent_properties) of the interface:
+
+```js-nolint
+onerror = (event) => { }
+```
+
+## Event type
+
+A {{domxref("SpeechRecognitionErrorEvent")}}. Inherits from {{domxref("Event")}}.
+
+{{InheritanceDiagram("SpeechRecognitionErrorEvent")}}
 
 ## Examples
 
 You can use the `error` event in an [`addEventListener`](/en-US/docs/Web/API/EventTarget/addEventListener) method:
 
 ```js
-var recognition = new webkitSpeechRecognition() || new SpeechRecognition();
+const recognition = new (
+  window.SpeechRecognition || window.webkitSpeechRecognition
+)();
 
-recognition.addEventListener('error', function(event) {
-  console.log('Speech recognition error detected: ' + event.error);
+recognition.addEventListener("error", (event) => {
+  console.error(`Speech recognition error detected: ${event.error}`);
 });
 ```
 
-Or use the [`onerror`](/en-US/docs/Web/API/SpeechRecognition/onerror) event handler property:
+Or use the `onerror` event handler property (but note that this replaces other event listeners added using `onerror`, if any):
 
 ```js
-recognition.onerror = function(event) {
-  console.log('Speech recognition error detected: ' + event.error);
-}
+recognition.onerror = (event) => {
+  console.error(`Speech recognition error detected: ${event.error}`);
+};
 ```
 
 ## Specifications
@@ -69,4 +63,3 @@ recognition.onerror = function(event) {
 ## See also
 
 - [Web Speech API](/en-US/docs/Web/API/Web_Speech_API)
-- [`onerror`](/en-US/docs/Web/API/SpeechRecognition/onerror)

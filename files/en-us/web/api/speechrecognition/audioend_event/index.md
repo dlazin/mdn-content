@@ -1,61 +1,53 @@
 ---
-title: 'SpeechRecognition: audioend event'
+title: "SpeechRecognition: audioend event"
+short-title: audioend
 slug: Web/API/SpeechRecognition/audioend_event
-tags:
-  - Event
-  - Reference
-  - Web Speech API
+page-type: web-api-event
 browser-compat: api.SpeechRecognition.audioend_event
 ---
-{{APIRef("Web Speech API")}}{{SeeCompatTable}}
+
+{{APIRef("Web Speech API")}}
 
 The **`audioend`** event of the [Web Speech API](/en-US/docs/Web/API/Web_Speech_API) is fired when the user agent has finished capturing audio for speech recognition.
 
-<table class="properties">
-  <tbody>
-    <tr>
-      <th scope="row">Bubbles</th>
-      <td>No</td>
-    </tr>
-    <tr>
-      <th scope="row">Cancelable</th>
-      <td>No</td>
-    </tr>
-    <tr>
-      <th scope="row">Interface</th>
-      <td>{{domxref("Event")}}</td>
-    </tr>
-    <tr>
-      <th scope="row">Event handler</th>
-      <td>
-        <code
-          ><a href="/en-US/docs/Web/API/SpeechRecognition/onaudioend"
-            >onaudioend</a
-          ></code
-        >
-      </td>
-    </tr>
-  </tbody>
-</table>
+## Syntax
+
+Use the event name in {{domxref("EventTarget/addEventListener", "addEventListener()")}}:
+
+```js-nolint
+addEventListener("audioend", (event) => { })
+```
+
+Alternatively, assign to the [event handler property](/en-US/docs/Web/API/Document_Object_Model/Events#using_onevent_properties) of the interface:
+
+```js-nolint
+onaudioend = (event) => { }
+```
+
+## Event type
+
+A generic {{DOMxRef("Event")}} with no added properties.
 
 ## Examples
 
 You can use the `audioend` event in an [`addEventListener`](/en-US/docs/Web/API/EventTarget/addEventListener) method:
 
 ```js
-var recognition = new webkitSpeechRecognition() || new SpeechRecognition();
+const recognition = new (
+  window.SpeechRecognition || window.webkitSpeechRecognition
+)();
 
-recognition.addEventListener('audioend', function() {
-  console.log('Audio capturing ended');
+recognition.addEventListener("audioend", () => {
+  console.log("Audio capturing ended");
 });
 ```
 
-Or use the [onaudioend](/en-US/docs/Web/API/SpeechRecognition/onaudioend) event handler property:
+Or use the `onaudioend` event handler property (but note that this replaces other event listeners added using `onaudioend`, if any):
 
 ```js
-recognition.onaudioend = function() {
-  console.log('Audio capturing ended');
-}
+recognition.onaudioend = () => {
+  console.log("Audio capturing ended");
+};
 ```
 
 ## Specifications
@@ -69,4 +61,3 @@ recognition.onaudioend = function() {
 ## See also
 
 - [Web Speech API](/en-US/docs/Web/API/Web_Speech_API)
-- [`onaudioend`](/en-US/docs/Web/API/SpeechRecognition/onaudioend) event handler

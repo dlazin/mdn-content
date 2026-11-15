@@ -1,63 +1,57 @@
 ---
-title: 'SpeechRecognition: nomatch event'
+title: "SpeechRecognition: nomatch event"
+short-title: nomatch
 slug: Web/API/SpeechRecognition/nomatch_event
-tags:
-  - Event
-  - Reference
-  - Web Speech API
+page-type: web-api-event
 browser-compat: api.SpeechRecognition.nomatch_event
 ---
-{{APIRef("Web Speech API")}} {{SeeCompatTable}}
+
+{{APIRef("Web Speech API")}}
 
 The **`nomatch`** event of the [Web Speech API](/en-US/docs/Web/API/Web_Speech_API) is fired when the speech recognition service returns a final result with no significant recognition.
 
 This may involve some degree of recognition, which doesn't meet or exceed the {{domxref("SpeechRecognitionAlternative.confidence","confidence")}} threshold.
 
-<table class="properties">
-  <tbody>
-    <tr>
-      <th scope="row">Bubbles</th>
-      <td>No</td>
-    </tr>
-    <tr>
-      <th scope="row">Cancelable</th>
-      <td>No</td>
-    </tr>
-    <tr>
-      <th scope="row">Interface</th>
-      <td>{{domxref("SpeechRecognitionEvent")}}</td>
-    </tr>
-    <tr>
-      <th scope="row">Event handler property</th>
-      <td>
-        <code
-          ><a href="/en-US/docs/Web/API/SpeechRecognition/onnomatch"
-            >onnomatch</a
-          ></code
-        >
-      </td>
-    </tr>
-  </tbody>
-</table>
+## Syntax
+
+Use the event name in {{domxref("EventTarget/addEventListener", "addEventListener()")}}:
+
+```js-nolint
+addEventListener("nomatch", (event) => { })
+```
+
+Alternatively, assign to the [event handler property](/en-US/docs/Web/API/Document_Object_Model/Events#using_onevent_properties) of the interface:
+
+```js-nolint
+onnomatch = (event) => { }
+```
+
+## Event type
+
+A {{domxref("SpeechRecognitionEvent")}}. Inherits from {{domxref("Event")}}.
+
+{{InheritanceDiagram("SpeechRecognitionEvent")}}
 
 ## Examples
 
 You can use the `nomatch` event in an [`addEventListener`](/en-US/docs/Web/API/EventTarget/addEventListener) method:
 
 ```js
-var recognition = new webkitSpeechRecognition() || new SpeechRecognition();
+const recognition = new (
+  window.SpeechRecognition || window.webkitSpeechRecognition
+)();
 
-recognition.addEventListener('nomatch', function() {
-  console.log('Speech not recognized');
+recognition.addEventListener("nomatch", () => {
+  console.error("Speech not recognized");
 });
 ```
 
-Or use the [`onnomatch`](/en-US/docs/Web/API/SpeechRecognition/onnomatch) event handler property:
+Or use the `onnomatch` event handler property (but note that this replaces other event listeners added using `onnomatch`, if any):
 
 ```js
-recognition.onnomatch = function() {
-  console.log('Speech not recognized');
-}
+recognition.onnomatch = () => {
+  console.error("Speech not recognized");
+};
 ```
 
 ## Specifications

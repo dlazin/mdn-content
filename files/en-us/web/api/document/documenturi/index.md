@@ -1,27 +1,30 @@
 ---
-title: Document.documentURI
+title: "Document: documentURI property"
+short-title: documentURI
 slug: Web/API/Document/documentURI
-tags:
-  - API
-  - DOM
-  - Document
-  - Property
-  - Read-only
-  - Reference
+page-type: web-api-instance-property
 browser-compat: api.Document.documentURI
 ---
+
 {{ApiRef("DOM")}}
 
 The **`documentURI`** read-only property of the
 {{domxref("Document")}} interface returns the document location as a string.
 
-## Syntax
+## Value
 
-```js
-const uri = document.documentURI
+A string.
+
+## Examples
+
+### HTML
+
+```html
+<p id="urlText">
+  URL:<br />
+  <span id="url">URL goes here</span>
+</p>
 ```
-
-## Example
 
 ### JavaScript
 
@@ -29,18 +32,9 @@ const uri = document.documentURI
 document.getElementById("url").textContent = document.documentURI;
 ```
 
-### HTML
-
-```html
-<p id="urlText">
-  URL:<br/>
-  <span id="url">URL goes here</span>
-</p>
-```
-
 ### Result
 
-{{EmbedLiveSample("Example", "100%", 100)}}
+{{EmbedLiveSample("Examples", "100%", 100)}}
 
 ## Specifications
 

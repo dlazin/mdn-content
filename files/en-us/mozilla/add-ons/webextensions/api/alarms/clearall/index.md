@@ -1,28 +1,17 @@
 ---
 title: alarms.clearAll()
 slug: Mozilla/Add-ons/WebExtensions/API/alarms/clearAll
-tags:
-  - API
-  - Add-ons
-  - Extensions
-  - Method
-  - Non-standard
-  - Reference
-  - WebExtensions
-  - alarms
-  - clearAll
+page-type: webextension-api-function
 browser-compat: webextensions.api.alarms.clearAll
+sidebar: addonsidebar
 ---
-{{AddonSidebar()}}
 
 Cancels all active alarms.
 
-This is an asynchronous function that returns a [`Promise`](/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise).
-
 ## Syntax
 
-```js
-var clearAlarms = browser.alarms.clearAll()
+```js-nolint
+browser.alarms.clearAll()
 ```
 
 ### Parameters
@@ -31,17 +20,22 @@ None.
 
 ### Return value
 
-A [`Promise`](/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise) that will be fulfilled with a boolean. This will be `true` if any alarms were cleared, `false` otherwise. Note that Chrome always passes `true` here.
+A [`Promise`](/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise) fulfilled with `undefined`.
+
+> [!NOTE]
+> Before Firefox 157, the promise was fulfilled with a boolean: `true` if any alarms were cleared and `false` otherwise. Before Chrome 157, the promise always fulfilled with `true`. Safari always fulfills the promise with `undefined`. Don't rely on the fulfillment value. See [w3c/webextensions#1055](https://github.com/w3c/webextensions/issues/1055) for details.
 
 ## Examples
 
+Clear all the alarms the extension has scheduled, then log that the alarms are cleared:
+
 ```js
-function onClearedAll(wasCleared) {
-  console.log(wasCleared);  // true/false
+async function clearAllAlarms() {
+  await browser.alarms.clearAll();
+  console.log("All alarms cleared");
 }
 
-var clearAlarms = browser.alarms.clearAll();
-clearAlarms.then(onClearedAll);
+clearAllAlarms();
 ```
 
 {{WebExtExamples}}
@@ -50,6 +44,5 @@ clearAlarms.then(onClearedAll);
 
 {{Compat}}
 
-> **Note:** This API is based on Chromium's [`chrome.alarms`](https://developer.chrome.com/extensions/alarms) API.
->
-> Microsoft Edge compatibility data is supplied by Microsoft Corporation and is included here under the Creative Commons Attribution 3.0 United States License.
+> [!NOTE]
+> This API is based on Chromium's [`chrome.alarms`](https://developer.chrome.com/docs/extensions/reference/api/alarms) API.

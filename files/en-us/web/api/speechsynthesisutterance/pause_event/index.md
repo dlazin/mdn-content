@@ -1,59 +1,51 @@
 ---
-title: 'SpeechSynthesisUtterance: pause event'
+title: "SpeechSynthesisUtterance: pause event"
+short-title: pause
 slug: Web/API/SpeechSynthesisUtterance/pause_event
-tags:
-  - Event
-  - Reference
-  - Web Speech API
+page-type: web-api-event
 browser-compat: api.SpeechSynthesisUtterance.pause_event
 ---
+
 {{APIRef("Web Speech API")}}
 
 The **`pause`** event of the [Web Speech API](/en-US/docs/Web/API/Web_Speech_API) {{domxref("SpeechSynthesisUtterance")}} object is fired when the utterance is paused part way through.
 
-<table class="properties">
-  <tbody>
-    <tr>
-      <th scope="row">Bubbles</th>
-      <td>No</td>
-    </tr>
-    <tr>
-      <th scope="row">Cancelable</th>
-      <td>No</td>
-    </tr>
-    <tr>
-      <th scope="row">Interface</th>
-      <td>{{domxref("SpeechSynthesisEvent")}}</td>
-    </tr>
-    <tr>
-      <th scope="row">Event handler property</th>
-      <td>
-        <code
-          ><a href="/en-US/docs/Web/API/SpeechSynthesisUtterance/onpause"
-            >onpause</a
-          ></code
-        >
-      </td>
-    </tr>
-  </tbody>
-</table>
+## Syntax
+
+Use the event name in {{domxref("EventTarget/addEventListener", "addEventListener()")}}:
+
+```js-nolint
+addEventListener("pause", (event) => { })
+```
+
+Alternatively, assign to the [event handler property](/en-US/docs/Web/API/Document_Object_Model/Events#using_onevent_properties) of the interface:
+
+```js-nolint
+onpause = (event) => { }
+```
+
+## Event type
+
+A {{domxref("SpeechSynthesisEvent")}}. Inherits from {{domxref("Event")}}.
+
+{{InheritanceDiagram("SpeechSynthesisEvent")}}
 
 ## Examples
 
 You can use the `pause` event in an [`addEventListener`](/en-US/docs/Web/API/EventTarget/addEventListener) method:
 
 ```js
-utterThis.addEventListener('pause', function(event) {
-  console.log('Speech paused after ' + event.elapsedTime + ' seconds.');
+utterThis.addEventListener("pause", (event) => {
+  console.log(`Speech paused after ${event.elapsedTime} seconds.`);
 });
 ```
 
-Or use the [`onpause`](/en-US/docs/Web/API/SpeechSynthesisUtterance/onpause) event handler property:
+Or use the `onpause` event handler property (but note that this replaces other event listeners added using `onpause`, if any):
 
 ```js
-utterThis.onpause = function(event) {
-  console.log('Speech paused after ' + event.elapsedTime + ' seconds.');
-}
+utterThis.onpause = (event) => {
+  console.log(`Speech paused after ${event.elapsedTime} seconds.`);
+};
 ```
 
 ## Specifications

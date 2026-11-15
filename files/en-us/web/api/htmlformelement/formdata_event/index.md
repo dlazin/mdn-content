@@ -1,86 +1,83 @@
 ---
-title: 'HTMLFormElement: formdata event'
+title: "HTMLFormElement: formdata event"
+short-title: formdata
 slug: Web/API/HTMLFormElement/formdata_event
-tags:
-  - Event
-  - Forms
-  - Reference
-  - formevent
+page-type: web-api-event
 browser-compat: api.HTMLFormElement.formdata_event
 ---
-{{APIRef}}
+
+{{APIRef("HTML DOM")}}
 
 The **`formdata`** event fires after the entry list representing the form's data is constructed. This happens when the form is submitted, but can also be triggered by the invocation of a {{domxref("FormData.FormData", "FormData()")}} constructor.
 
-## General info
+This event is not cancelable and does not bubble.
 
-<table class="properties">
-  <tbody>
-    <tr>
-      <th>Bubbles</th>
-      <td>No</td>
-    </tr>
-    <tr>
-      <th>Cancelable</th>
-      <td>No</td>
-    </tr>
-    <tr>
-      <th>Interface</th>
-      <td>{{DOMxRef("FormDataEvent")}}</td>
-    </tr>
-    <tr>
-      <th>Event handler property</th>
-      <td>{{domxref("GlobalEventHandlers.onformdata")}}</td>
-    </tr>
-  </tbody>
-</table>
+## Syntax
+
+Use the event name in {{domxref("EventTarget/addEventListener", "addEventListener()")}}:
+
+```js-nolint
+addEventListener("formdata", (event) => { })
+```
+
+Alternatively, assign to the [event handler property](/en-US/docs/Web/API/Document_Object_Model/Events#using_onevent_properties) of the interface:
+
+```js-nolint
+onformdata = (event) => { }
+```
+
+## Event type
+
+A {{domxref("FormDataEvent")}}. Inherits from {{domxref("Event")}}.
+
+{{InheritanceDiagram("FormDataEvent")}}
 
 ## Examples
 
 ```js
 // grab reference to form
 
-const formElem = document.querySelector('form');
+const formElem = document.querySelector("form");
 
 // submit handler
 
-formElem.addEventListener('submit', (e) => {
+formElem.addEventListener("submit", (e) => {
   // on form submission, prevent default
   e.preventDefault();
 
-  console.log(form.querySelector('input[name="field1"]')); // FOO
-  console.log(form.querySelector('input[name="field2"]')); // BAR
+  console.log(formElem.querySelector('input[name="field1"]').value); // FOO
+  console.log(formElem.querySelector('input[name="field2"]').value); // BAR
 
   // construct a FormData object, which fires the formdata event
   const formData = new FormData(formElem);
   // formdata gets modified by the formdata event
-  console.log(formData.get('field1')); // foo
-  console.log(formData.get('field2')); // bar
+  console.log(formData.get("field1")); // foo
+  console.log(formData.get("field2")); // bar
 });
 
 // formdata handler to retrieve data
 
-formElem.addEventListener('formdata', (e) => {
-  console.log('formdata fired');
+formElem.addEventListener("formdata", (e) => {
+  console.log("formdata fired");
 
   // modifies the form data
-  const formData = e.formData; 
+  const formData = e.formData;
   // formdata gets modified by the formdata event
-  formData.set('field1', formData.get('field1').toLowerCase());
-  formData.set('field2', formData.get('field2').toLowerCase());
+  formData.set("field1", formData.get("field1").toLowerCase());
+  formData.set("field2", formData.get("field2").toLowerCase());
 });
 ```
 
-The `onformdata` version would look like this:
+The `onformdata` version would look like this (but note that this replaces other event listeners added using `onformdata`, if any):
 
 ```js
 formElem.onformdata = (e) => {
-  console.log('formdata fired');
+  console.log("formdata fired");
 
   // modifies the form data
-  const formData = e.formData; 
-  formData.set('field1', formData.get('field1').toLowerCase());
-  formData.set('field2', formData.get('field2').toLowerCase());
+  const formData = e.formData;
+  formData.set("field1", formData.get("field1").toLowerCase());
+  formData.set("field2", formData.get("field2").toLowerCase());
 };
 ```
 

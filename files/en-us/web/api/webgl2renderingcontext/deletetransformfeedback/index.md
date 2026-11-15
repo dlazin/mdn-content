@@ -1,15 +1,12 @@
 ---
-title: WebGL2RenderingContext.deleteTransformFeedback()
+title: "WebGL2RenderingContext: deleteTransformFeedback() method"
+short-title: deleteTransformFeedback()
 slug: Web/API/WebGL2RenderingContext/deleteTransformFeedback
-tags:
-  - API
-  - Method
-  - Reference
-  - WebGL
-  - WebGL2
+page-type: web-api-instance-method
 browser-compat: api.WebGL2RenderingContext.deleteTransformFeedback
 ---
-{{APIRef("WebGL")}}
+
+{{APIRef("WebGL")}}{{AvailableInWorkers}}
 
 The **`WebGL2RenderingContext.deleteTransformFeedback()`**
 method of the [WebGL 2 API](/en-US/docs/Web/API/WebGL_API) deletes a given
@@ -17,18 +14,18 @@ method of the [WebGL 2 API](/en-US/docs/Web/API/WebGL_API) deletes a given
 
 ## Syntax
 
-```js
-void gl.deleteTransformFeedback(transformFeedback);
+```js-nolint
+deleteTransformFeedback(transformFeedback)
 ```
 
 ### Parameters
 
 - `transformFeedback`
-  - : A {{domxref("WebGLTransformFeedback")}} object to delete.
+  - : A {{domxref("WebGLTransformFeedback")}} object to delete. Passing `null` does nothing.
 
 ### Return value
 
-None.
+None ({{jsxref("undefined")}}).
 
 ## Examples
 
@@ -36,9 +33,9 @@ None.
 `WebGLTransformFeedback` objects are not available in WebGL 1.
 
 ```js
-var transformFeedback = gl.createTransformFeedback();
+const transformFeedback = gl.createTransformFeedback();
 
-// ...
+// …
 
 gl.deleteTransformFeedback(transformFeedback);
 ```

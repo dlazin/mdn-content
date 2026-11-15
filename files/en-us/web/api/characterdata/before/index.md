@@ -1,29 +1,31 @@
 ---
-title: CharacterData.before()
+title: "CharacterData: before() method"
+short-title: before()
 slug: Web/API/CharacterData/before
-tags:
-  - Method
-  - Reference
+page-type: web-api-instance-method
 browser-compat: api.CharacterData.before
 ---
+
 {{APIRef("DOM")}}
 
-The **`before()`** method of the {{domxref("CharacterData")}} interface
-inserts a set of {{domxref("Node")}} objects and strings
-in the children list of the `CharacterData`'s parent, just before the `CharacterData` node.
-
-Strings are inserted as {{domxref("Text")}} nodes; the string is being passed as argument to the {{domxref("Text/Text", "Text()")}} constructor.
+The **`before()`** method of the {{domxref("CharacterData")}} interface inserts a set of {{domxref("Node")}} objects or strings in the children list of this `CharacterData`'s parent, just before this `CharacterData`. Strings are inserted as equivalent {{domxref("Text")}} nodes. Nothing happens if {{domxref("Node.parentNode", "parentNode")}} is `null`.
 
 ## Syntax
 
-```js
-before(... nodes)
+```js-nolint
+before(param1)
+before(param1, param2)
+before(param1, param2, /* …, */ paramN)
 ```
 
 ### Parameters
 
-- `nodes`
-  - : A set of {{domxref("Node")}} or strings to insert.
+- `param1`, …, `paramN`
+  - : A set of {{domxref("Node")}} objects or strings to insert.
+
+### Return value
+
+None ({{jsxref("undefined")}}).
 
 ### Exceptions
 
@@ -40,10 +42,10 @@ The `before()` method allows you to insert new nodes before a
 `CharacterData` node leaving the current node's data unchanged.
 
 ```js
-const h1TextNode = document.getElementsByTagName('h1')[0].firstChild;
+const h1TextNode = document.querySelector("h1").firstChild;
 h1TextNode.before("h1# ");
 
-h1TextNode.parentElement.childNodes
+h1TextNode.parentElement.childNodes;
 // NodeList [#text "h1# ", #text "CharacterData.before()"]
 
 h1TextNode.data;
@@ -62,6 +64,8 @@ h1TextNode.data;
 
 - {{domxref("CharacterData.appendData()")}}
 - {{domxref("CharacterData.after()")}}
+- {{domxref("DocumentType.before()")}}
+- {{domxref("Element.before()")}}
 - {{domxref("Element.append()")}}
 - {{domxref("Node.appendChild()")}}
 - {{domxref("Element.insertAdjacentElement()")}}

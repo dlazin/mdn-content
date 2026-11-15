@@ -1,47 +1,34 @@
 ---
-title: 'RTCDataChannel: closing event'
+title: "RTCDataChannel: closing event"
+short-title: closing
 slug: Web/API/RTCDataChannel/closing_event
-tags:
-  - API
-  - Communications
-  - Connection
-  - Disconnecting
-  - Networking
-  - RTCDataChannel
-  - Reference
-  - WebRTC
-  - WebRTC API
-  - WebRTC Device API
-  - closing
-  - events
-  - Event
-  - Experimental
+page-type: web-api-event
 browser-compat: api.RTCDataChannel.closing_event
 ---
-{{APIRef("WebRTC")}}{{SeeCompatTable}}
+
+{{APIRef("WebRTC")}}
 
 The **`closing`** event is sent to an {{domxref("RTCDataChannel")}} just before the channel begins the process of shutting down its underlying data transport.
 
-<table class="properties">
-  <tbody>
-    <tr>
-      <th scope="row">Bubbles</th>
-      <td>No</td>
-    </tr>
-    <tr>
-      <th scope="row">Cancelable</th>
-      <td>No</td>
-    </tr>
-    <tr>
-      <th scope="row">Interface</th>
-      <td>{{DOMxRef("Event")}}</td>
-    </tr>
-    <tr>
-      <th scope="row">Event handler property</th>
-      <td>{{DOMxRef("RTCDataChannel.onclosing")}}</td>
-    </tr>
-  </tbody>
-</table>
+This event is not cancelable and does not bubble.
+
+## Syntax
+
+Use the event name in {{domxref("EventTarget/addEventListener", "addEventListener()")}}:
+
+```js-nolint
+addEventListener("closing", (event) => { })
+```
+
+Alternatively, assign to the [event handler property](/en-US/docs/Web/API/Document_Object_Model/Events#using_onevent_properties) of the interface:
+
+```js-nolint
+onclosing = (event) => { }
+```
+
+## Event type
+
+A generic {{domxref("Event")}}.
 
 ## Description
 
@@ -54,18 +41,18 @@ This example updates a connection status interface when the `closing` event arri
 First, an example using {{domxref("EventTarget.addEventListener", "addEventListener()")}}:
 
 ```js
-dataChannel.addEventListener("closing", ev => {
+dataChannel.addEventListener("closing", (ev) => {
   myConnectionStatus.icon = closingIcon;
   myConnectionStatus.text = "Connection closing";
 });
 ```
 
-You can also set the {{domxref("RTCDataChannel.onclosing", "onclosing")}} event handler property directly:
+You can also set the `onclosing` event handler property directly (but note that this replaces other event listeners added using `onclosing`, if any):
 
 ```js
-pc.onclosing = ev => {
- myConnectionStatus.icon = closingIcon;
- myConnectionStatus.text = "Connection closing";
+dataChannel.onclosing = (ev) => {
+  myConnectionStatus.icon = closingIcon;
+  myConnectionStatus.text = "Connection closing";
 };
 ```
 

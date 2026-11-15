@@ -1,25 +1,21 @@
 ---
-title: PerformanceServerTiming.toJSON
+title: "PerformanceServerTiming: toJSON() method"
+short-title: toJSON()
 slug: Web/API/PerformanceServerTiming/toJSON
-tags:
-  - API
-  - Method
-  - PerformanceServerTiming
-  - Reference
-  - ServerTiming
-  - toJSON
+page-type: web-api-instance-method
 browser-compat: api.PerformanceServerTiming.toJSON
 ---
-{{APIRef("Resource Timing API")}}
 
-The **`toJSON()`** method of the
-{{domxref("PerformanceServerTiming")}} interface returns a {{domxref("DOMString")}} that
-is the JSON representation of the {{domxref('PerformanceServerTiming')}} object.
+{{APIRef("Performance API")}}{{AvailableInWorkers}}
+
+The **`toJSON()`** method of the {{domxref("PerformanceServerTiming")}} interface returns a JSON-serializable plain object representing the `PerformanceServerTiming` object.
+
+The method is automatically called by {{jsxref("JSON.stringify()")}} when a `PerformanceServerTiming` object is encountered during [JSON](/en-US/docs/Glossary/JSON) serialization.
 
 ## Syntax
 
-```js
-var json = PerformanceServerTiming.toJSON()
+```js-nolint
+toJSON()
 ```
 
 ### Parameters
@@ -28,11 +24,64 @@ None.
 
 ### Return value
 
-A {{domxref('DomString')}} containing JSON.
+A JSON-serializable plain object containing the following properties:
 
-### Exceptions
+- {{domxref("PerformanceServerTiming/name", "name")}}
+- {{domxref("PerformanceServerTiming/duration", "duration")}}
+- {{domxref("PerformanceServerTiming/description", "description")}}
 
-None.
+Each property's value is copied as-is.
+
+## Examples
+
+### Calling toJSON() directly
+
+This example obtains a `PerformanceServerTiming` object. Calling `toJSON()` directly returns a plain object. Its properties have the same values as the corresponding properties of the original object.
+
+Server timing metrics require the server to send the {{HTTPHeader("Server-Timing")}} header. For example:
+
+```http
+Server-Timing: cache;desc="Cache Read";dur=23.2
+```
+
+The `serverTiming` entries can live on `navigation` and `resource` entries.
+
+Example using a {{domxref("PerformanceObserver")}}, which notifies of new `navigation` and `resource` performance entries as they are recorded in the browser's performance timeline. Use the `buffered` option to access entries from before the observer creation.
+
+```js
+const observer = new PerformanceObserver((list) => {
+  list.getEntries().forEach((entry) => {
+    entry.serverTiming.forEach((serverTiming) => {
+      const json = serverTiming.toJSON();
+      console.log(json); // A plain object
+      console.log(typeof json); // "object"
+      console.log(json.name); // Same value as serverTiming.name
+    });
+  });
+});
+
+["navigation", "resource"].forEach((type) =>
+  observer.observe({ type, buffered: true }),
+);
+```
+
+### Serializing to a JSON string
+
+Within the callback from the previous example, the same object can be serialized using {{jsxref("JSON.stringify()")}}, which calls the `toJSON()` method automatically.
+
+```js
+console.log(JSON.stringify(serverTiming));
+```
+
+This would log a JSON string like so (formatted for readability):
+
+```json
+{
+  "name": "cache",
+  "duration": 23.2,
+  "description": "Cache Read"
+}
+```
 
 ## Specifications
 

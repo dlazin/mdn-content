@@ -1,53 +1,38 @@
 ---
-title: 'Window: focus event'
+title: "Window: focus event"
+short-title: focus
 slug: Web/API/Window/focus_event
-tags:
-  - API
-  - Event
-  - Focus
-  - FocusEvent
-  - Reference
-  - Web
-  - Window
-  - onfocus
+page-type: web-api-event
 browser-compat: api.Window.focus_event
 ---
-{{APIRef}}
 
-The **`focus`** event fires when an element has received focus.
+{{APIRef("UI Events")}}
+
+The **`focus`** event fires when the window has received focus, such as when focus transitions from the address bar into the page. Focus can be on the document's viewport or on an element within it.
 
 The opposite of `focus` is {{domxref("Window/blur_event", "blur")}}.
 
-<table class="properties">
-  <tbody>
-    <tr>
-      <th>Bubbles</th>
-      <td>No</td>
-    </tr>
-    <tr>
-      <th>Cancelable</th>
-      <td>No</td>
-    </tr>
-    <tr>
-      <th>Interface</th>
-      <td>{{DOMxRef("FocusEvent")}}</td>
-    </tr>
-    <tr>
-      <th>Event handler property</th>
-      <td>
-        {{domxref("GlobalEventHandlers/onfocus", "onfocus")}}
-      </td>
-    </tr>
-    <tr>
-      <th>Sync / Async</th>
-      <td>Sync</td>
-    </tr>
-    <tr>
-      <th>Composed</th>
-      <td>Yes</td>
-    </tr>
-  </tbody>
-</table>
+This event is not cancelable and does not bubble.
+
+## Syntax
+
+Use the event name in {{domxref("EventTarget/addEventListener", "addEventListener()")}}:
+
+```js-nolint
+addEventListener("focus", (event) => { })
+```
+
+Alternatively, assign to the [event handler property](/en-US/docs/Web/API/Document_Object_Model/Events#using_onevent_properties) of the interface:
+
+```js-nolint
+onfocus = (event) => { }
+```
+
+## Event type
+
+A {{domxref("FocusEvent")}}. Inherits from {{domxref("UIEvent")}} and {{domxref("Event")}}.
+
+{{InheritanceDiagram("FocusEvent")}}
 
 ## Examples
 
@@ -65,28 +50,29 @@ This example changes the appearance of a document when it loses focus. It uses {
 
 ```css
 .paused {
-  background: #ddd;
-  color: #555;
+  background: #dddddd;
+  color: #555555;
 }
 ```
 
 #### JavaScript
 
 ```js
+const log = document.getElementById("log");
+
 function pause() {
-  document.body.classList.add('paused');
-  log.textContent = 'FOCUS LOST!';
+  document.body.classList.add("paused");
+  log.textContent = "FOCUS LOST!";
 }
 
 function play() {
-  document.body.classList.remove('paused');
-  log.textContent = 'This document has focus. Click outside the document to lose focus.';
+  document.body.classList.remove("paused");
+  log.textContent =
+    "This document has focus. Click outside the document to lose focus.";
 }
 
-const log = document.getElementById('log');
-
-window.addEventListener('blur', pause);
-window.addEventListener('focus', play);
+window.addEventListener("blur", pause);
+window.addEventListener("focus", play);
 ```
 
 #### Result

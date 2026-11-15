@@ -1,69 +1,58 @@
 ---
-title: 'RTCPeerConnection: signalingstatechange event'
+title: "RTCPeerConnection: signalingstatechange event"
+short-title: signalingstatechange
 slug: Web/API/RTCPeerConnection/signalingstatechange_event
-tags:
-  - API
-  - Event
-  - Media
-  - Reference
-  - Signaling
-  - WebRTC
-  - WebRTC API
-  - signalingState
-  - signalingstatechange
-  - state
+page-type: web-api-event
 browser-compat: api.RTCPeerConnection.signalingstatechange_event
 ---
+
 {{APIRef("WebRTC")}}
 
-An **`signalingstatechange`** event is sent to an {{domxref("RTCPeerConnection")}} to notify it that its signaling state, as indicated by the {{domxref("RTCPeerConnection.signalingState", "signalingState")}} property, has changed.
+A **`signalingstatechange`** event is sent to an {{domxref("RTCPeerConnection")}} to notify it that its signaling state, as indicated by the {{domxref("RTCPeerConnection.signalingState", "signalingState")}} property, has changed.
 
-<table class="properties">
-  <tbody>
-    <tr>
-      <th scope="row">Bubbles</th>
-      <td>No</td>
-    </tr>
-    <tr>
-      <th scope="row">Cancelable</th>
-      <td>No</td>
-    </tr>
-    <tr>
-      <th scope="row">Interface</th>
-      <td>{{DOMxRef("Event")}}</td>
-    </tr>
-    <tr>
-      <th scope="row">Event handler property</th>
-      <td>
-        {{DOMxRef("RTCPeerConnection.onsignalingstatechange")}}
-      </td>
-    </tr>
-  </tbody>
-</table>
+This event is not cancelable and does not bubble.
+
+## Syntax
+
+Use the event name in {{domxref("EventTarget/addEventListener", "addEventListener()")}}:
+
+```js-nolint
+addEventListener("signalingstatechange", (event) => { })
+```
+
+Alternatively, assign to the [event handler property](/en-US/docs/Web/API/Document_Object_Model/Events#using_onevent_properties) of the interface:
+
+```js-nolint
+onsignalingstatechange = (event) => { }
+```
+
+## Event type
+
+A generic {{domxref("Event")}}.
 
 ## Examples
 
 Given an {{domxref("RTCPeerConnection")}}, `pc`, and an `updateStatus()` function that presents status information to the user, this code sets up an event handler to let the user know when the ICE negotiation process finishes up.
 
 ```js
-pc.addEventListener("signalingstatechange", ev => {
-  switch(pc.signalingState) {
+pc.addEventListener("signalingstatechange", (ev) => {
+  switch (pc.signalingState) {
     case "stable":
       updateStatus("ICE negotiation complete");
       break;
   }
-}, false);
+});
 ```
 
-Using {{domxref("RTCPeerConnection.onsignalingstatechange", "onsignalingstatechange")}}, it looks like this:
+Using `onsignalingstatechange`, it looks like this (but note that this replaces other event listeners added using `onsignalingstatechange`, if any):
 
 ```js
-pc.onsignalingstatechange = ev => {
-  switch(pc.signalingState) {
+pc.onsignalingstatechange = (ev) => {
+  switch (pc.signalingState) {
     case "stable":
       updateStatus("ICE negotiation complete");
       break;
-    }
+  }
 };
 ```
 

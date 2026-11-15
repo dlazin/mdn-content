@@ -1,28 +1,17 @@
 ---
-title: nop
+title: "nop: Wasm text instruction"
+short-title: nop
 slug: WebAssembly/Reference/Control_flow/nop
-tags:
-  - WebAssembly
-  - wasm
-  - Landing page
-  - Reference
-  - Control flow
+page-type: webassembly-instruction
+browser-compat: webassembly.instructions.nop
+sidebar: webassemblysidebar
 ---
-{{WebAssemblySidebar}}
 
 **`nop`** stands for no-operation. It literally does nothing.
 
-## Syntax
+{{InteractiveExample("Wat Demo: nop", "tabbed-shorter")}}
 
-```wasm
-nop
-```
-
-## Full working example
-
-Wasm file
-
-```wasm
+```wat interactive-example
 (module
   (func (export "do_nothing")
     nop
@@ -30,16 +19,27 @@ Wasm file
 )
 ```
 
-JavaScript file
-
-```js
-WebAssembly.instantiateStreaming(
-  fetch("../out/main.wasm")
-).then(result => {
+```js interactive-example
+const url = "{%wasm-url%}";
+await WebAssembly.instantiateStreaming(fetch(url)).then((result) => {
   result.instance.exports.do_nothing();
 });
+```
+
+## Syntax
+
+```wat
+nop
 ```
 
 | Instruction | Binary opcode |
 | ----------- | ------------- |
 | `nop`       | `0x01`        |
+
+## Specifications
+
+{{Specifications}}
+
+## Browser compatibility
+
+{{Compat}}

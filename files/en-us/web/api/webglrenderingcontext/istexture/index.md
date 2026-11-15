@@ -1,29 +1,26 @@
 ---
-title: WebGLRenderingContext.isTexture()
+title: "WebGLRenderingContext: isTexture() method"
+short-title: isTexture()
 slug: Web/API/WebGLRenderingContext/isTexture
-tags:
-  - API
-  - Method
-  - Reference
-  - WebGL
-  - WebGLRenderingContext
+page-type: web-api-instance-method
 browser-compat: api.WebGLRenderingContext.isTexture
 ---
-{{APIRef("WebGL")}}
+
+{{APIRef("WebGL")}}{{AvailableInWorkers}}
 
 The **`WebGLRenderingContext.isTexture()`** method of the [WebGL API](/en-US/docs/Web/API/WebGL_API) returns `true` if the
 passed {{domxref("WebGLTexture")}} is valid and `false` otherwise.
 
 ## Syntax
 
-```js
-GLboolean gl.isTexture(texture);
+```js-nolint
+isTexture(texture)
 ```
 
 ### Parameters
 
-- texture
-  - : A {{domxref("WebGLTexture")}} to check.
+- `texture`
+  - : A {{domxref("WebGLTexture")}} to check. Passing `null` returns `false`.
 
 ### Return value
 
@@ -34,9 +31,9 @@ A {{domxref("WebGL_API/Types", "GLboolean")}} indicating whether or not the text
 ### Checking a texture
 
 ```js
-var canvas = document.getElementById('canvas');
-var gl = canvas.getContext('webgl');
-var texture = gl.createTexture();
+const canvas = document.getElementById("canvas");
+const gl = canvas.getContext("webgl");
+const texture = gl.createTexture();
 
 gl.isTexture(texture);
 ```

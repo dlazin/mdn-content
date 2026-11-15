@@ -1,61 +1,53 @@
 ---
-title: 'SpeechRecognition: speechstart event'
+title: "SpeechRecognition: speechstart event"
+short-title: speechstart
 slug: Web/API/SpeechRecognition/speechstart_event
-tags:
-  - Event
-  - Reference
-  - Web Speech API
+page-type: web-api-event
 browser-compat: api.SpeechRecognition.speechstart_event
 ---
-{{SeeCompatTable}} {{APIRef("Web Speech API")}}
+
+{{APIRef("Web Speech API")}}
 
 The **`speechstart`** event of the [Web Speech API](/en-US/docs/Web/API/Web_Speech_API) is fired when sound recognized by the speech recognition service as speech has been detected.
 
-<table class="properties">
-  <tbody>
-    <tr>
-      <th scope="row">Bubbles</th>
-      <td>No</td>
-    </tr>
-    <tr>
-      <th scope="row">Cancelable</th>
-      <td>No</td>
-    </tr>
-    <tr>
-      <th scope="row">Interface</th>
-      <td>{{domxref("Event")}}</td>
-    </tr>
-    <tr>
-      <th scope="row">Event handler property</th>
-      <td>
-        <code
-          ><a href="/en-US/docs/Web/API/SpeechRecognition/onspeechstart"
-            >onspeechstart</a
-          ></code
-        >
-      </td>
-    </tr>
-  </tbody>
-</table>
+## Syntax
+
+Use the event name in {{domxref("EventTarget/addEventListener", "addEventListener()")}}:
+
+```js-nolint
+addEventListener("speechstart", (event) => { })
+```
+
+Alternatively, assign to the [event handler property](/en-US/docs/Web/API/Document_Object_Model/Events#using_onevent_properties) of the interface:
+
+```js-nolint
+onspeechstart = (event) => { }
+```
+
+## Event type
+
+A generic {{DOMxRef("Event")}} with no added properties.
 
 ## Examples
 
 You can use the `speechstart` event in an [`addEventListener`](/en-US/docs/Web/API/EventTarget/addEventListener) method:
 
 ```js
-var recognition = new webkitSpeechRecognition() || new SpeechRecognition();
+const recognition = new (
+  window.SpeechRecognition || window.webkitSpeechRecognition
+)();
 
-recognition.addEventListener('speechstart', function() {
-  console.log('Speech has been detected');
+recognition.addEventListener("speechstart", () => {
+  console.log("Speech has been detected");
 });
 ```
 
-Or use the [`onspeechstart`](/en-US/docs/Web/API/SpeechRecognition/onspeechstart) event handler property:
+Or use the `onspeechstart` event handler property (but note that this replaces other event listeners added using `onspeechstart`, if any):
 
 ```js
-recognition.onspeechstart = function() {
-  console.log('Speech has been detected');
-}
+recognition.onspeechstart = () => {
+  console.log("Speech has been detected");
+};
 ```
 
 ## Specifications

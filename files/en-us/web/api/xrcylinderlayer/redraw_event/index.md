@@ -1,45 +1,36 @@
 ---
-title: 'XRCylinderLayer: redraw event'
+title: "XRCylinderLayer: redraw event"
+short-title: redraw
 slug: Web/API/XRCylinderLayer/redraw_event
-tags:
-  - API
-  - Event
-  - Reference
-  - VR
-  - WebXR
-  - WebXR API
-  - WebXR Device API
-  - XR
+page-type: web-api-event
+status:
+  - experimental
 browser-compat: api.XRCylinderLayer.redraw_event
 ---
-{{APIRef("WebXR Device API")}}
+
+{{APIRef("WebXR Device API")}}{{SeeCompatTable}}
 
 The `redraw` event is sent to the `XRCylinderLayer` object when the underlying resources of the layer are lost or when the XR Compositor can no longer reproject the layer. If this event is sent, authors should redraw the content of the layer in the next XR animation frame.
 
 See also the {{domxref("XRCompositionLayer.needsRedraw")}} property which is also available to `XRCylinderLayer` objects through inheritance from {{domxref("XRCompositionLayer")}}.
 
-The event is of type {{domxref("XRLayerEvent")}}. Also available through the `XRCylinderLayer.onredraw` event handler property.
+## Syntax
 
-<table class="properties">
-  <tbody>
-    <tr>
-      <th>Bubbles</th>
-      <td>No</td>
-    </tr>
-    <tr>
-      <th>Cancelable</th>
-      <td>No</td>
-    </tr>
-    <tr>
-      <th>Interface</th>
-      <td>{{DOMxRef("XRLayerEvent")}}</td>
-    </tr>
-    <tr>
-      <th>Event handler</th>
-      <td><code>XRCylinderLayer.onredraw</code></td>
-    </tr>
-  </tbody>
-</table>
+Use the event name in {{domxref("EventTarget/addEventListener", "addEventListener()")}}:
+
+```js-nolint
+addEventListener("redraw", (event) => { })
+```
+
+Alternatively, assign to the [event handler property](/en-US/docs/Web/API/Document_Object_Model/Events#using_onevent_properties) of the interface:
+
+```js-nolint
+onredraw = (event) => { }
+```
+
+## Event type
+
+An {{domxref("XRLayerEvent")}}. Inherits from {{domxref("Event")}}.
 
 ## Examples
 
@@ -48,17 +39,17 @@ The event is of type {{domxref("XRLayerEvent")}}. Also available through the `XR
 You can pass `redraw` to {{domxref("EventTarget.addEventListener()", "addEventListener()")}}:
 
 ```js
-cylinderLayer.addEventListener("redraw", function(event) {
+cylinderLayer.addEventListener("redraw", (event) => {
   // redraw the layer
 });
 ```
 
-Alternatively, you can use the `onredraw` event handler property to establish a handler for the `redraw` event:
+Alternatively, you can use the `onredraw` event handler property to establish a handler for the `redraw` event (but note that this replaces other event listeners added using `onredraw`, if any):
 
 ```js
-cylinderLayer.onredraw = function(event) {
- // redraw the layer
-}
+cylinderLayer.onredraw = (event) => {
+  // redraw the layer
+};
 ```
 
 ## Specifications

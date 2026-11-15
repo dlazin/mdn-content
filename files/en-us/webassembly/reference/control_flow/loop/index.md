@@ -1,22 +1,60 @@
 ---
-title: loop
+title: "loop: Wasm text instruction"
+short-title: loop
 slug: WebAssembly/Reference/Control_flow/loop
-tags:
-  - WebAssembly
-  - wasm
-  - Landing page
-  - Reference
-  - Control flow
+page-type: webassembly-instruction
+browser-compat: webassembly.instructions.loop
+sidebar: webassemblysidebar
 ---
-{{WebAssemblySidebar}}
 
 The **`loop`** statement creates a label that can later be branched to with a `br`. The loop instruction doesn't loop by itself; you need to branch to it to actually create a loop.
 
 The **`loop`** statement is the opposite of the `block` statement, in the sense that while branching to a `loop` jumps to the beginning of the loop, branching to a `block` jumps to the end of the block, that is, out of the block.
 
+{{InteractiveExample("Wat Demo: loop", "tabbed-taller")}}
+
+```wat interactive-example
+(module
+  ;; import the browser console object, you'll need to pass this in from JavaScript
+  (import "console" "log" (func $log (param i32)))
+
+  (func
+    ;; create a local variable and initialize it to 0
+    (local $i i32)
+
+    (loop $my_loop
+
+      ;; add one to $i
+      local.get $i
+      i32.const 1
+      i32.add
+      local.set $i
+
+      ;; log the current value of $i
+      local.get $i
+      call $log
+
+      ;; if $i is less than 10 branch to loop
+      local.get $i
+      i32.const 10
+      i32.lt_s
+      br_if $my_loop
+
+    )
+  )
+
+  (start 1) ;; run the first function automatically
+)
+```
+
+```js interactive-example
+const url = "{%wasm-url%}";
+await WebAssembly.instantiateStreaming(fetch(url), { console });
+```
+
 ## Syntax
 
-```wasm
+```wat
 ;; label the loop so that it can be branched to
 (loop $my_loop
 
@@ -28,58 +66,14 @@ The **`loop`** statement is the opposite of the `block` statement, in the sense 
 )
 ```
 
-## Full working example
-
-We'll create a simple wasm module that increments a variable `$i` 10 times and logs the value on every cycle.
-
-Wasm file
-
-```wasm
-(module
-  ;; import the browser console object, you'll need to pass this in from JavaScript
-  (import "console" "log" (func $log (param i32)))
-
-  (func
-    (local $i i32)
-
-    (loop $my_loop
-
-      ;; check if $i is les than 10
-      get_local $i
-      i32.const 10
-      i32.lt_s
-      (if
-
-        ;; add one to $i
-        get_local $i
-        i32.const 1
-        i32.add
-        set_local $i
-
-        ;; log the current value of $i
-        get_local $i
-        call $log
-
-        ;; continue the loop
-        br $my_loop
-
-      )
-    )
-  )
-
-  (start 1) ;; run the first function automatically
-)
-```
-
-JavaScript file
-
-```js
-WebAssembly.instantiateStreaming(
-  fetch("link to .wasm file"),
-  { console }
-);
-```
-
 | Instruction | Binary opcode |
 | ----------- | ------------- |
 | `loop`      | `0x03`        |
+
+## Specifications
+
+{{Specifications}}
+
+## Browser compatibility
+
+{{Compat}}

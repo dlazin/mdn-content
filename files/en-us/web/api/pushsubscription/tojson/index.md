@@ -1,50 +1,76 @@
 ---
-title: PushSubscription.toJSON()
+title: "PushSubscription: toJSON() method"
+short-title: toJSON()
 slug: Web/API/PushSubscription/toJSON
-tags:
-  - API
-  - Experimental
-  - Method
-  - Push
-  - Push API
-  - PushSubscription
-  - Reference
-  - Serializer
-  - Service Workers
-  - toJSON
+page-type: web-api-instance-method
 browser-compat: api.PushSubscription.toJSON
 ---
-{{SeeCompatTable}}{{APIRef("Push API")}}
 
-The `toJSON()` method of the {{domxref("PushSubscription")}} interface is a
-standard serializer: it returns a JSON representation of the subscription properties,
-providing a useful shortcut.
+{{APIRef("Push API")}}{{SecureContext_Header}}{{AvailableInWorkers}}
+
+The **`toJSON()`** method of the {{domxref("PushSubscription")}} interface returns a JSON-serializable plain object representing the `PushSubscription` object.
+
+The method is automatically called by {{jsxref("JSON.stringify()")}} when a `PushSubscription` object is encountered during [JSON](/en-US/docs/Glossary/JSON) serialization.
 
 ## Syntax
 
-```js
-mySubscription = subscription.toJSON()
+```js-nolint
+toJSON()
 ```
 
 ### Parameters
 
 None.
 
-### Returns
+### Return value
 
-A JSON object. It currently only contains the subscription endpoint, as an
-`endpoint` member.
+A JSON-serializable plain object containing the following properties:
 
-## Example
+- {{domxref("PushSubscription/endpoint", "endpoint")}}
+- {{domxref("PushSubscription/expirationTime", "expirationTime")}}
+- `keys`: the `p256dh` and `auth` values returned by {{domxref("PushSubscription/getKey", "getKey()")}}, encoded as [base64url](/en-US/docs/Glossary/Base64) strings without padding
+
+Unless stated otherwise, each property's value is copied as-is.
+
+## Examples
+
+### Calling toJSON() directly
+
+This example obtains a `PushSubscription` object. Calling `toJSON()` directly returns a plain object. Its properties have the same values as the corresponding properties of the original object.
 
 ```js
-navigator.serviceWorker.ready.then(function(reg) {
-  reg.pushManager.getSubscription().then(function(subscription) {
-    var mySubscription = subscription.toJSON();
-    // do something with subscription details
-  })
+navigator.serviceWorker.ready.then((reg) => {
+  reg.pushManager.getSubscription().then((subscription) => {
+    const json = subscription.toJSON();
+    console.log(json); // A plain object
+    console.log(typeof json); // "object"
+    console.log(json.endpoint); // Same value as subscription.endpoint
+  });
 });
 ```
+
+### Serializing to a JSON string
+
+Within the `getSubscription()` callback from the previous example, the same object can be serialized using {{jsxref("JSON.stringify()")}}, which calls the `toJSON()` method automatically.
+
+```js
+console.log(JSON.stringify(subscription));
+```
+
+This would log a JSON string like so (formatted for readability):
+
+```json
+{
+  "endpoint": "https://push.example.com/subscriptions/12345",
+  "expirationTime": null,
+  "keys": {
+    "p256dh": "...",
+    "auth": "..."
+  }
+}
+```
+
+The base64url-encoded key values are abbreviated as `"..."` for readability.
 
 ## Specifications
 

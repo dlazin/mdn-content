@@ -1,54 +1,40 @@
 ---
-title: HTMLInputElement.labels
+title: "HTMLInputElement: labels property"
+short-title: labels
 slug: Web/API/HTMLInputElement/labels
-tags:
-  - API
-  - HTML DOM
-  - HTMLInputElement
-  - Property
-  - Reference
+page-type: web-api-instance-property
 browser-compat: api.HTMLInputElement.labels
 ---
+
 {{APIRef("DOM")}}
 
-The **`HTMLInputElement.labels`** read-only property returns a
-{{domxref("NodeList")}} of the {{HTMLElement("label")}} elements associated with the
-{{HTMLElement("input")}} element, if the element is not hidden. If the element has the
-type `hidden`, the property returns `null`.
+The **`HTMLInputElement.labels`** read-only property returns a {{domxref("NodeList")}} of the {{HTMLElement("label")}} elements associated with the {{HTMLElement("input")}} element.
+If the element has the type `hidden`, the property returns `null`.
 
-## Syntax
+## Value
 
-```js
-var labelElements = input.labels;
-```
+A {{domxref("NodeList")}}, or `null` if the element's type is `hidden`.
 
-### Return value
-
-A {{domxref("NodeList")}} containing the `<label>` elements associated
-with the `<input>` element.
-
-## Example
+## Examples
 
 ### HTML
 
 ```html
 <label id="label1" for="test">Label 1</label>
-<input id="test"/>
+<input id="test" />
 <label id="label2" for="test">Label 2</label>
 ```
 
 ### JavaScript
 
 ```js
-window.addEventListener("DOMContentLoaded", function() {
-  const input = document.getElementById("test");
-  for(var i = 0; i < input.labels.length; i++) {
-    console.log(input.labels[i].textContent); // "Label 1" and "Label 2"
-  }
-});
+const input = document.getElementById("test");
+for (const label of input.labels) {
+  console.log(label.textContent); // "Label 1" and "Label 2"
+}
 ```
 
-{{EmbedLiveSample("Example", "100%", 30)}}
+{{EmbedLiveSample("Examples", "100%", 30)}}
 
 ## Specifications
 

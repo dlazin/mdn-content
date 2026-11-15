@@ -1,70 +1,56 @@
 ---
 title: Internationalization
 slug: Mozilla/Add-ons/WebExtensions/Internationalization
-tags:
-  - Article
-  - Guide
-  - Internationalization
-  - Localization
-  - WebExtensions
-  - i18n
-  - messages.json
-  - placeholders
-  - predefined messages
+page-type: guide
+sidebar: addonsidebar
 ---
-{{AddonSidebar}}
 
-The [WebExtensions](/en-US/docs/Mozilla/Add-ons/WebExtensions) API has a rather handy module available for internationalizing extensions — [i18n](/en-US/docs/Mozilla/Add-ons/WebExtensions/API/i18n). In this article we'll explore its features and provide a practical example of how it works. The i18n system for extensions built using WebExtension APIs is similar to common JavaScript libraries for i18n such as [i18n.js](http://i18njs.com/).
+<!-- cSpell:ignore colour -->
 
-> **Note:** The example extension featured in this article — [notify-link-clicks-i18n](https://github.com/mdn/webextensions-examples/tree/master/notify-link-clicks-i18n) — is available on GitHub. Follow along with the source code as you go through the sections below.
+The [WebExtensions](/en-US/docs/Mozilla/Add-ons/WebExtensions) API has a rather handy module available for internationalizing extensions — [i18n](/en-US/docs/Mozilla/Add-ons/WebExtensions/API/i18n). In this article we'll explore its features and provide a practical example of how it works.
+
+> [!NOTE]
+> The example extension featured in this article — [notify-link-clicks-i18n](https://github.com/mdn/webextensions-examples/tree/main/notify-link-clicks-i18n) — is available on GitHub. Follow along with the source code as you go through the sections below.
 
 ## Anatomy of an internationalized extension
 
 An internationalized extension can contain the same features as any other extension — [background scripts](/en-US/docs/Mozilla/Add-ons/WebExtensions/Anatomy_of_a_WebExtension#background_scripts), [content scripts](/en-US/docs/Mozilla/Add-ons/WebExtensions/Content_scripts), etc. — but it also has some extra parts to allow it to switch between different locales. These are summarized in the following directory tree:
 
 - extension-root-directory/
-
   - \_locales
-
     - en
-
       - messages.json
-
         - English messages (strings)
 
     - de
-
       - messages.json
-
         - German messages (strings)
 
     - etc.
 
   - manifest.json
-
     - locale-dependent metadata
 
   - myJavascript.js
-
     - JavaScript for retrieving browser locale, locale-specific messages, etc.
 
   - myStyles.css
-
     - locale-dependent CSS
 
 Let's explore each of the new features in turn — each of the below sections represents a step to follow when internationalizing your extension.
 
 ## Providing localized strings in \_locales
 
-> **Note:** You can look up language subtags using the _Find_ tool on the [Language subtag lookup page](https://r12a.github.io/app-subtags/). Note that you need to search for the English name of the language.
+> [!NOTE]
+> You can look up language subtags using the _Find_ tool on the [Language subtag lookup page](https://r12a.github.io/app-subtags/). Note that you need to search for the English name of the language.
 
 Every i18n system requires the provision of strings translated into all the different locales you want to support. In extensions, these are contained within a directory called `_locales`, placed inside the extension root. Each individual locale has its strings (referred to as messages) contained within a file called `messages.json`, which is placed inside a subdirectory of `_locales`, named using the language subtag for that locale's language.
 
 Note that if the subtag includes a basic language plus a regional variant, then the language and variant are conventionally separated using a hyphen: for example, "en-US". However, in the directories under `_locales`, **the separator must be an underscore**: "en_US".
 
-So [for example, in our sample app](https://github.com/mdn/webextensions-examples/tree/master/notify-link-clicks-i18n/_locales) we have directories for "en" (English), "de" (German), "nl" (Dutch), and "ja" (Japanese). Each one of these has a `messages.json` file inside it.
+So [for example, in our sample app](https://github.com/mdn/webextensions-examples/tree/main/notify-link-clicks-i18n/_locales) we have directories for "en" (English), "de" (German), "nl" (Dutch), and "ja" (Japanese). Each one of these has a `messages.json` file inside it.
 
-Let's now look at the structure of one of these files ([\_locales/en/messages.json](https://github.com/mdn/webextensions-examples/blob/master/notify-link-clicks-i18n/_locales/en/messages.json)):
+Let's now look at the structure of one of these files ([\_locales/en/messages.json](https://github.com/mdn/webextensions-examples/blob/main/notify-link-clicks-i18n/_locales/en/messages.json)):
 
 ```json
 {
@@ -87,18 +73,19 @@ Let's now look at the structure of one of these files ([\_locales/en/messages.js
     "message": "You clicked $URL$.",
     "description": "Tells the user which link they clicked.",
     "placeholders": {
-      "url" : {
-        "content" : "$1",
-        "example" : "https://developer.mozilla.org"
-      }
-    }
+      "url": {
+        "content": "$1",
+        "example": "https://developer.mozilla.org"
+      }
+    }
   }
 }
 ```
 
-This file is standard JSON — each one of its members is an object with a name, which contains a `message` and a `description`. All of these items are strings; `$URL$` is a placeholder, which is replaced with a substring at the time the `notificationContent` member is called by the extension. You'll learn how to do this in the {{anch("Retrieving message strings from JavaScript")}} section.
+This file is standard JSON — each one of its members is an object with a name, which contains a `message` and a `description`. All of these items are strings; `$URL$` is a placeholder, which is replaced with a substring at the time the `notificationContent` member is called by the extension. You'll learn how to do this in the [Retrieving message strings from JavaScript](#retrieving_message_strings_from_javascript) section.
 
-> **Note:** You can find much more information about the contents of `messages.json` files in our [Locale-Specific Message reference](/en-US/docs/Mozilla/Add-ons/WebExtensions/API/i18n/Locale-Specific_Message_reference).
+> [!NOTE]
+> You can find much more information about the contents of `messages.json` files in our [Locale-Specific Message reference](/en-US/docs/Mozilla/Add-ons/WebExtensions/API/i18n/Locale-Specific_Message_reference).
 
 ## Internationalizing manifest.json
 
@@ -106,7 +93,7 @@ There are a couple of different tasks to carry out to internationalize your mani
 
 ### Retrieving localized strings in manifests
 
-Your [manifest.json](https://github.com/mdn/webextensions-examples/blob/master/notify-link-clicks-i18n/manifest.json) includes strings that are displayed to the user, such as the extension's name and description. If you internationalize these strings and put the appropriate translations of them in messages.json, then the correct translation of the string will be displayed to the user, based on the current locale, like so.
+Your [manifest.json](https://github.com/mdn/webextensions-examples/blob/main/notify-link-clicks-i18n/manifest.json) includes strings that are displayed to the user, such as the extension's name and description. If you internationalize these strings and put the appropriate translations of them in messages.json, then the correct translation of the string will be displayed to the user, based on the current locale, like so.
 
 To internationalize strings, specify them like this:
 
@@ -115,19 +102,19 @@ To internationalize strings, specify them like this:
 "description": "__MSG_extensionDescription__",
 ```
 
-Here, we are retrieving message strings dependant on the browser's locale, rather than just including static strings.
+Here, we are retrieving message strings dependent on the browser's locale, rather than just including static strings.
 
 To call a message string like this, you need to specify it like this:
 
-1.  Two underscores, followed by
-2.  The string "MSG", followed by
-3.  One underscore, followed by
-4.  The name of the message you want to call as defined in `messages.json`, followed by
-5.  Two underscores
+1. Two underscores, followed by
+2. The string "MSG", followed by
+3. One underscore, followed by
+4. The name of the message you want to call as defined in `messages.json`, followed by
+5. Two underscores
 
-<!---->
-
-    __MSG_ + messageName + __
+```plain
+__MSG_ + messageName + __
+```
 
 ### Specifying a default locale
 
@@ -137,7 +124,7 @@ Another field you should specify in your manifest.json is [default_locale](/en-U
 "default_locale": "en"
 ```
 
-This specifies a default locale to use if the extension doesn't include a localized string for the browser's current locale. Any message strings that are not available in the browser locale are taken from the default locale instead. There are some more details to be aware of in terms of how the browser selects strings — see {{anch("Localized string selection")}}.
+This specifies a default locale to use if the extension doesn't include a localized string for the browser's current locale. Any message strings that are not available in the browser locale are taken from the default locale instead. There are some more details to be aware of in terms of how the browser selects strings — see [Localized string selection](#localized_string_selection).
 
 ## Locale-dependent CSS
 
@@ -145,11 +132,11 @@ Note that you can also retrieve localized strings from CSS files in the extensio
 
 ```css
 header {
-  background-image: url(../images/__MSG_extensionName__/header.png);
+  background-image: url("../images/__MSG_extensionName__/header.png");
 }
 ```
 
-This is useful, although you might be better off handling such a situation using {{anch("Predefined messages")}}.
+This is useful, although you might be better off handling such a situation using [Predefined messages](#predefined_messages).
 
 ## Retrieving message strings from JavaScript
 
@@ -159,14 +146,14 @@ So, you've got your message strings set up, and your manifest. Now you just need
 - The {{WebExtAPIRef("i18n.getAcceptLanguages()")}} and {{WebExtAPIRef("i18n.getUILanguage()")}} methods could be used if you needed to customize the UI depending on the locale — perhaps you might want to show preferences specific to the users' preferred languages higher up in a prefs list, or display cultural information relevant only to a certain language, or format displayed dates appropriately according to the browser locale.
 - The {{WebExtAPIRef("i18n.detectLanguage()")}} method could be used to detect the language of user-submitted content, and format it appropriately.
 
-In our [notify-link-clicks-i18n](https://github.com/mdn/webextensions-examples/tree/master/notify-link-clicks-i18n) example, the [background script](https://github.com/mdn/webextensions-examples/blob/master/notify-link-clicks-i18n/background-script.js) contains the following lines:
+In our [notify-link-clicks-i18n](https://github.com/mdn/webextensions-examples/tree/main/notify-link-clicks-i18n) example, the [background script](https://github.com/mdn/webextensions-examples/blob/main/notify-link-clicks-i18n/background-script.js) contains the following lines:
 
 ```js
-var title = browser.i18n.getMessage("notificationTitle");
-var content = browser.i18n.getMessage("notificationContent", message.url);
+let title = browser.i18n.getMessage("notificationTitle");
+let content = browser.i18n.getMessage("notificationContent", message.url);
 ```
 
-The first one just retrieves the `notificationTitle message` field from the available `messages.json` file most appropriate for the browser's current locale. The second one is similar, but it is being passed a URL as a second parameter. What gives? This is how you specify the content to replace the `$URL$` placeholder we see in the `notificationContent message` field:
+The first one just retrieves the `notificationTitle message` field from the available `messages.json` file most appropriate for the browser's current locale. The second one is similar, but it is being passed a URL as a second parameter. What gives? This is how you specify the content to replace the `$URL$` placeholder we see in the `notificationContent message` field:
 
 ```json
 "notificationContent": {
@@ -181,15 +168,19 @@ The first one just retrieves the `notificationTitle message` field from the avai
 }
 ```
 
-The `"placeholders"` member defines all the placeholders, and where they are retrieved from. The `"url"` placeholder specifies that its content is taken from $1, which is the first value given inside the second parameter of `getMessage()`. Since the placeholder is called `"url"`, we use `$URL$` to call it inside the actual message string (so for `"name"` you'd use `$NAME$`, etc.) If you have multiple placeholders, you can provide them inside an array that is given to {{WebExtAPIRef("i18n.getMessage()")}} as the second parameter — `[a, b, c]`will be available as`$1`, `$2`, and `$3`, and so on, inside `messages.json`.
+The `"placeholders"` member defines all the placeholders, and where they are retrieved from. The `"url"` placeholder specifies that its content is taken from `$1`, which is the first value given inside the second parameter of `getMessage()`. Since the placeholder is called `"url"`, we use `$URL$` to call it inside the actual message string (so for `"name"` you'd use `$NAME$`, etc.) If you have multiple placeholders, you can provide them inside an array that is given to {{WebExtAPIRef("i18n.getMessage()")}} as the second parameter — `[a, b, c]` will be available as `$1`, `$2`, and `$3`, and so on, inside `messages.json`.
 
-Let's run through an example: the original `notificationContent` message string in the `en/messages.json` file is
+Let's run through an example: the original `notificationContent` message string in the `en/messages.json` file is
 
-    You clicked $URL$.
+```plain
+You clicked $URL$.
+```
 
 Let's say the link clicked on points to `https://developer.mozilla.org`. After the {{WebExtAPIRef("i18n.getMessage()")}} call, the contents of the second parameter are made available in messages.json as `$1`, which replaces the `$URL$` placeholder as defined in the `"url"` placeholder. So the final message string is
 
-    You clicked https://developer.mozilla.org.
+```plain
+You clicked https://developer.mozilla.org.
+```
 
 ### Direct placeholder usage
 
@@ -202,7 +193,7 @@ It is possible to insert your variables (`$1`, `$2`, `$3`, etc.) directly into t
 }
 ```
 
-This may seem quicker and less complex, but the other way (using `"placeholders"`) is seen as best practice. This is because having the placeholder name (e.g. `"url"`) and example helps you to remember what the placeholder is for — a week after you write your code, you'll probably forget what `$1`–`$8` refer to, but you'll be more likely to know what your placeholder names refer to.
+This may seem quicker and less complex, but the other way (using `"placeholders"`) is seen as best practice. This is because having the placeholder name (e.g., `"url"`) and example helps you to remember what the placeholder is for — a week after you write your code, you'll probably forget what `$1` – `$8` refer to, but you'll be more likely to know what your placeholder names refer to.
 
 ### Hardcoded substitution
 
@@ -226,55 +217,64 @@ In addition, you can use such substitutions to specify parts of the string that 
 
 ## Localized string selection
 
-Locales can be specified using only a language code, like `fr` or `en`, or they may be further qualified with a region code, like `en_US` or `en_GB`, which describes a regional variant of the same basic language. When you ask the i18n system for a string, it will select a string using the following algorithm:
+Locales are specified using a language code, such as `fr` or `en`, that can be qualified with a script and region code, such as `en-US` or `zh-Hans-CN`. When your extension asks for a localized string, the i18n system returns the string from the `messages.json` files using this order of precedence:
 
-1.  if there is a `messages.json` file for the exact current locale, and it contains the string, return it.
-2.  Otherwise, if the current locale is qualified with a region (e.g. `en_US`) and there is a `messages.json` file for the regionless version of that locale (e.g. `en`), and that file contains the string, return it.
-3.  Otherwise, if there is a `messages.json` file for the `default_locale` defined in the `manifest.json`, and it contains the string, return it.
-4.  Otherwise return an empty string.
+1. The file for the user's browser locale, e.g., `zh-Hans-CN`.
+2. If the browser locale is qualified with a script or region, the file for the regionless version, e.g., `zh-Hans`.
+3. If the browser locale is qualified with a script or region, the file for the scriptless version, e.g., `zh`.
+4. The file for the `default_locale` defined in the `manifest.json` file.
 
-Take the following example:
+If the requested string is not present in any of those files, an empty string is returned.
+
+Take this example:
 
 - extension-root-directory/
-
   - \_locales
-
     - en_GB
-
       - messages.json
-
-        - `{ "colorLocalised": { "message": "colour", "description": "Color." }, ... }`
+        - `{ "colorLocalized": { "message": "colour", "description": "Color." }, /* … */ }`
 
       en
-
       - messages.json
-
-        - `{ "colorLocalised": { "message": "color", "description": "Color." }, ... }`
+        - `{ "colorLocalized": { "message": "color", "description": "Color." }, /* … */ }`
+        - `{ "colorBlue": { "message": "Blue", "description": "Blue." }, /* … */ }`
 
     - fr
-
       - messages.json
+        - `{ "colorLocalized": { "message": "couleur", "description": "Color." }, /* … */}`
+        - `{ "colorBlue": { "message": "Bleu", "description": "Blue." }, /* … */ }`
 
-        - `{ "colorLocalised": { "message": "couleur", "description": "Color." }, ...}`
+With the `default_locale` set to `fr`.
 
-Suppose the `default_locale` is set to `fr`, and the browser's current locale is `en_GB`:
+- If the browser's locale is `en-GB`:
+  - `getMessage("colorLocalized")` returns "colour" because `_locales/en_GB/messages.json` contains the `colorLocalized` message.
+  - `getMessage("colorBlue")`, returns "blue" because it falls back to the `colorBlue` message in `_locales/en/messages.json`.
+- If the browser's locale is `en-US`:
+  - `getMessage("colorLocalized")` returns "color" because there is no `_locales/en_US/messages.json` file, so it falls back to the message present in `_locales/en/messages.json`.
+  - `getMessage("colorBlue")` returns "blue" because it falls back to the `colorBlue` message in `_locales/en/messages.json`.
+- If the browser's locale is `zh-Hans-CN`:
+  - `getMessage("colorLocalized")` returns "couleur" because there is no region, script, or language match to the `zh-Hans-CN` locale (i.e., no `messages.json` file in a `zh-Hans-CN`, `zh-Hans`, or `zh` folder).
+  - `getMessage("colorBlue")` returns "bleu" because there is no region, script, or language match to the `zh-Hans-CN` locale.
 
-- If the extension calls `getMessage("colorLocalised")`, it will return "colour".
-- If "colorLocalised" were not present in `en_GB`, then `getMessage("colorLocalised")`, would return "color", not "couleur".
+If the extension were to call `getMessage("colorRed")` it's returned an empty string, as there is no property for `"colorRed"` in any of the language files.
 
 ## Predefined messages
 
-The i18n module provides us with some predefined messages, which we can call in the same way as we saw earlier in {{anch("Calling message strings from manifests and extension CSS")}}. For example:
+The i18n module provides us with some predefined messages, which we can call in the same way as we saw earlier in [Retrieving localized strings in manifests](#retrieving_localized_strings_in_manifests) and [Locale-dependent CSS](#locale-dependent_css). For example:
 
-    __MSG_extensionName__
+```plain
+__MSG_extensionName__
+```
 
 Predefined messages use exactly the same syntax, except with `@@` before the message name, for example
 
-    __MSG_@@ui_locale__
+```plain
+__MSG_@@ui_locale__
+```
 
 The following table shows the different available predefined messages:
 
-<table class="standard-table">
+<table>
   <thead>
     <tr>
       <th scope="col">Message name</th>
@@ -297,7 +297,7 @@ The following table shows the different available predefined messages:
           the
           <a
             href="/en-US/docs/Mozilla/Add-ons/WebExtensions/manifest.json/browser_specific_settings"
-            >applications</a
+            >browser_specific_settings</a
           >
           key in manifest.json. It's the generated UUID that appears in the
           add-on's URL. This means that you can't use this value as the
@@ -351,7 +351,7 @@ Going back to our earlier example, it would make more sense to write it like thi
 
 ```css
 header {
-  background-image: url(../images/__MSG_@@ui_locale__/header.png);
+  background-image: url("../images/__MSG_@@ui_locale__/header.png");
 }
 ```
 
@@ -390,23 +390,9 @@ padding-right: 0;
 padding-left: 1.5em;
 ```
 
-## Testing out your extension
+## Testing your extension
 
-Starting in Firefox 45, you can [install extensions temporarily from disk](https://extensionworkshop.com/documentation/develop/temporary-installation-in-firefox). Do this, and then try testing out our [notify-link-clicks-i18n](https://github.com/mdn/webextensions-examples/tree/master/notify-link-clicks-i18n) extension. Go to one of your favorite websites and click a link to see if a notification appears reporting the URL of the clicked link.
+For information on the tools and process for testing your localizations, see:
 
-Next, change Firefox's locale to one supported in the extension that you want to test.
-
-1.  Open "about:config" in Firefox, and search for the `intl.locale.requested` preference (bear in mind that before Firefox 59, this pref is called `general.useragent.locale`).
-2.  If the preference exists, double-click it (or press Return/Enter) to select it, enter the language code for the locale you want to test, then click "OK" (or press Return/Enter). For example in our example extension, "en" (English), "de" (German), "nl" (Dutch), and "ja" (Japanese) are supported. You can also set the value to an empty string (`""`), which will cause the browser to use the OS default locale.
-3.  If the `intl.locale.requested` preference does not exist, right-click the list of preferences (or activate the context menu using the keyboard), and choose "New" followed by "String". Enter `intl.locale.requested` for the preference name and, "de", or "nl", etc. for the preference value, as described in step 2 above.
-4.  Search for `intl.locale.matchOS` and, if the preference exists and has the value `true`, double-click it  so that it is set to `false`.
-5.  Restart your browser to complete the change.
-
-> **Note:** This works to change the browser's locale, even if you haven't got the [language pack](https://addons.mozilla.org/en-US/firefox/language-tools/) installed for that language. You'll just get the browser UI in your default language if this is the case.
-
-> **Note:** To change the result of `getUILanguage` the language pack is required, since it reflects the browser UI language and not the language used for extension messages.
-
-Load the extension temporarily from disk again, then test your new locale:
-
-- Visit "about:addons" again — you should now see the extension listed, with its icon, plus name and description in the chosen language.
-- Test your extension again. In our example, you'd go to another website and click a link, to see if the notification now appears in the chosen language.
+- Firefox: [Testing Localizations](https://extensionworkshop.com/documentation/develop/test-localizations/) in Extension Workshop
+- Chrome: [Set your browser's locale](https://developer.chrome.com/docs/extensions/reference/api/i18n#how-to-set-browsers-locale)

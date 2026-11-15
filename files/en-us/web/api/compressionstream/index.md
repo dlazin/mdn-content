@@ -1,27 +1,24 @@
 ---
 title: CompressionStream
 slug: Web/API/CompressionStream
-tags:
-  - API
-  - Interface
-  - Reference
-  - CompressionStream
+page-type: web-api-interface
 browser-compat: api.CompressionStream
 ---
-{{DefaultAPISidebar("Compression Streams API")}}
 
-The **`CompressionStream`** interface of the {{domxref('Compression Streams API','','',' ')}} is an API for compressing a stream of data.
+{{APIRef("Compression Streams API")}}{{AvailableInWorkers}}
+
+The **`CompressionStream`** interface of the {{domxref('Compression Streams API','','',' ')}} compresses a stream of data. It implements the same shape as a {{domxref("TransformStream")}}, allowing it to be used in {{domxref("ReadableStream.pipeThrough()")}} and similar methods.
 
 ## Constructor
 
-- {{domxref("CompressionStream.CompressionStream()")}}
-  - : Creates a new `CompressionStream`
+- {{domxref("CompressionStream.CompressionStream", "CompressionStream()")}}
+  - : Creates a new `CompressionStream`.
 
-## Properties
+## Instance properties
 
-- {{domxref("CompressionStream.readable")}}
+- {{domxref("CompressionStream.readable")}} {{ReadOnlyInline}}
   - : Returns the {{domxref("ReadableStream")}} instance controlled by this object.
-- {{domxref("CompressionStream.writable")}}
+- {{domxref("CompressionStream.writable")}} {{ReadOnlyInline}}
   - : Returns the {{domxref("WritableStream")}} instance controlled by this object.
 
 ## Examples
@@ -29,7 +26,9 @@ The **`CompressionStream`** interface of the {{domxref('Compression Streams API'
 In this example a stream is compressed using gzip compression.
 
 ```js
-const compressedReadableStream = inputReadableStream.pipeThrough(new CompressionStream('gzip'));
+const compressedReadableStream = inputReadableStream.pipeThrough(
+  new CompressionStream("gzip"),
+);
 ```
 
 ## Specifications
@@ -39,3 +38,8 @@ const compressedReadableStream = inputReadableStream.pipeThrough(new Compression
 ## Browser compatibility
 
 {{Compat}}
+
+## See also
+
+- {{domxref("DecompressionStream")}}
+- {{domxref("TransformStream")}}

@@ -1,53 +1,50 @@
 ---
-title: 'Window: afterprint event'
+title: "Window: afterprint event"
+short-title: afterprint
 slug: Web/API/Window/afterprint_event
-tags:
-  - Event
-  - Reference
+page-type: web-api-event
 browser-compat: api.Window.afterprint_event
 ---
-{{APIRef}}
+
+{{APIRef("HTML DOM")}}
 
 The **`afterprint`** event is fired after the associated document has started printing or the print preview has been closed.
 
-<table class="properties">
-  <tbody>
-    <tr>
-      <th scope="row">Bubbles</th>
-      <td>No</td>
-    </tr>
-    <tr>
-      <th scope="row">Cancelable</th>
-      <td>No</td>
-    </tr>
-    <tr>
-      <th scope="row">Interface</th>
-      <td>{{domxref("Event")}}</td>
-    </tr>
-    <tr>
-      <th scope="row">Event handler property</th>
-      <td>
-        {{domxref("WindowEventHandlers/onafterprint", "onafterprint")}}
-      </td>
-    </tr>
-  </tbody>
-</table>
+The {{domxref("Window.beforeprint_event", "beforeprint")}} and `afterprint` events allow pages to change their content before printing starts (perhaps to remove a banner, for example) and then revert those changes after printing has completed. In general, you should prefer the use of a [`@media print`](/en-US/docs/Web/CSS/Guides/Media_queries/Using#targeting_media_types) CSS at-rule, but it may be necessary to use these events in some cases.
+
+## Syntax
+
+Use the event name in {{domxref("EventTarget/addEventListener", "addEventListener()")}}:
+
+```js-nolint
+addEventListener("afterprint", (event) => { })
+```
+
+Alternatively, assign to the [event handler property](/en-US/docs/Web/API/Document_Object_Model/Events#using_onevent_properties) of the interface:
+
+```js-nolint
+onafterprint = (event) => { }
+```
+
+## Event type
+
+A generic {{domxref("Event")}}.
 
 ## Examples
 
 Using `addEventListener()`:
 
 ```js
-window.addEventListener('afterprint', (event) => {
-  console.log('After print');
+window.addEventListener("afterprint", (event) => {
+  console.log("After print");
 });
 ```
 
-Using the `onafterprint` event handler property:
+Using the `onafterprint` event handler property (but note that this replaces other event listeners added using `onafterprint`, if any):
 
 ```js
 window.onafterprint = (event) => {
-  console.log('After print');
+  console.log("After print");
 };
 ```
 

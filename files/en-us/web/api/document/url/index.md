@@ -1,26 +1,30 @@
 ---
-title: Document.URL
+title: "Document: URL property"
+short-title: URL
 slug: Web/API/Document/URL
-tags:
-  - API
-  - DOM
-  - Document
-  - Property
-  - Reference
+page-type: web-api-instance-property
 browser-compat: api.Document.URL
 ---
+
 {{APIRef("DOM")}}
 
 The **`URL`** read-only property of the {{domxref("Document")}}
 interface returns the document location as a string.
 
-## Syntax
+## Value
 
-```js
-const url = document.URL
+A string containing the URL of the document.
+
+## Examples
+
+### HTML
+
+```html
+<p id="urlText">
+  URL:<br />
+  <span id="url">URL goes here</span>
+</p>
 ```
-
-## Example
 
 ### JavaScript
 
@@ -28,18 +32,9 @@ const url = document.URL
 document.getElementById("url").textContent = document.URL;
 ```
 
-### HTML
-
-```html
-<p id="urlText">
-  URL:<br/>
-  <span id="url">URL goes here</span>
-</p>
-```
-
 ### Result
 
-{{EmbedLiveSample("Example", "100%", 100)}}
+{{EmbedLiveSample("Examples", "100%", 100)}}
 
 ## Specifications
 

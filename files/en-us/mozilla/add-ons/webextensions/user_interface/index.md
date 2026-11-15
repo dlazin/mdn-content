@@ -1,16 +1,14 @@
 ---
 title: User interface
 slug: Mozilla/Add-ons/WebExtensions/user_interface
-tags:
-  - Landing
-  - User Interface
-  - WebExtensions
+page-type: guide
+sidebar: addonsidebar
 ---
-{{AddonSidebar}}
 
 Extensions that use WebExtension APIs are provided with several user interface options so that their functionality can be made available to the user. A summary of those options is provided below, with a more detailed introduction to each user interface option in this section.
 
-> **Note:** For advice on using these UI components to create a great user experience in your extension, please see the [User experience best practices](https://extensionworkshop.com/documentation/develop/user-experience-best-practices/) article.
+> [!NOTE]
+> For advice on using these UI components to create a great user experience in your extension, please see the [User experience best practices](https://extensionworkshop.com/documentation/develop/user-experience-best-practices/) article.
 
 <table class="standard-table">
   <thead>
@@ -24,20 +22,17 @@ Extensions that use WebExtension APIs are provided with several user interface o
     <tr>
       <td>
         <a
-          href="/en-US/docs/Mozilla/Add-ons/WebExtensions/user_interface/Browser_action"
+          href="/en-US/docs/Mozilla/Add-ons/WebExtensions/user_interface/Toolbar_button"
           >Toolbar button</a
         >
         (browser action)
       </td>
       <td>
-        A button on the browser toolbar that dispatches an event to the
+        A button the user can pin to the browser toolbar that dispatches an event to the
         extension when clicked. By default, the button is visible in all tabs.
       </td>
       <td>
-        <img
-          alt="Example showing a toolbar button (browser action)."
-          src="browser-action.png"
-        />
+        <img alt="Example showing a toolbar button (browser action)." src="browser-action.png" />
       </td>
     </tr>
     <tr>
@@ -49,15 +44,12 @@ Extensions that use WebExtension APIs are provided with several user interface o
         >
       </td>
       <td>
-        A popup on a button in the browser toolbar that opens when the button is
+        A popup on a button the user can pin to the browser toolbar that opens when the button is
         clicked. The popup is defined in an HTML document that handles the user
         interaction.
       </td>
       <td>
-        <img
-          alt="Example of the pop-up on a toolbar button"
-          src="popup-shadow.png"
-        />
+        <img alt="Example of the popup on a toolbar button" src="popup-shadow.png" />
       </td>
     </tr>
     <tr>
@@ -73,10 +65,7 @@ Extensions that use WebExtension APIs are provided with several user interface o
         extension when clicked. By default, the button is hidden in all tabs.
       </td>
       <td>
-        <img
-          alt="Example showing an address bar button (page action) "
-          src="address_bar_button.png"
-        />
+        <img alt="Example showing an address bar button (page action)" src="address_bar_button.png" />
       </td>
     </tr>
     <tr>
@@ -93,10 +82,7 @@ Extensions that use WebExtension APIs are provided with several user interface o
         the user interaction.
       </td>
       <td>
-        <img
-          alt="Example of a popup on the address bar button"
-          src="page_action_popup.png"
-        />
+        <img alt="Example of a popup on the address bar button" src="page_action_popup.png" />
       </td>
     </tr>
     <tr>
@@ -113,10 +99,7 @@ Extensions that use WebExtension APIs are provided with several user interface o
         extension.
       </td>
       <td>
-        <img
-          alt="Example of content menu items added by a WebExtension, from the context-menu-demo example"
-          src="context_menu_example.png"
-        />
+        <img alt="Example of context menu items added by the menu-demo example" src="context_menu_example.png" />
       </td>
     </tr>
     <tr>
@@ -134,7 +117,9 @@ Extensions that use WebExtension APIs are provided with several user interface o
           interaction within the sidebar is handled by its HTML document.
         </p>
       </td>
-      <td><img alt="Example of a sidebar" src="bookmarks-sidebar.png" /></td>
+      <td>
+        <img alt="Example of a sidebar, the annotate-page example" src="bookmarks-sidebar.png" />
+      </td>
     </tr>
     <tr>
       <td>
@@ -149,10 +134,7 @@ Extensions that use WebExtension APIs are provided with several user interface o
         add-ons manager.
       </td>
       <td>
-        <img
-          alt="Example showing the options page content added in the favorite colors example."
-          src="options_page.png"
-        />
+        <img alt="Example showing the options page content added by the favourite-colour example in the Firefox Add-ons Manager." src="options_page.png" />
       </td>
     </tr>
     <tr>
@@ -167,10 +149,7 @@ Extensions that use WebExtension APIs are provided with several user interface o
         other content required, within windows or tabs.
       </td>
       <td>
-        <img
-          alt="Example of a simple bundled page displayed as a detached panel."
-          src="bundled_page_as_panel_small.png"
-        />
+        <img alt="Example of a simple bundled page displayed as a detached panel." src="bundled_page_as_panel_small.png" />
       </td>
     </tr>
     <tr>
@@ -187,10 +166,7 @@ Extensions that use WebExtension APIs are provided with several user interface o
         closes (either automatically or at the user's request).
       </td>
       <td>
-        <img
-          alt="Example of an extension triggered system notification"
-          src="notify-shadowed.png"
-        />
+        <img alt="Example of an extension triggered system notification on macOS" src="notify-shadowed.png" />
       </td>
     </tr>
     <tr>
@@ -204,10 +180,7 @@ Extensions that use WebExtension APIs are provided with several user interface o
         Offer custom address bar suggestions when the user enters a keyword.
       </td>
       <td>
-        <img
-          alt="Example showing the result of the firefox_code_search WebExtension&#x27;s customization of the address bar suggestions."
-          src="omnibox_example_small.png"
-        />
+        <img alt="Example showing the firefox-code-search example's address bar suggestions." src="omnibox_example_small.png" />
       </td>
     </tr>
     <tr>
@@ -222,10 +195,7 @@ Extensions that use WebExtension APIs are provided with several user interface o
         developer tools.
       </td>
       <td>
-        <img
-          alt="Example showing the result of the firefox_code_search WebExtension&#x27;s customization of the address bar suggestions."
-          src="developer_panel_tab.png"
-        />
+        <img alt="Example of a custom panel, My Panel, in the Firefox developer tools." src="developer_panel_tab.png" />
       </td>
     </tr>
   </tbody>

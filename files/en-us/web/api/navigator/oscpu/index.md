@@ -1,28 +1,18 @@
 ---
-title: Navigator.oscpu
+title: "Navigator: oscpu property"
+short-title: oscpu
 slug: Web/API/Navigator/oscpu
-tags:
-  - API
-  - Deprecated
-  - HTML DOM
-  - Navigator
-  - Property
-  - Reference
+page-type: web-api-instance-property
 browser-compat: api.Navigator.oscpu
 ---
-{{ ApiRef("HTML DOM") }} {{Deprecated_Header}}
 
-The **`Navigator.oscpu`** property returns a string that identifies the current operating system.
+{{ ApiRef("HTML DOM") }}
 
-## Syntax
+The **`oscpu`** read-only property of the {{domxref("Navigator")}} interface returns a string that identifies the current operating system.
 
-```js
-oscpuInfo = navigator.oscpu
-```
+## Value
 
-### Value
-
-A {{domxref("DOMString")}} providing a string which identifies the operating system on which the browser is running.
+A string providing a string which identifies the operating system on which the browser is running.
 
 | Operating system              | `oscpuInfo` string format                         |
 | ----------------------------- | ------------------------------------------------- |
@@ -38,7 +28,11 @@ A {{domxref("DOMString")}} providing a string which identifies the operating sys
 
 In this table `x.y` refers to the version of the operating system
 
-## Example
+## Usage notes
+
+Unless your code is privileged (chrome or at least has the UniversalBrowserRead privilege), it may get the value of the `general.oscpu.override` preference instead of the true platform.
+
+## Examples
 
 ```js
 function osInfo() {
@@ -47,10 +41,6 @@ function osInfo() {
 
 osInfo(); // alerts "Windows NT 6.0" for example
 ```
-
-## Usage notes
-
-Unless your code is privileged (chrome or at least has the UniversalBrowserRead privilege), it may get the value of the `general.oscpu.override` preference instead of the true platform.
 
 ## Specifications
 

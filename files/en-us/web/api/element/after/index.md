@@ -1,31 +1,31 @@
 ---
-title: Element.after()
+title: "Element: after() method"
+short-title: after()
 slug: Web/API/Element/after
-tags:
-  - API
-  - DOM
-  - Method
-  - Node
-  - Reference
+page-type: web-api-instance-method
 browser-compat: api.Element.after
 ---
+
 {{APIRef("DOM")}}
 
-The **`Element.after()`** method inserts a set of
-{{domxref("Node")}} or {{domxref("DOMString")}} objects in the children list of the
-`Element`'s parent, just after the `Element`.
-{{domxref("DOMString")}} objects are inserted as equivalent {{domxref("Text")}} nodes.
+The **`after()`** method of the {{domxref("Element")}} interface inserts a set of {{domxref("Node")}} objects or strings in the children list of the `Element`'s parent, just after the `Element`. Strings are inserted as equivalent {{domxref("Text")}} nodes. Nothing happens if {{domxref("Node.parentNode", "parentNode")}} is `null`.
 
 ## Syntax
 
-```js
-after(... nodes)
+```js-nolint
+after(param1)
+after(param1, param2)
+after(param1, param2, /* …, */ paramN)
 ```
 
 ### Parameters
 
-- `nodes`
-  - : A set of {{domxref("Node")}} or {{domxref("DOMString")}} objects to insert.
+- `param1`, …, `paramN`
+  - : A set of {{domxref("Node")}} objects or strings to insert.
+
+### Return value
+
+None ({{jsxref("undefined")}}).
 
 ### Exceptions
 
@@ -51,8 +51,8 @@ console.log(container.outerHTML);
 ### Inserting text
 
 ```js
-let container = document.createElement("div");
-let p = document.createElement("p");
+const container = document.createElement("div");
+const p = document.createElement("p");
 container.appendChild(p);
 
 p.after("Text");
@@ -64,10 +64,10 @@ console.log(container.outerHTML);
 ### Inserting an element and text
 
 ```js
-let container = document.createElement("div");
-let p = document.createElement("p");
+const container = document.createElement("div");
+const p = document.createElement("p");
 container.appendChild(p);
-let span = document.createElement("span");
+const span = document.createElement("span");
 
 p.after(span, "Text");
 
@@ -87,6 +87,8 @@ console.log(container.outerHTML);
 
 - {{domxref("Element.before()")}}
 - {{domxref("Element.append()")}}
-- {{domxref("Node.appendChild()")}}
 - {{domxref("Element.insertAdjacentElement()")}}
+- {{domxref("CharacterData.after()")}}
+- {{domxref("DocumentType.after()")}}
+- {{domxref("Node.appendChild()")}}
 - {{domxref("NodeList")}}

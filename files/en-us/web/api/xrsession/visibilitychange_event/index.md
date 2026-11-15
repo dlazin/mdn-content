@@ -1,39 +1,36 @@
 ---
-title: 'XRSession: visibilitychange event'
+title: "XRSession: visibilitychange event"
+short-title: visibilitychange
 slug: Web/API/XRSession/visibilitychange_event
-tags:
-  - API
-  - Event
-  - Reference
-  - WebXR
-  - XR
-  - XRSession
+page-type: web-api-event
+status:
+  - experimental
 browser-compat: api.XRSession.visibilitychange_event
 ---
-{{APIRef("WebXR Device API")}}
+
+{{APIRef("WebXR Device API")}}{{SeeCompatTable}}{{SecureContext_Header}}
 
 The **`visibilitychange`** event is sent to an {{domxref("XRSession")}} to inform it when it becomes visible or hidden, or when it becomes visible but not currently focused. Upon receiving the event, you can check the value of the session's {{domxref("XRSession.visibilityState", "visibilityState")}} property to determine the new visibility state.
 
 ## Syntax
 
-Use the event name in methods like {{domxref("EventTarget.addEventListener", "addEventListener()")}}, or set an event handler property.
+Use the event name in {{domxref("EventTarget/addEventListener", "addEventListener()")}}:
 
-```js
-addEventListener('visibilitychange', (event) => { });
+```js-nolint
+addEventListener("visibilitychange", (event) => { })
+```
 
-onvisibilitychange = event => { });
+Alternatively, assign to the [event handler property](/en-US/docs/Web/API/Document_Object_Model/Events#using_onevent_properties) of the interface:
+
+```js-nolint
+onvisibilitychange = (event) => { }
 ```
 
 ## Event type
 
 An {{domxref("XRSessionEvent")}}. Inherits from {{domxref("Event")}}.
 
-## Event properties
-
-_In addition to the properties listed below, properties from the parent interface, {{domxref("Event")}}, are available._
-
-- {{domxref("XRSessionEvent.session", "session")}} {{ReadOnlyInline}}
-  - : The {{domxref("XRSession")}} to which the event refers.
+{{InheritanceDiagram("XRSessionEvent")}}
 
 ## Description
 
@@ -53,8 +50,8 @@ This example demonstrates how to listen for a `visibilitychange` event on a WebX
 
 ```js
 navigator.xr.requestSession("inline").then((xrSession) => {
-  xrSession.addEventListener("visibilitychange", e => {
-    switch(e.session.visibilityState) {
+  xrSession.addEventListener("visibilitychange", (e) => {
+    switch (e.session.visibilityState) {
       case "visible":
       case "visible-blurred":
         mySessionVisible(true);
@@ -69,7 +66,7 @@ navigator.xr.requestSession("inline").then((xrSession) => {
 
 When a visibility state change occurs, the event is received and dispatched to a function `mySessionVisible()`, with a Boolean parameter indicating whether or not the session is presently being displayed to the user.
 
-You can also create the event handler by assigning it to the {{domxref("XRSession")}}'s `onvisibilitychange` event handler property, like this:
+You can also create the event handler by assigning it to the {{domxref("XRSession")}}'s `onvisibilitychange` event handler property, like this (but note that this replaces other event listeners added using `onvisibilitychange`, if any):
 
 ```js
 xrSession.onvisibilitychange = (e) => {
