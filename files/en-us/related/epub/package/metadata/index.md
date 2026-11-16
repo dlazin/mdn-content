@@ -6,7 +6,7 @@ page-type: guide
 sidebar: epub
 ---
 
-The **`<metadata>`** element is the first required child of the `<package>` element in an EPUB [package file](/en-US/docs/Related/EPUB/Package) (`.opf`). It contains bibliographic and publication metadata about the ebook—such as its title, unique identifier, language, and author—using elements from the [Dublin Core Metadata Element Set](https://www.dublincore.org/specifications/dublin-core/dcmi-terms/) (`dc:`) along with EPUB `<meta>` elements.
+The **`<metadata>`** element is the first required child of the `<package>` element in an EPUB [package file](/en-US/docs/Related/EPUB/Package) (`.opf`). It contains bibliographic and publication metadata about the ebook—such as its title, unique identifier, language, and author—using elements from the [Dublin Core Metadata Element Set](https://www.dublincore.org/specifications/dublin-core/dcmi-terms/) (`dc:`) along with EPUB `<meta>` and `<link>` elements.
 
 To use Dublin Core elements in `<metadata>`, the `<package>` element (or the `<metadata>` element itself) must declare the Dublin Core namespace: `xmlns:dc="http://purl.org/dc/elements/1.1/"`.
 
@@ -66,7 +66,17 @@ Every EPUB `<metadata>` section must include `<dc:identifier>`, `<dc:title>`, an
 
 ## Optional Dublin Core elements
 
-In addition to the required elements, an EPUB `<metadata>` section can include optional Dublin Core elements to provide richer bibliographic information.
+In addition to the required elements, an EPUB `<metadata>` section can include optional Dublin Core elements to provide richer bibliographic information. Each element below can appear multiple times unless noted otherwise.
+
+- [`<dc:contributor>`](https://www.dublincore.org/specifications/dublin-core/dcmi-terms/terms/contributor/)
+  - : Specifies a person, organization, or service that made a secondary contribution to the publication—such as an editor, illustrator, translator, or narrator.
+
+    ```xml
+    <dc:contributor id="contrib-1">Rockwell Kent</dc:contributor>
+    <meta refines="#contrib-1" property="role" scheme="marc:relators">ill</meta>
+    ```
+
+    Like `<dc:creator>`, if a publication has multiple contributors, list each in a separate `<dc:contributor>` element and optionally refine it with a `<meta property="role">` element to identify the contributor's specific role.
 
 - [`<dc:creator>`](https://www.dublincore.org/specifications/dublin-core/dcmi-terms/terms/creator/)
   - : Specifies a primary creator of the publication, typically the author.
@@ -79,6 +89,39 @@ In addition to the required elements, an EPUB `<metadata>` section can include o
 
     > [!NOTE]
     > Many reading systems display only the first `<dc:creator>` element.
+
+- [`<dc:date>`](https://www.dublincore.org/specifications/dublin-core/dcmi-terms/terms/date/)
+  - : Specifies the publication date of the EPUB. Unlike other optional Dublin Core elements, `<metadata>` may contain at most one `<dc:date>` element.
+
+    Format the value using an [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date or UTC timestamp—most commonly `YYYY-MM-DD`, `YYYY-MM`, or `YYYY`:
+
+    ```xml
+    <dc:date>1851-10-18</dc:date>
+    ```
+
+    Do not use `<dc:date>` for the last modification date of the EPUB file; use the required `<meta property="dcterms:modified">` element for modification timestamps.
+
+- [`<dc:subject>`](https://www.dublincore.org/specifications/dublin-core/dcmi-terms/terms/subject/)
+  - : Specifies a topic, keyword, or subject classification for the publication. Use a separate `<dc:subject>` element for each subject.
+
+    ```xml
+    <dc:subject>Whaling -- Fiction</dc:subject>
+    ```
+
+    To associate a `<dc:subject>` element with a standardized subject taxonomy (such as BISAC or Thema), give the `<dc:subject>` an `id` and refine it with `<meta>` elements using the `authority` and `term` properties:
+
+    ```xml
+    <dc:subject id="subj-1">FICTION / Classics</dc:subject>
+    <meta refines="#subj-1" property="authority">BISAC</meta>
+    <meta refines="#subj-1" property="term">FIC004000</meta>
+    ```
+
+- [`<dc:type>`](https://www.dublincore.org/specifications/dublin-core/dcmi-terms/terms/type/)
+  - : Specifies the nature, genre, or specialized functional type of the publication (for example, `dictionary`, `index`, or `preview`).
+
+    ```xml
+    <dc:type>dictionary</dc:type>
+    ```
 
 ## Examples
 
@@ -108,8 +151,13 @@ The following example shows a minimal `<metadata>` section inside a package file
 - [EPUB 3.3: The `dc:identifier` element](https://www.w3.org/TR/epub-33/#sec-opf-dcidentifier)
 - [EPUB 3.3: The `dc:title` element](https://www.w3.org/TR/epub-33/#sec-opf-dctitle)
 - [EPUB 3.3: The `dc:language` element](https://www.w3.org/TR/epub-33/#sec-opf-dclanguage)
-- [EPUB 3.3: The `meta` element](https://www.w3.org/TR/epub-33/#sec-meta-elem)
+- [EPUB 3.3: DCMES optional elements](https://www.w3.org/TR/epub-33/#sec-opf-dcmes-optional-def)
+- [EPUB 3.3: The `dc:contributor` element](https://www.w3.org/TR/epub-33/#sec-opf-dccontributor)
 - [EPUB 3.3: The `dc:creator` element](https://www.w3.org/TR/epub-33/#sec-opf-dccreator)
+- [EPUB 3.3: The `dc:date` element](https://www.w3.org/TR/epub-33/#sec-opf-dcdate)
+- [EPUB 3.3: The `dc:subject` element](https://www.w3.org/TR/epub-33/#sec-opf-dcsubject)
+- [EPUB 3.3: The `dc:type` element](https://www.w3.org/TR/epub-33/#sec-opf-dctype)
+- [EPUB 3.3: The `meta` element](https://www.w3.org/TR/epub-33/#sec-meta-elem)
 
 ## See also
 
