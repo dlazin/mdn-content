@@ -164,6 +164,36 @@ In addition to the required elements, an EPUB `<metadata>` section can include a
     <dc:type>dictionary</dc:type>
     ```
 
+## Other metadata elements
+
+Beyond the Dublin Core elements, the `<metadata>` section supports two EPUB elements from the Open Packaging Format namespace (`http://www.idpf.org/2007/opf`) for expressing additional properties and linking external metadata records:
+
+- `<meta>`
+  - : Expresses a metadata property that applies either to the entire publication or to another element via its attributes:
+    - `property`: Required. The name of the metadata property (from the [EPUB package vocabularies](https://www.w3.org/TR/epub-33/#app-vocabs) or a prefixed vocabulary such as `dcterms:` or `schema:`).
+    - `refines`: Optional. A relative IRI fragment (such as `refines="#creator-1"`) pointing to the `id` of another metadata element or manifest item that this `<meta>` element describes in more detail.
+    - `scheme`: Optional. Identifies the controlled vocabulary or code list used for the element's value (such as `marc:relators` or `onix:codelist5`).
+
+    Common uses of `<meta>` include sorting names (`property="file-as"`), contributor roles (`property="role"`), title types (`property="title-type"`), series or collection membership (`property="belongs-to-collection"`), and [accessibility metadata](https://www.w3.org/TR/epub-a11y-11/) (`property="schema:accessMode"`, `property="schema:accessibilityFeature"`, `property="schema:accessibilitySummary"`):
+
+    ```xml
+    <dc:creator id="creator-1">Herman Melville</dc:creator>
+    <meta refines="#creator-1" property="file-as">Melville, Herman</meta>
+    <meta refines="#creator-1" property="role" scheme="marc:relators">aut</meta>
+    ```
+
+- `<link>`
+  - : Associates an external or container-internal resource with the publication (for example, an ONIX or MARC bibliographic record). It takes the following attributes:
+    - `href`: Required. The URL or relative path to the linked resource.
+    - `rel`: Required. A space-separated list of link relation values (such as `record`, `acquire`, `alternate`, or `voicing`).
+    - `media-type`: Required when linking to a file inside the EPUB container (unless `rel` is `record` and `properties` identifies the format); optional for external URLs. Specifies the MIME type of the linked resource.
+    - `refines`: Optional. A fragment identifier (`#id`) if the linked resource describes a specific element rather than the publication as a whole.
+    - `properties`: Optional. Space-separated properties providing additional context about the linked resource (such as `onix` or `xmp`).
+
+    ```xml
+    <link rel="record" href="META-INF/onix.xml" media-type="application/xml" properties="onix" />
+    ```
+
 ## Examples
 
 ### Minimal package metadata section
@@ -186,6 +216,48 @@ The following example shows a minimal `<metadata>` section inside a package file
 </package>
 ```
 
+### Package metadata with optional elements and refinements
+
+The following example shows a richer `<metadata>` section that combines optional Dublin Core elements (`<dc:creator>`, `<dc:contributor>`, `<dc:publisher>`, `<dc:date>`, `<dc:description>`, `<dc:subject>`, `<dc:rights>`) with `<meta>` refinements for subtitles, author sorting, contributor roles, and BISAC subject codes:
+
+```xml
+<package xmlns="http://www.idpf.org/2007/opf"
+         xmlns:dc="http://purl.org/dc/elements/1.1/"
+         version="3.0"
+         unique-identifier="pub-id">
+  <metadata>
+    <dc:identifier id="pub-id">urn:isbn:9780142437247</dc:identifier>
+
+    <dc:title id="main-title">Moby-Dick</dc:title>
+    <meta refines="#main-title" property="title-type">main</meta>
+    <dc:title id="sub-title">or, The Whale</dc:title>
+    <meta refines="#sub-title" property="title-type">subtitle</meta>
+
+    <dc:language>en-US</dc:language>
+
+    <dc:creator id="author">Herman Melville</dc:creator>
+    <meta refines="#author" property="file-as">Melville, Herman</meta>
+    <meta refines="#author" property="role" scheme="marc:relators">aut</meta>
+
+    <dc:contributor id="illustrator">Rockwell Kent</dc:contributor>
+    <meta refines="#illustrator" property="role" scheme="marc:relators">ill</meta>
+
+    <dc:publisher>Penguin Classics</dc:publisher>
+    <dc:date>1851-10-18</dc:date>
+    <dc:description>Ishmael recounts the obsessive voyage of Captain Ahab aboard the whaling ship Pequod.</dc:description>
+
+    <dc:subject id="subj-1">FICTION / Classics</dc:subject>
+    <meta refines="#subj-1" property="authority">BISAC</meta>
+    <meta refines="#subj-1" property="term">FIC004000</meta>
+
+    <dc:rights>Public domain in the United States.</dc:rights>
+
+    <meta property="dcterms:modified">2023-05-25T12:00:00Z</meta>
+  </metadata>
+  <!-- <manifest> and <spine> follow -->
+</package>
+```
+
 ## Specifications
 
 - [EPUB 3.3: The `metadata` element](https://www.w3.org/TR/epub-33/#sec-metadata-elem)
@@ -199,6 +271,7 @@ The following example shows a minimal `<metadata>` section inside a package file
 - [EPUB 3.3: The `dc:subject` element](https://www.w3.org/TR/epub-33/#sec-opf-dcsubject)
 - [EPUB 3.3: The `dc:type` element](https://www.w3.org/TR/epub-33/#sec-opf-dctype)
 - [EPUB 3.3: The `meta` element](https://www.w3.org/TR/epub-33/#sec-meta-elem)
+- [EPUB 3.3: The `link` element](https://www.w3.org/TR/epub-33/#sec-link-elem)
 
 ## See also
 
