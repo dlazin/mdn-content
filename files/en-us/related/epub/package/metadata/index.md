@@ -14,6 +14,25 @@ To use Dublin Core elements in `<metadata>`, the `<package>` element (or the `<m
 
 Every EPUB `<metadata>` section must include `<dc:identifier>`, `<dc:title>`, and `<dc:language>`, as well as a `<meta property="dcterms:modified">` element.
 
+- [`<dc:identifier>`](https://www.dublincore.org/specifications/dublin-core/dcmi-terms/terms/identifier/)
+  - : Specifies a unique identifier for the publication, such as an ISBN, DOI, URL, or [UUID](/en-US/docs/Glossary/UUID). Every EPUB must include at least one `<dc:identifier>` element.
+
+    An EPUB can include multiple `<dc:identifier>` elements (for example, both an ISBN and an internal publisher ID). One `<dc:identifier>` element must have an `id` attribute whose value matches the `unique-identifier` attribute on the root `<package>` element, designating it as the primary identifier for the publication:
+
+    ```xml
+    <package xmlns="http://www.idpf.org/2007/opf"
+             xmlns:dc="http://purl.org/dc/elements/1.1/"
+             version="3.0"
+             unique-identifier="pub-id">
+      <metadata>
+        <dc:identifier id="pub-id">urn:uuid:a1b2c3d4-e5f6-7890-abcd-ef1234567890</dc:identifier>
+        <!-- ... -->
+      </metadata>
+    </package>
+    ```
+
+    The primary identifier is intended to be unique across all ebooks worldwide. If your publication does not have an assigned industry identifier such as an ISBN (`urn:isbn:...`) or DOI (`doi:...`), generate a UUID prefixed with `urn:uuid:`.
+
 - [`<dc:title>`](https://www.dublincore.org/specifications/dublin-core/dcmi-terms/terms/title/)
   - : Specifies the title of the publication. Every EPUB must include at least one `<dc:title>` element.
 
@@ -43,7 +62,7 @@ In addition to the required elements, an EPUB `<metadata>` section can include o
 
 ### Minimal package metadata section
 
-The following example shows a minimal `<metadata>` section inside a package file, including `<dc:title>` and `<dc:creator>` alongside the other required metadata fields:
+The following example shows a minimal `<metadata>` section inside a package file, including `<dc:identifier>`, `<dc:title>`, and `<dc:creator>` alongside the other required metadata fields:
 
 ```xml
 <package xmlns="http://www.idpf.org/2007/opf"
@@ -64,6 +83,7 @@ The following example shows a minimal `<metadata>` section inside a package file
 ## Specifications
 
 - [EPUB 3.3: The `metadata` element](https://www.w3.org/TR/epub-33/#sec-metadata-elem)
+- [EPUB 3.3: The `dc:identifier` element](https://www.w3.org/TR/epub-33/#sec-opf-dcidentifier)
 - [EPUB 3.3: The `dc:title` element](https://www.w3.org/TR/epub-33/#sec-opf-dctitle)
 - [EPUB 3.3: The `dc:creator` element](https://www.w3.org/TR/epub-33/#sec-opf-dccreator)
 
