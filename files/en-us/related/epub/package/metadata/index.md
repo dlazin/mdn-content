@@ -42,6 +42,17 @@ Every EPUB `<metadata>` section must include `<dc:identifier>`, `<dc:title>`, an
 
     If a publication has multiple `<dc:title>` elements (for example, a main title and a subtitle), reading systems treat the first `<dc:title>` element in document order as the primary title unless a `<meta>` element with the `title-type` property specifies otherwise.
 
+- [`<dc:language>`](https://www.dublincore.org/specifications/dublin-core/dcmi-terms/terms/language/)
+  - : Specifies the language of the publication's content. Every EPUB must include at least one `<dc:language>` element.
+
+    The value must be a valid [BCP 47](https://www.rfc-editor.org/info/bcp47) language tag (such as `en` for English, `en-US` for American English, `fr` for French, or `ja` for Japanese). Reading systems use this value to select default fonts, hyphenation rules, and text-to-speech voices.
+
+    ```xml
+    <dc:language>en</dc:language>
+    ```
+
+    If a publication contains content in multiple languages, you can include multiple `<dc:language>` elements; the first `<dc:language>` element in document order represents the primary language of the publication.
+
 ## Optional Dublin Core elements
 
 In addition to the required elements, an EPUB `<metadata>` section can include optional Dublin Core elements to provide richer bibliographic information.
@@ -62,7 +73,7 @@ In addition to the required elements, an EPUB `<metadata>` section can include o
 
 ### Minimal package metadata section
 
-The following example shows a minimal `<metadata>` section inside a package file, including `<dc:identifier>`, `<dc:title>`, and `<dc:creator>` alongside the other required metadata fields:
+The following example shows a minimal `<metadata>` section inside a package file, including `<dc:identifier>`, `<dc:title>`, `<dc:language>`, and `<dc:creator>` alongside `<meta property="dcterms:modified">`:
 
 ```xml
 <package xmlns="http://www.idpf.org/2007/opf"
@@ -85,6 +96,7 @@ The following example shows a minimal `<metadata>` section inside a package file
 - [EPUB 3.3: The `metadata` element](https://www.w3.org/TR/epub-33/#sec-metadata-elem)
 - [EPUB 3.3: The `dc:identifier` element](https://www.w3.org/TR/epub-33/#sec-opf-dcidentifier)
 - [EPUB 3.3: The `dc:title` element](https://www.w3.org/TR/epub-33/#sec-opf-dctitle)
+- [EPUB 3.3: The `dc:language` element](https://www.w3.org/TR/epub-33/#sec-opf-dclanguage)
 - [EPUB 3.3: The `dc:creator` element](https://www.w3.org/TR/epub-33/#sec-opf-dccreator)
 
 ## See also
