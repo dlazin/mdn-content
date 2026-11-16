@@ -66,7 +66,7 @@ Every EPUB `<metadata>` section must include `<dc:identifier>`, `<dc:title>`, an
 
 ## Optional Dublin Core elements
 
-In addition to the required elements, an EPUB `<metadata>` section can include optional Dublin Core elements to provide richer bibliographic information. Each element below can appear multiple times unless noted otherwise.
+In addition to the required elements, an EPUB `<metadata>` section can include any of the remaining 12 elements from the Dublin Core Metadata Element Set. Each element below can appear multiple times unless noted otherwise.
 
 - [`<dc:contributor>`](https://www.dublincore.org/specifications/dublin-core/dcmi-terms/terms/contributor/)
   - : Specifies a person, organization, or service that made a secondary contribution to the publication—such as an editor, illustrator, translator, or narrator.
@@ -77,6 +77,13 @@ In addition to the required elements, an EPUB `<metadata>` section can include o
     ```
 
     Like `<dc:creator>`, if a publication has multiple contributors, list each in a separate `<dc:contributor>` element and optionally refine it with a `<meta property="role">` element to identify the contributor's specific role.
+
+- [`<dc:coverage>`](https://www.dublincore.org/specifications/dublin-core/dcmi-terms/terms/coverage/)
+  - : Specifies the spatial or temporal topic of the publication (such as a geographic location or historical period covered by the work) or the jurisdiction under which the resource is relevant.
+
+    ```xml
+    <dc:coverage>19th century</dc:coverage>
+    ```
 
 - [`<dc:creator>`](https://www.dublincore.org/specifications/dublin-core/dcmi-terms/terms/creator/)
   - : Specifies a primary creator of the publication, typically the author.
@@ -100,6 +107,40 @@ In addition to the required elements, an EPUB `<metadata>` section can include o
     ```
 
     Do not use `<dc:date>` for the last modification date of the EPUB file; use the required `<meta property="dcterms:modified">` element for modification timestamps.
+
+- [`<dc:description>`](https://www.dublincore.org/specifications/dublin-core/dcmi-terms/terms/description/)
+  - : Provides a plain-text summary, abstract, or blurb describing the publication's content. Reading systems and ebook storefronts commonly display this text in book details views.
+
+    ```xml
+    <dc:description>Ishmael recounts the obsessive voyage of Captain Ahab aboard the whaling ship Pequod.</dc:description>
+    ```
+
+- [`<dc:format>`](https://www.dublincore.org/specifications/dublin-core/dcmi-terms/terms/format/)
+  - : Specifies the file format, physical medium, or dimensions of the resource. In EPUB publications, this element is rarely needed because the container format is already declared as `application/epub+zip` in the [`mimetype`](/en-US/docs/Related/EPUB/Structure/mimetype) file.
+
+- [`<dc:publisher>`](https://www.dublincore.org/specifications/dublin-core/dcmi-terms/terms/publisher/)
+  - : Specifies the entity responsible for making the publication available, such as a publishing house, organization, or self-publishing imprint.
+
+    ```xml
+    <dc:publisher>Richard Bentley</dc:publisher>
+    ```
+
+- [`<dc:relation>`](https://www.dublincore.org/specifications/dublin-core/dcmi-terms/terms/relation/)
+  - : Identifies a related resource by string or URI (for example, a companion website or related work).
+
+- [`<dc:rights>`](https://www.dublincore.org/specifications/dublin-core/dcmi-terms/terms/rights/)
+  - : Provides a copyright notice, license statement, or information about rights held in and over the publication.
+
+    ```xml
+    <dc:rights>Public domain in the United States.</dc:rights>
+    ```
+
+- [`<dc:source>`](https://www.dublincore.org/specifications/dublin-core/dcmi-terms/terms/source/)
+  - : Identifies a prior resource from which the EPUB publication is derived, such as the ISBN of the print edition used as the source for pagination or digitization.
+
+    ```xml
+    <dc:source>urn:isbn:9780142437247</dc:source>
+    ```
 
 - [`<dc:subject>`](https://www.dublincore.org/specifications/dublin-core/dcmi-terms/terms/subject/)
   - : Specifies a topic, keyword, or subject classification for the publication. Use a separate `<dc:subject>` element for each subject.
