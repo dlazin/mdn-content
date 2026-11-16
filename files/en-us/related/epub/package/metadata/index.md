@@ -53,6 +53,17 @@ Every EPUB `<metadata>` section must include `<dc:identifier>`, `<dc:title>`, an
 
     If a publication contains content in multiple languages, you can include multiple `<dc:language>` elements; the first `<dc:language>` element in document order represents the primary language of the publication.
 
+- [`<meta property="dcterms:modified">`](https://www.dublincore.org/specifications/dublin-core/dcmi-terms/terms/modified/)
+  - : Specifies the date and time when the EPUB publication was last modified. Every EPUB `<metadata>` section must include exactly one `<meta property="dcterms:modified">` element that applies to the publication as a whole (without a `refines` attribute).
+
+    The value must be a Coordinated Universal Time (UTC) timestamp formatted as `YYYY-MM-DDThh:mm:ssZ` (ending with a literal `Z` time zone indicator, with no fractional seconds or local time offsets):
+
+    ```xml
+    <meta property="dcterms:modified">2023-05-25T12:00:00Z</meta>
+    ```
+
+    Reading systems and distribution platforms combine the primary `<dc:identifier>` with this modification timestamp to distinguish between different revisions of the same ebook. Update this timestamp whenever you modify any file in the EPUB.
+
 ## Optional Dublin Core elements
 
 In addition to the required elements, an EPUB `<metadata>` section can include optional Dublin Core elements to provide richer bibliographic information.
@@ -73,7 +84,7 @@ In addition to the required elements, an EPUB `<metadata>` section can include o
 
 ### Minimal package metadata section
 
-The following example shows a minimal `<metadata>` section inside a package file, including `<dc:identifier>`, `<dc:title>`, `<dc:language>`, and `<dc:creator>` alongside `<meta property="dcterms:modified">`:
+The following example shows a minimal `<metadata>` section inside a package file, containing the four required metadata elements alongside the optional `<dc:creator>` element:
 
 ```xml
 <package xmlns="http://www.idpf.org/2007/opf"
@@ -97,6 +108,7 @@ The following example shows a minimal `<metadata>` section inside a package file
 - [EPUB 3.3: The `dc:identifier` element](https://www.w3.org/TR/epub-33/#sec-opf-dcidentifier)
 - [EPUB 3.3: The `dc:title` element](https://www.w3.org/TR/epub-33/#sec-opf-dctitle)
 - [EPUB 3.3: The `dc:language` element](https://www.w3.org/TR/epub-33/#sec-opf-dclanguage)
+- [EPUB 3.3: The `meta` element](https://www.w3.org/TR/epub-33/#sec-meta-elem)
 - [EPUB 3.3: The `dc:creator` element](https://www.w3.org/TR/epub-33/#sec-opf-dccreator)
 
 ## See also
