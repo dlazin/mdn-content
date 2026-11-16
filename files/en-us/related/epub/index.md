@@ -1,15 +1,10 @@
 ---
-title: 'EPUB: Open Ebooks'
+title: "EPUB: Open Ebooks"
+short-title: EPUB
 slug: Related/EPUB
-tags:
-  - EPUB
-  - Ebook
-  - Ebooks
-  - Guide
-  - Landing
-  - Reference
+page-type: landing-page
+sidebar: epub
 ---
-{{EPUBRef}}
 
 **EPUB** (**Electronic Publication**) is ... [XHTML](/en-US/docs/Web/Guide/HTML/XHTML), [XML](/en-US/docs/Web/XML/XML_introduction), [SVG](/en-US/docs/Web/SVG), and [MathML](/en-US/docs/Web/MathML)).
 

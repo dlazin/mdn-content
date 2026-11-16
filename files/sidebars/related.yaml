@@ -4,6 +4,8 @@ sidebar:
   - type: section
     link: /Related
   - type: section
+    link: /Related/EPUB
+  - type: section
     link: /Related/IMSC
   - /Related/IMSC/Basics
   - /Related/IMSC/Using_the_imscJS_polyfill

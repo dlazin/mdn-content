@@ -1,14 +1,10 @@
 ---
-title: 'EPUB Structure'
+title: EPUB Structure
+short-title: Structure overview
 slug: Related/EPUB/Structure
-tags:
-  - EPUB
-  - Ebook
-  - Ebooks
-  - Guide
-  - Reference
+page-type: guide
+sidebar: epub
 ---
-{{EPUBRef}}
 
 An unzipped EPUB file is a folder that contains two primary directories and a `mimetype` file. One of
 the directories is always named [`META-INF`](/en-US/docs/Related/EPUB/Structure/META-INF) and houses

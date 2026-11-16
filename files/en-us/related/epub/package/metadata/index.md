@@ -3,13 +3,8 @@ title: EPUB package metadata
 short-title: Metadata
 slug: Related/EPUB/Package/Metadata
 page-type: guide
-tags:
-  - EPUB
-  - Ebook
-  - Ebooks
-  - Reference
+sidebar: epub
 ---
-{{EPUBRef}}
 
 The **`<metadata>`** element is the first required child of the `<package>` element in an EPUB [package file](/en-US/docs/Related/EPUB/Package) (`.opf`). It contains bibliographic and publication metadata about the ebook—such as its title, unique identifier, language, and author—using elements from the [Dublin Core Metadata Element Set](https://www.dublincore.org/specifications/dublin-core/dcmi-terms/) (`dc:`) along with EPUB `<meta>` elements.
 
