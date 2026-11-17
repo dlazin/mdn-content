@@ -1,6 +1,5 @@
 ---
-title: Open Container Format (OCF)
-short-title: Open Container Format (OCF)
+title: Open Container Format
 slug: Related/EPUB/Structure/OCF
 page-type: guide
 sidebar: epub

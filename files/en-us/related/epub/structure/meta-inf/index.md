@@ -1,5 +1,5 @@
 ---
-title: The EPUB META-INF directory
+title: EPUB META-INF directory
 short-title: META-INF
 slug: Related/EPUB/Structure/META-INF
 page-type: guide

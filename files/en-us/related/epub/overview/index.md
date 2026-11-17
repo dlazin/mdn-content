@@ -6,45 +6,46 @@ page-type: guide
 sidebar: epub
 ---
 
-**EPUB** (**Electronic Publication**) is the open, vendor-neutral file format for digital books (ebooks) and publications, standardized by the [World Wide Web Consortium (W3C)](https://www.w3.org/TR/epub-33/). An `.epub` file packages [XHTML](/en-US/docs/Glossary/XHTML) text, [CSS](/en-US/docs/Web/CSS) stylesheets, images, fonts, and optional audio or video—along with [XML](/en-US/docs/Web/XML/Guides/XML_introduction) metadata and navigation files—into a single compressed archive that works offline across phones, tablets, computers, and dedicated e-readers.
+**EPUB** (**Electronic Publication**) is the open, vendor-neutral file format for digital books (ebooks) and publications, standardized by the [World Wide Web Consortium (W3C)](https://www.w3.org/TR/epub-33/). An `.epub` file packages [XHTML](/en-US/docs/Glossary/XHTML) text and optional [CSS](/en-US/docs/Web/CSS) stylesheets, images, fonts, audio or video—along with [XML](/en-US/docs/Web/XML/Guides/XML_introduction) metadata and navigation files—into a single compressed archive that works offline across phones, tablets, computers, and dedicated e-readers.
 
-## Reflowable vs. fixed-layout ebooks
+## Reflow vs. fixed layout
 
-Unlike a PDF, which locks every page to fixed print dimensions, a standard **reflowable EPUB** adapts its layout dynamically to fit the reader's screen and preferences:
+Unlike a PDF, which locks every page to fixed dimensions, a reflowable EPUB adapts its layout dynamically to fit the reader's screen and preferences. Reading systems automatically divide each chapter into screen-sized pages. When a reader rotates a tablet, opens the book on a small phone, or enlarges the font size, line breaks and page counts recalculate on the fly.
 
-- **Adaptive pagination**: Reading systems automatically divide each chapter into screen-sized pages. When a reader rotates a tablet, opens the book on a small phone, or enlarges the font size, line breaks and page counts recalculate on the fly.
-- **Reader customization and accessibility**: Readers can change typefaces, line spacing, margins, and color themes (such as dark mode or sepia), or read the book with a screen reader, refreshable braille display, or built-in text-to-speech voice.
+For reflowable books, reading systems generally let users change typefaces, line spacing, margins, and color themes (such as dark mode or sepia), or read the book with a screen reader, refreshable braille display, or text-to-speech voice.
 
-EPUB 3 also supports **fixed-layout** publications—where each page has exact pixel dimensions for comics, children's picture books, or heavily illustrated cookbooks—though most trade, academic, and technical ebooks use reflowable layouts so they remain readable and accessible on every device. This documentation focuses on reflowable EPUB 3 publications.
+EPUB 3 also supports fixed-layout publications, where each page is predesigned to a fixed size. Fixed layout is most frequently used for children's picture books or heavily illustrated cookbooks.
+
+Most ebooks use reflowable layouts so they remain easy to read on any device. This documentation focuses on reflowable publications.
 
 ## EPUB 3 and EPUB 2
 
-EPUB was originally developed by the International Digital Publishing Forum (IDPF), which published EPUB 2 in 2007 and EPUB 3 in 2011 before merging into the W3C in 2017. Today, **EPUB 3** (currently at [EPUB 3.3](https://www.w3.org/TR/epub-33/)) is the standard version used across modern publishing workflows and distributors.
+EPUB was first standardized by the [International Digital Publishing Forum (IDPF)](https://idpf.org/), which published the specification for the Open eBook Publication Structure in 1999, followed by EPUB 2 in 2007 and EPUB 3 in 2011. The IDPF merged into the W3C in 2017. The current [EPUB 3.3](https://www.w3.org/TR/epub-33/) recommendation, released in 2024, is backward-compatible with previous versions of EPUB 3 and thus supported by most publishing workflows and distributors.
 
 Unlike EPUB 2, which relied on XHTML 1.1, a limited subset of CSS 2, and standalone XML navigation formats, EPUB 3:
 
-- Uses modern [HTML](/en-US/docs/Web/HTML) (serialized as [XHTML](/en-US/docs/Glossary/XHTML)), [CSS](/en-US/docs/Web/CSS), [SVG](/en-US/docs/Web/SVG), and [MathML](/en-US/docs/Web/MathML).
-- Replaces the legacy XML `.ncx` table of contents and `<guide>` element with an HTML [`<nav>`](/en-US/docs/Related/EPUB/Navigation)-based navigation document (`nav.xhtml`).
-- Supports embedded [`<audio>`](/en-US/docs/Related/EPUB/Content/Audio), [`<video>`](/en-US/docs/Related/EPUB/Content/Video), synchronized read-aloud narration (Media Overlays), and optional [JavaScript](/en-US/docs/Related/EPUB/Content/Scripting).
-- Adds global language support—including right-to-left page progression, vertical writing modes, and `<ruby>` annotations—alongside rich [accessibility metadata](https://www.w3.org/TR/epub-a11y-11/) and [WAI-ARIA](/en-US/docs/Web/Accessibility/ARIA) roles.
+- Uses semi-modern [HTML](/en-US/docs/Web/HTML) (serialized as [XHTML](/en-US/docs/Glossary/XHTML)), [CSS](/en-US/docs/Web/CSS), [SVG](/en-US/docs/Web/SVG), and [MathML](/en-US/docs/Web/MathML).
+- Replaces the legacy XML `.ncx` table of contents with an HTML-based [navigation document](/en-US/docs/Related/EPUB/Navigation)).
+- Supports embedded [`<audio>`](/en-US/docs/Related/EPUB/Content/Audio), [`<video>`](/en-US/docs/Related/EPUB/Content/Video), synchronized read-aloud narration (Media Overlays), and [JavaScript](/en-US/docs/Related/EPUB/Content/Scripting).
+- Adds global language support—including right-to-left text and page progression and vertical writing modes—alongside rich [accessibility metadata](https://www.w3.org/TR/epub-a11y-11/) and [ARIA](/en-US/docs/Web/Accessibility/ARIA) roles.
 
-## Reading system and retailer support
+## App and retailer support
 
-EPUB is supported natively across nearly all ebook apps, devices, and lending platforms, including Apple Books, Google Play Books, Rakuten Kobo, Barnes & Noble Nook, PocketBook, OverDrive/Libby, and Readium-based desktop readers such as Thorium Reader.
+EPUB is supported natively across nearly all ebook apps, devices, retailers, and lending platforms, including Apple Books, Google Play Books, Kobo, Libby, Nook, PocketBook, and Readium-based desktop readers such as Thorium Reader.
 
-Amazon Kindle devices and apps do not render `.epub` files directly on the device; instead, Amazon uses EPUB as an input format. Publishers and authors upload `.epub` files to Kindle Direct Publishing (KDP) and Send to Kindle, and Amazon converts those EPUBs into Kindle's proprietary format for delivery to readers. As a result, authoring a valid EPUB 3 file lets you distribute a single master ebook across all major storefronts, libraries, and direct-download channels.
+Amazon Kindle devices and apps do not render EPUB directly on the device; instead, Amazon uses EPUB as an input format. Publishers and authors upload `.epub` files to Kindle Direct Publishing (KDP) or the Send to Kindle service, and Amazon converts those EPUBs into Kindle's proprietary format.
 
-## What is inside an `.epub` file?
+## Creating an EPUB
 
-Most commercial ebooks are exported from authoring or layout software—such as Adobe InDesign, Pandoc, Pressbooks, Vellum, Sigil, or Calibre—which generates the required container scaffolding automatically. Under the hood, however, every `.epub` file is a [ZIP archive](/en-US/docs/Related/EPUB/Structure/OCF) containing plain text, XML, XHTML, CSS, and media files that you can inspect and edit directly:
+Most commercial ebooks are exported from authoring or layout software—most commonly Adobe InDesign, after the print book has been laid out. The export operation generates the required container scaffolding automatically. Under the hood, however, every `.epub` file is a specialized [ZIP archive](/en-US/docs/Related/EPUB/Structure/OCF) containing XML, XHTML, CSS, and media files that you can inspect and edit directly:
 
-1. **[`mimetype`](/en-US/docs/Related/EPUB/Structure/mimetype)**: An uncompressed one-line file (`application/epub+zip`) at the very start of the ZIP archive that identifies the file as an EPUB.
-2. **[`META-INF/container.xml`](/en-US/docs/Related/EPUB/Structure/META-INF)**: A small XML file that points the reading system to the publication's package file.
-3. **[Package file (`.opf`)](/en-US/docs/Related/EPUB/Package)**: An XML file in the [content directory](/en-US/docs/Related/EPUB/Structure/Content) that holds the book's bibliographic [`<metadata>`](/en-US/docs/Related/EPUB/Package/Metadata), complete file [`<manifest>`](/en-US/docs/Related/EPUB/Package/Manifest), and chapter reading-order [`<spine>`](/en-US/docs/Related/EPUB/Package/Spine).
-4. **[Navigation document (`nav.xhtml`)](/en-US/docs/Related/EPUB/Navigation)**: An XHTML file containing the [table of contents](/en-US/docs/Related/EPUB/Navigation/TOC) and optional [landmarks](/en-US/docs/Related/EPUB/Navigation/Landmarks) and [page lists](/en-US/docs/Related/EPUB/Navigation/Page-list).
-5. **[Publication content](/en-US/docs/Related/EPUB/Content)**: The [XHTML](/en-US/docs/Related/EPUB/Content/XHTML) chapter files, [CSS](/en-US/docs/Related/EPUB/Content/CSS) stylesheets, [fonts](/en-US/docs/Related/EPUB/Content/Fonts), [images](/en-US/docs/Related/EPUB/Content/Images), and media assets that readers actually experience.
+- [`mimetype`](/en-US/docs/Related/EPUB/Structure/mimetype): An uncompressed one-line file at the very start of the ZIP archive that identifies the file as an EPUB.
+- [`META-INF/container.xml`](/en-US/docs/Related/EPUB/Structure/META-INF): A small XML file that points the reading system to the publication's package file.
+- [Package file (`.opf`)](/en-US/docs/Related/EPUB/Package): An XML file in the [content directory](/en-US/docs/Related/EPUB/Structure/Content) that holds the [bibliographic metadata](/en-US/docs/Related/EPUB/Package/Metadata), [file manifest](/en-US/docs/Related/EPUB/Package/Manifest), and [reading order](/en-US/docs/Related/EPUB/Package/Spine).
+- [Navigation document](/en-US/docs/Related/EPUB/Navigation): An XHTML file containing the [table of contents](/en-US/docs/Related/EPUB/Navigation/TOC) and optional [landmarks](/en-US/docs/Related/EPUB/Navigation/Landmarks) and [page lists](/en-US/docs/Related/EPUB/Navigation/Page-list).
+- [Publication content](/en-US/docs/Related/EPUB/Content): The [XHTML](/en-US/docs/Related/EPUB/Content/XHTML) chapter files, [CSS](/en-US/docs/Related/EPUB/Content/CSS) stylesheets, [fonts](/en-US/docs/Related/EPUB/Content/Fonts), [images](/en-US/docs/Related/EPUB/Content/Images), and other media assets that readers actually experience.
 
-Because reading systems and retailer ingestion pipelines reject malformed archives or invalid XML, always validate finished `.epub` files with [EPUBCheck](https://www.w3.org/publishing/epubcheck/), the official open-source W3C conformance checker.
+Because reading systems and retailer pipelines reject malformed EPUBs, completed `.epub` files should always be validated with [EPUBCheck](https://www.w3.org/publishing/epubcheck/), the W3C's conformance checker.
 
 ## Specifications
 

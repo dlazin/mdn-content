@@ -16,13 +16,13 @@ book.epub/
 └── OEBPS/
     ├── package.opf
     ├── nav.xhtml
-    ├── styles/
-    │   └── main.css
     ├── fonts/
     │   └── literata-regular.woff2
     ├── images/
     │   ├── cover.jpg
     │   └── map.png
+    ├── styles/
+    │   └── main.css
     └── text/
         ├── cover.xhtml
         ├── chapter-1.xhtml
@@ -48,11 +48,11 @@ Every publication resource stored in the content directory **must** be declared 
 
 One of the most common sources of broken links and missing images in hand-edited EPUBs is mixing up base directories when writing relative paths. Depending on which file you are editing, relative URLs resolve from one of **three different base locations**:
 
-| File containing the path | Path is relative to | Example target: `OEBPS/images/cover.jpg` |
-| --- | --- | --- |
-| Files in [`META-INF/`](/en-US/docs/Related/EPUB/Structure/META-INF) (`container.xml`, `encryption.xml`) | **Container root directory** | `OEBPS/package.opf` (or `OEBPS/fonts/display.otf` in `encryption.xml`) |
-| [Package file](/en-US/docs/Related/EPUB/Package) (`OEBPS/package.opf`) | **Directory containing `package.opf`** (`OEBPS/`) | `images/cover.jpg` |
-| Content files (`OEBPS/text/cover.xhtml` or `OEBPS/styles/main.css`) | **Directory containing that file** (`OEBPS/text/` or `OEBPS/styles/`) | `../images/cover.jpg` |
+| File containing the path                                                                                | Path is relative to                                                   | Example target: `OEBPS/images/cover.jpg`                               |
+| ------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------- | ---------------------------------------------------------------------- |
+| Files in [`META-INF/`](/en-US/docs/Related/EPUB/Structure/META-INF) (`container.xml`, `encryption.xml`) | **Container root directory**                                          | `OEBPS/package.opf` (or `OEBPS/fonts/display.otf` in `encryption.xml`) |
+| [Package file](/en-US/docs/Related/EPUB/Package) (`OEBPS/package.opf`)                                  | **Directory containing `package.opf`** (`OEBPS/`)                     | `images/cover.jpg`                                                     |
+| Content files (`OEBPS/text/cover.xhtml` or `OEBPS/styles/main.css`)                                     | **Directory containing that file** (`OEBPS/text/` or `OEBPS/styles/`) | `../images/cover.jpg`                                                  |
 
 For example, given the directory tree at the top of this page:
 

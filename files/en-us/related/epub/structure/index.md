@@ -16,10 +16,10 @@ book.epub/
 └── OEBPS/
     ├── package.opf
     ├── nav.xhtml
-    ├── styles/
-    │   └── main.css
     ├── images/
     │   └── cover.jpg
+    ├── styles/
+    │   └── main.css
     └── text/
         ├── cover.xhtml
         └── chapter-1.xhtml
