@@ -32,7 +32,7 @@ sidebar:
   - title: Publication content
     details: open
     children:
-      - /Related/EPUB/Content/Overview
+      - /Related/EPUB/Content
       - /Related/EPUB/Content/XHTML
       - /Related/EPUB/Content/SVG
       - /Related/EPUB/Content/CSS
