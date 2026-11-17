@@ -6,7 +6,7 @@ page-type: guide
 sidebar: epub
 ---
 
-In EPUB 3, the chapters and text sections of a book are written as **[XHTML](/en-US/docs/Glossary/XHTML) content documents**—standard [HTML](/en-US/docs/Web/HTML) documents written using strict [XML](/en-US/docs/Web/XML/XML_introduction) syntax rules and declared in the package [`<manifest>`](/en-US/docs/Related/EPUB/Package/Manifest) with `media-type="application/xhtml+xml"`.
+In EPUB 3, the chapters and text sections of a book are written as **[XHTML](/en-US/docs/Glossary/XHTML) content documents**—standard [HTML](/en-US/docs/Web/HTML) documents written using strict [XML](/en-US/docs/Web/XML/Guides/XML_introduction) syntax rules and declared in the package [`<manifest>`](/en-US/docs/Related/EPUB/Package/Manifest) with `media-type="application/xhtml+xml"`.
 
 Most reflowable ebooks divide the book into one `.xhtml` file per chapter or major section (such as `cover.xhtml`, `copyright.xhtml`, `chapter-1.xhtml`, and `chapter-2.xhtml`) and list those files in reading order in the package [`<spine>`](/en-US/docs/Related/EPUB/Package/Spine). Splitting a book by chapter helps e-readers load chapters quickly even on low-memory devices and ensures each chapter starts cleanly on a new screen page.
 
