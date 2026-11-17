@@ -3,13 +3,8 @@ title: The EPUB META-INF directory
 short-title: META-INF
 slug: Related/EPUB/Structure/META-INF
 page-type: guide
-tags:
-  - EPUB
-  - Ebook
-  - Ebooks
-  - Reference
+sidebar: epub
 ---
-{{EPUBRef}}
 
 Every EPUB contains a directory named **`META-INF`** in the root directory of the container. This directory holds container-level files that tell reading systems how to locate and process the publication, most importantly the required `container.xml` file.
 
@@ -49,7 +44,7 @@ In almost all EPUB publications, `META-INF/container.xml` has the following stru
 In addition to `container.xml`, the EPUB specification reserves several optional filenames in the `META-INF` directory. Most EPUBs do not need any of these optional files unless they use font obfuscation or Digital Rights Management (DRM):
 
 - `encryption.xml`
-  - : Describes how files in the container are encrypted and holds the keys needed to decrypt them. In practice, this file is almost always used either for font obfuscation (protecting licensed font files embedded in the ebook) or for DRM schemes.
+  - : Describes how files in the container are encrypted and holds the keys needed to decrypt them. In practice, this file is almost always used either for [font obfuscation](/en-US/docs/Related/EPUB/Content/Fonts#font_licensing_and_obfuscation) (protecting licensed font files embedded in the ebook) or for DRM schemes.
 - `signatures.xml`
   - : Contains digital signatures for files in the container, allowing a reading system to verify the authenticity and integrity of the publication.
 - `metadata.xml`
@@ -61,11 +56,11 @@ In addition to `container.xml`, the EPUB specification reserves several optional
 
 ## Specifications
 
-- [EPUB 3.3: META-INF](https://www.w3.org/TR/epub-33/#sec-container-metainf)
+- [EPUB 3.3: `META-INF` directory](https://www.w3.org/TR/epub-33/#sec-container-metainf)
 
 ## See also
 
 - [EPUB structure](/en-US/docs/Related/EPUB/Structure)
 - [The EPUB `mimetype` file](/en-US/docs/Related/EPUB/Structure/mimetype)
 - [Content directory](/en-US/docs/Related/EPUB/Structure/Content)
-- [Package file](/en-US/docs/Related/EPUB/Package)
+- [EPUB package file](/en-US/docs/Related/EPUB/Package)

@@ -10,22 +10,22 @@ sidebar:
   - title: Structure
     details: open
     children:
-      - /Related/EPUB/Structure/Overview
+      - /Related/EPUB/Structure
       - /Related/EPUB/Structure/OCF
-      - /Related/EPUB/Structure/Mimetype
+      - /Related/EPUB/Structure/mimetype
       - /Related/EPUB/Structure/META-INF
       - /Related/EPUB/Structure/Content
   - title: Package file
     details: open
     children:
-      - /Related/EPUB/Package/Overview
+      - /Related/EPUB/Package
       - /Related/EPUB/Package/Metadata
       - /Related/EPUB/Package/Manifest
       - /Related/EPUB/Package/Spine
   - title: Navigation
     details: open
     children:
-      - /Related/EPUB/Navigation/Overview
+      - /Related/EPUB/Navigation
       - /Related/EPUB/Navigation/TOC
       - /Related/EPUB/Navigation/Landmarks
       - /Related/EPUB/Navigation/Page-list

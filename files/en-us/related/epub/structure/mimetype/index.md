@@ -3,13 +3,8 @@ title: The EPUB mimetype file
 short-title: mimetype
 slug: Related/EPUB/Structure/mimetype
 page-type: guide
-tags:
-  - EPUB
-  - Ebook
-  - Ebooks
-  - Reference
+sidebar: epub
 ---
-{{EPUBRef}}
 
 Every EPUB contains an identical **`mimetype`** file in the root directory of the container. Its sole contents are the ASCII string `application/epub+zip`:
 
@@ -45,11 +40,11 @@ Every EPUB `mimetype` file must follow strict formatting and packaging rules:
 
 ## Specifications
 
-- [EPUB 3.3: The `mimetype` file](https://www.w3.org/TR/epub-33/#sec-zip-container-mime)
+- [EPUB 3.3: OCF ZIP container media type identification](https://www.w3.org/TR/epub-33/#sec-zip-container-mime)
 
 ## See also
 
 - [EPUB structure](/en-US/docs/Related/EPUB/Structure)
 - [Open Container Format (OCF)](/en-US/docs/Related/EPUB/Structure/OCF)
 - [`META-INF` directory](/en-US/docs/Related/EPUB/Structure/META-INF)
-- [Common MIME types](/en-US/docs/Web/HTTP/Basics_of_HTTP/MIME_types/Common_types)
+- [Common MIME types](/en-US/docs/Web/HTTP/Guides/MIME_types/Common_types)

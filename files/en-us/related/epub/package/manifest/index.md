@@ -30,14 +30,14 @@ Every `<manifest>` element must contain one or more **`<item>`** elements. Each 
 - `id`
   - : A unique XML identifier for the resource within the package file. Other parts of the package file—most notably [`<itemref>`](/en-US/docs/Related/EPUB/Package/Spine) elements in the `<spine>`, `fallback` chains, and `<meta refines="#...">` elements in [`<metadata>`](/en-US/docs/Related/EPUB/Package/Metadata)—reference the resource using this `id`.
 - `href`
-  - : The path (IRI) to the resource. For files stored inside the EPUB container, this path is relative to the directory containing the `.opf` package file (not relative to the root of the EPUB container, unless the `.opf` file itself is in the root). Each `<item>` in `<manifest>` must have a unique `href`, and the `href` must not include a fragment identifier (`#...`).
+  - : The path (URL) to the resource. For files stored inside the EPUB container, this path is relative to the directory containing the `.opf` package file (not relative to the root of the EPUB container, unless the `.opf` file itself is in the root). Each `<item>` in `<manifest>` must have a unique `href`, and the `href` must not include a fragment identifier (`#...`).
 - `media-type`
-  - : The [MIME media type](/en-US/docs/Web/HTTP/Basics_of_HTTP/MIME_types) indicating the format of the resource. Common media types in EPUB include:
+  - : The [MIME media type](/en-US/docs/Web/HTTP/Guides/MIME_types) indicating the format of the resource. Common media types in EPUB include:
     - `application/xhtml+xml` for XHTML content documents and the navigation document
     - `text/css` for CSS stylesheets
     - `image/jpeg`, `image/png`, `image/gif`, `image/webp`, and `image/svg+xml` for images
     - `font/ttf`, `font/otf`, `font/woff`, and `font/woff2` for fonts
-    - `audio/mpeg` and `audio/mp4` for audio
+    - `audio/mpeg`, `audio/mp4`, and `audio/ogg` for audio
     - `text/javascript` for scripts
     - `application/smil+xml` for Media Overlay documents
 
@@ -46,7 +46,7 @@ Every `<manifest>` element must contain one or more **`<item>`** elements. Each 
 - `properties`
   - : A space-separated list of property tokens that declare special roles or features of the resource (see [Manifest item properties](#manifest_item_properties) later on this page).
 - `fallback`
-  - : The `id` of another `<item>` in the manifest that serves as a fallback if a reading system does not support the current item's `media-type`. A fallback chain is required when an `<item>` with a [non-core media type](https://www.w3.org/TR/epub-33/#sec-core-media-types) is referenced directly in the [`<spine>`](/en-US/docs/Related/EPUB/Package/Spine) or embedded without native HTML fallback mechanisms (such as `<picture>`, `<audio>`, `<video>`, or `<object>`).
+  - : The `id` of another `<item>` in the manifest that serves as a fallback if a reading system does not support the current item's `media-type`. A fallback chain is required when an `<item>` with a non-core media type (see [Core media types](/en-US/docs/Related/EPUB/Content/Core_media_types)) is referenced directly in the [`<spine>`](/en-US/docs/Related/EPUB/Package/Spine) or embedded without native HTML fallback mechanisms (such as `<picture>`, `<audio>`, `<video>`, or `<object>`).
 - `media-overlay`
   - : The `id` of an `<item>` in the manifest that references a Media Overlay document (`application/smil+xml`) providing synchronized audio playback for this content document.
 
@@ -126,7 +126,8 @@ The following example shows a more complete `<manifest>` that includes a cover i
 
 ## See also
 
-- [Package file](/en-US/docs/Related/EPUB/Package)
+- [EPUB package file](/en-US/docs/Related/EPUB/Package)
 - [EPUB package metadata](/en-US/docs/Related/EPUB/Package/Metadata)
 - [EPUB package spine](/en-US/docs/Related/EPUB/Package/Spine)
-- [EPUB navigation](/en-US/docs/Related/EPUB/Navigation)
+- [EPUB core media types](/en-US/docs/Related/EPUB/Content/Core_media_types)
+- [EPUB navigation document](/en-US/docs/Related/EPUB/Navigation)
