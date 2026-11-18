@@ -6,7 +6,7 @@ page-type: guide
 sidebar: epub
 ---
 
-The optional `encryption.xml` file in [`META-INF`](/en-US/docs/Related/EPUB/Reference/Structure/OCF#meta-inf_directory) lists any encrypted or obfuscated files in an EPUB archive and describes how to decode them. Most EPUBs omit `encryption.xml` unless they use [font obfuscation](#font_obfuscation) or vendor Digital Rights Management (DRM).
+The optional `encryption.xml` file in [`META-INF`](/en-US/docs/Related/EPUB/Reference/Structure/META-INF) lists any encrypted or obfuscated files in an EPUB archive and describes how to decode them. Most EPUBs omit `encryption.xml` unless they use [font obfuscation](#font_obfuscation) or vendor Digital Rights Management (DRM).
 
 `META-INF/encryption.xml` is required if any resource in the container is encrypted or obfuscated.
 

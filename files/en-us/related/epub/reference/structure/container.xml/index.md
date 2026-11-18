@@ -6,7 +6,7 @@ page-type: guide
 sidebar: epub
 ---
 
-Every EPUB archive must include a `container.xml` file inside its root [`META-INF`](/en-US/docs/Related/EPUB/Reference/Structure/OCF#meta-inf_directory) directory. It tells reading systems where to find the book's [package file](/en-US/docs/Related/EPUB/Reference/Package).
+Every EPUB archive must include a `container.xml` file inside its root [`META-INF`](/en-US/docs/Related/EPUB/Reference/Structure/META-INF) directory. It tells reading systems where to find the book's [package file](/en-US/docs/Related/EPUB/Reference/Package).
 
 Like other files in `META-INF`, `container.xml` must not be encrypted and must not be listed in the package [manifest](/en-US/docs/Related/EPUB/Reference/Package/Manifest).
 

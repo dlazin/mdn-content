@@ -9,7 +9,7 @@ sidebar: epub
 This [EPUB](/en-US/docs/Related/EPUB) reference describes the container files, package metadata and manifest elements, navigation documents, and publication content formats of an EPUB 3 ebook.
 
 - [EPUB structure](/en-US/docs/Related/EPUB/Reference/Structure)
-  - : The ZIP archive layout of an EPUB, including the [Open Container Format](/en-US/docs/Related/EPUB/Reference/Structure/OCF), [`mimetype`](/en-US/docs/Related/EPUB/Reference/Structure/mimetype), [`container.xml`](/en-US/docs/Related/EPUB/Reference/Structure/container.xml), [`encryption.xml`](/en-US/docs/Related/EPUB/Reference/Structure/encryption.xml), and the [content directory](/en-US/docs/Related/EPUB/Reference/Structure/Content).
+  - : The ZIP archive layout of an EPUB, including the [Open Container Format](/en-US/docs/Related/EPUB/Reference/Structure/OCF), [`mimetype`](/en-US/docs/Related/EPUB/Reference/Structure/mimetype), [`META-INF`](/en-US/docs/Related/EPUB/Reference/Structure/META-INF), [`container.xml`](/en-US/docs/Related/EPUB/Reference/Structure/container.xml), [`encryption.xml`](/en-US/docs/Related/EPUB/Reference/Structure/encryption.xml), and the [content directory](/en-US/docs/Related/EPUB/Reference/Structure/Content).
 - [EPUB package file](/en-US/docs/Related/EPUB/Reference/Package)
   - : The XML index declaring bibliographic [metadata](/en-US/docs/Related/EPUB/Reference/Package/Metadata), the file [manifest](/en-US/docs/Related/EPUB/Reference/Package/Manifest), and the reading-order [spine](/en-US/docs/Related/EPUB/Reference/Package/Spine).
 - [EPUB navigation document](/en-US/docs/Related/EPUB/Reference/Navigation)

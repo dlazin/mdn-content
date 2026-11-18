@@ -15,6 +15,7 @@ sidebar:
     children:
       - /Related/EPUB/Reference/Structure/OCF
       - /Related/EPUB/Reference/Structure/mimetype
+      - /Related/EPUB/Reference/Structure/META-INF
       - /Related/EPUB/Reference/Structure/container.xml
       - /Related/EPUB/Reference/Structure/encryption.xml
       - /Related/EPUB/Reference/Structure/Content

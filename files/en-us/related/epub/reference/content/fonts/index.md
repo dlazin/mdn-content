@@ -25,7 +25,7 @@ WOFF2 (`font/woff2`) produces the smallest EPUB files thanks to built-in compres
 
 To embed custom fonts in an EPUB:
 
-1. Place the font files in your [content directory](/en-US/docs/Related/EPUB/Reference/Structure/Content) (for example, `OEBPS/fonts`) and declare each file in the [manifest](/en-US/docs/Related/EPUB/Reference/Package/Manifest):
+1. Place the font files in your [content directory](/en-US/docs/Related/EPUB/Reference/Structure/Content) (for example, `EPUB/fonts`) and declare each file in the [manifest](/en-US/docs/Related/EPUB/Reference/Package/Manifest):
 
    ```xml
    <manifest>

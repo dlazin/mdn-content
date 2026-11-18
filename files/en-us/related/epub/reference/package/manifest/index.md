@@ -8,7 +8,7 @@ sidebar: epub
 
 The `<manifest>` element is the second child of `<package>` in an EPUB [package file](/en-US/docs/Related/EPUB/Reference/Package), placed between the [metadata](/en-US/docs/Related/EPUB/Reference/Package/Metadata) and the [spine](/en-US/docs/Related/EPUB/Reference/Package/Spine). It lists every publication resource used to render the book, including XHTML chapters, the [navigation document](/en-US/docs/Related/EPUB/Reference/Navigation), CSS stylesheets, images, fonts, audio, video, and scripts.
 
-Every publication resource in the [content directory](/en-US/docs/Related/EPUB/Reference/Structure/Content) (as well as any remote audio, video, or font resource) must have an `<item>` entry in the manifest. Container files ([`mimetype`](/en-US/docs/Related/EPUB/Reference/Structure/mimetype) and files in [`META-INF`](/en-US/docs/Related/EPUB/Reference/Structure/OCF#meta-inf_directory)), the package file itself, and standalone metadata records linked from the metadata must not appear in the manifest.
+Every publication resource in the [content directory](/en-US/docs/Related/EPUB/Reference/Structure/Content) (as well as any remote audio, video, or font resource) must have an `<item>` entry in the manifest. Container files ([`mimetype`](/en-US/docs/Related/EPUB/Reference/Structure/mimetype) and files in [`META-INF`](/en-US/docs/Related/EPUB/Reference/Structure/META-INF)), the package file itself, and standalone metadata records linked from the metadata must not appear in the manifest.
 
 The order of items in the manifest does not affect chapter order; reading order is set by the [spine](/en-US/docs/Related/EPUB/Reference/Package/Spine).
 
