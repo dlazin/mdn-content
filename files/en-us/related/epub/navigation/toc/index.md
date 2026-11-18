@@ -6,7 +6,7 @@ page-type: guide
 sidebar: epub
 ---
 
-In EPUB 3, the **table of contents (TOC)** is an HTML [`<nav>`](/en-US/docs/Web/HTML/Reference/Elements/nav) element with `epub:type="toc"` inside the book's [navigation document](/en-US/docs/Related/EPUB/Navigation) (`nav.xhtml`):
+In EPUB 3, the **table of contents (TOC)** is an HTML [`<nav>`](/en-US/docs/Web/HTML/Reference/Elements/nav) element with `epub:type="toc"` inside the book's [navigation document](/en-US/docs/Related/EPUB/Navigation):
 
 ```xml
 <nav epub:type="toc" role="doc-toc" aria-labelledby="toc-heading" id="toc">
@@ -18,22 +18,22 @@ In EPUB 3, the **table of contents (TOC)** is an HTML [`<nav>`](/en-US/docs/Web/
 </nav>
 ```
 
-Every EPUB [navigation document](/en-US/docs/Related/EPUB/Navigation) must contain exactly one `<nav epub:type="toc">` element. Links in the TOC should follow the same order as the documents in [`<spine>`](/en-US/docs/Related/EPUB/Package/Spine) and the sections within each document, though the TOC can omit minor frontmatter files and link to multiple subheadings inside a single chapter (see [Spine vs. navigation](/en-US/docs/Related/EPUB/Package/Spine#spine_vs_navigation)).
+Every EPUB [navigation document](/en-US/docs/Related/EPUB/Navigation) must contain exactly one table of contents. Links in the TOC should follow the same order as the documents in the [spine](/en-US/docs/Related/EPUB/Package/Spine) and the sections within each document, though the TOC can omit minor frontmatter files and link to multiple subheadings inside a single chapter (see [Spine vs. navigation](/en-US/docs/Related/EPUB/Package/Spine#spine_vs_navigation)).
 
 ## Structure and elements
 
-`<nav epub:type="toc">` follows the [EPUB `<nav>` content rules](/en-US/docs/Related/EPUB/Navigation#content_rules_for_nav_elements) and builds a single-level or nested outline from these elements:
+The table of contents follows the [EPUB `<nav>` content rules](/en-US/docs/Related/EPUB/Navigation#content_rules_for_nav_elements) and builds a single-level or nested outline from these elements:
 
 - `<nav epub:type="toc">`
-  - : Container for the table of contents. When `nav.xhtml` is rendered visibly in `<spine>` (without `hidden=""`), include [`role="doc-toc"`](https://www.w3.org/TR/dpub-aria-1.1/#doc-toc) and label the region with `aria-labelledby` (pointing to the heading's `id`) or `aria-label` for screen readers.
+  - : Container for the table of contents. When the navigation document is rendered visibly in the spine (without `hidden=""`), include [`role="doc-toc"`](https://www.w3.org/TR/dpub-aria-1.1/#doc-toc) and label the region with `aria-labelledby` (pointing to the heading's `id`) or `aria-label` for screen readers.
 - [`<h1>`–`<h6>`](/en-US/docs/Web/HTML/Reference/Elements/Heading_Elements)
   - : Optional heading for the TOC (such as `<h1 id="toc-heading">Contents</h1>`).
 - [`<ol>`](/en-US/docs/Web/HTML/Reference/Elements/ol)
-  - : A level in the TOC hierarchy containing one or more `<li>` elements. Add [`hidden=""`](/en-US/docs/Web/HTML/Reference/Global_attributes/hidden) to deeply nested `<ol>` sublists if you want to omit lower-level headings from the visible [in-book TOC page](/en-US/docs/Related/EPUB/Navigation#including_nav_xhtml_in_the_reading_order) while keeping them in the reading app's expandable TOC menu.
+  - : A level in the TOC hierarchy containing one or more `<li>` elements. Add [`hidden=""`](/en-US/docs/Web/HTML/Reference/Global_attributes/hidden) to deeply nested `<ol>` sublists if you want to omit lower-level headings from the visible [in-book TOC page](/en-US/docs/Related/EPUB/Navigation#including_the_navigation_document_in_the_reading_order) while keeping them in the reading app's expandable TOC menu.
 - [`<li>`](/en-US/docs/Web/HTML/Reference/Elements/li)
   - : A single TOC entry, starting with one `<a>` or `<span>` and optionally followed by one nested `<ol>` for subsections (required after `<span>`).
 - [`<a>`](/en-US/docs/Web/HTML/Reference/Elements/a)
-  - : Links to a chapter or `#` fragment in a `<spine>` document, with a non-empty text label.
+  - : Links to a chapter or `#` fragment in a spine document, with a non-empty text label.
 - [`<span>`](/en-US/docs/Web/HTML/Reference/Elements/span)
   - : An unlinked group heading (such as `<span>Part I</span>` when Part I has no dedicated page), followed by a nested `<ol>`.
 

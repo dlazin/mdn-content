@@ -30,7 +30,7 @@ Every EPUB `mimetype` file must follow strict formatting and packaging rules:
 - The file must be stored uncompressed (using the ZIP `STORE` method rather than `DEFLATE`) and unencrypted so that it remains plain text in the archive header.
 - The ZIP header for `mimetype` must not include extra fields that would shift the `application/epub+zip` string away from byte offset 38.
 
-For command-line `zip` instructions that add `mimetype` with these flags, see [Packaging and inspecting `.epub` files](/en-US/docs/Related/EPUB/Structure/OCF#packaging_and_inspecting_epub_files).
+For command-line `zip` instructions that add `mimetype` with these flags, see [Packaging and inspecting EPUB files](/en-US/docs/Related/EPUB/Structure/OCF#packaging_and_inspecting_epub_files).
 
 ## Specifications
 

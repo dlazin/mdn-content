@@ -6,7 +6,7 @@ page-type: guide
 sidebar: epub
 ---
 
-EPUB 3 uses standard [Cascading Style Sheets (CSS)](/en-US/docs/Web/CSS) to style [XHTML](/en-US/docs/Related/EPUB/Content/XHTML) and [SVG](/en-US/docs/Related/EPUB/Content/SVG) content documents. Every `.css` file must be encoded in UTF-8 (or UTF-16, with UTF-8 recommended), stored inside the EPUB container, declared in [`<manifest>`](/en-US/docs/Related/EPUB/Package/Manifest) with `media-type="text/css"`, and linked from each content document that uses it.
+EPUB 3 uses standard [Cascading Style Sheets (CSS)](/en-US/docs/Web/CSS) to style [XHTML](/en-US/docs/Related/EPUB/Content/XHTML) and [SVG](/en-US/docs/Related/EPUB/Content/SVG) content documents. Every stylesheet must be encoded in UTF-8 (or UTF-16, with UTF-8 recommended), stored inside the EPUB container, declared in the [manifest](/en-US/docs/Related/EPUB/Package/Manifest) with `media-type="text/css"`, and linked from each content document that uses it.
 
 ## Designing CSS for reflowable ebooks
 
@@ -36,7 +36,7 @@ EPUB 3 allows any standard CSS property except two directional properties, which
 Because a reading system may disable CSS or render text non-visually (such as text-to-speech or refreshable braille), setting right-to-left or bidirectional text order only in CSS would scramble text when stylesheets are not applied. Declare text direction in markup instead using the HTML [`dir`](/en-US/docs/Web/HTML/Reference/Global_attributes/dir) attribute (`dir="rtl"`, `dir="ltr"`, or `dir="auto"`) and [`<bdo>`](/en-US/docs/Web/HTML/Reference/Elements/bdo) (or SVG's `direction` attribute).
 
 > [!NOTE]
-> Vertical text layout via CSS [`writing-mode`](/en-US/docs/Web/CSS/Reference/Properties/writing-mode) (such as `writing-mode: vertical-rl` for vertically typeset Japanese or Chinese ebooks) is allowed in EPUB CSS and is usually paired with `page-progression-direction="rtl"` on [`<spine>`](/en-US/docs/Related/EPUB/Package/Spine).
+> Vertical text layout via CSS [`writing-mode`](/en-US/docs/Web/CSS/Reference/Properties/writing-mode) (such as `writing-mode: vertical-rl` for vertically typeset Japanese or Chinese ebooks) is allowed in EPUB CSS and is usually paired with `page-progression-direction="rtl"` on the [spine](/en-US/docs/Related/EPUB/Package/Spine).
 
 ## Legacy `-epub-` prefixed properties
 
@@ -103,7 +103,7 @@ figcaption {
 }
 ```
 
-Declare the stylesheet in [`<manifest>`](/en-US/docs/Related/EPUB/Package/Manifest) and link it from `<head>` in your XHTML files:
+Declare the stylesheet in the [manifest](/en-US/docs/Related/EPUB/Package/Manifest) and link it from `<head>` in your XHTML files:
 
 ```xml
 <!-- In package.opf -->

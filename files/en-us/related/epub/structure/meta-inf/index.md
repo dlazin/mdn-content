@@ -8,11 +8,11 @@ sidebar: epub
 
 Every EPUB archive contains a `META-INF` directory at its root. This directory stores container configuration files—most importantly the required `container.xml` file that tells reading systems where to find the book's [package file](/en-US/docs/Related/EPUB/Package).
 
-`META-INF` only holds container-level files. Chapters, stylesheets, images, metadata records, and the `.opf` package file belong outside `META-INF` in the [content directory](/en-US/docs/Related/EPUB/Structure/Content).
+`META-INF` only holds container-level files. Chapters, stylesheets, images, metadata records, and the package file belong outside `META-INF` in the [content directory](/en-US/docs/Related/EPUB/Structure/Content).
 
 ## The `container.xml` file
 
-Every `META-INF` directory must contain a `container.xml` file pointing to the `.opf` [package file](/en-US/docs/Related/EPUB/Package). In almost all EPUBs, `META-INF/container.xml` has the following structure, changing only the `full-path` value:
+Every `META-INF` directory must contain a `container.xml` file pointing to the [package file](/en-US/docs/Related/EPUB/Package). In almost all EPUBs, `META-INF/container.xml` has the following structure, changing only the `full-path` value:
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
@@ -33,7 +33,7 @@ Every `META-INF` directory must contain a `container.xml` file pointing to the `
 - `<rootfile>`
   - : Identifies a [package file](/en-US/docs/Related/EPUB/Package) in the archive. Although multiple `<rootfile>` elements are allowed for multi-rendition books, almost all EPUBs have just one, and reading systems are only required to use the first `<rootfile>`. Requires two attributes:
     - `full-path`
-      - : Path to the package file relative to the root of the EPUB archive (not relative to `META-INF/`), such as `OEBPS/package.opf`, `OPS/content.opf`, or `EPUB/package.opf`.
+      - : Path to the package file relative to the root of the EPUB archive (not relative to `META-INF`), such as `OEBPS/package.opf`, `OPS/content.opf`, or `EPUB/package.opf`.
     - `media-type`
       - : Must be `application/oebps-package+xml`.
 

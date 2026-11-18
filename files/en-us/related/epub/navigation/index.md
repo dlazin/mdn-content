@@ -8,7 +8,7 @@ sidebar: epub
 
 Every EPUB 3 book includes one **navigation document** (commonly named `nav.xhtml` or `toc.xhtml`). It is an [XHTML content document](/en-US/docs/Related/EPUB/Content/XHTML) (`application/xhtml+xml`) that powers the reading system's built-in navigation menus and can also appear as a table of contents page inside the book.
 
-Identify the navigation document in [`<manifest>`](/en-US/docs/Related/EPUB/Package/Manifest) by setting `properties="nav"` on its `<item>`:
+Identify the navigation document in the [manifest](/en-US/docs/Related/EPUB/Package/Manifest) by setting `properties="nav"` on its `<item>`:
 
 ```xml
 <manifest>
@@ -17,7 +17,7 @@ Identify the navigation document in [`<manifest>`](/en-US/docs/Related/EPUB/Pack
 </manifest>
 ```
 
-Inside `nav.xhtml`, each navigation list uses an HTML [`<nav>`](/en-US/docs/Web/HTML/Reference/Elements/nav) element with an [`epub:type`](/en-US/docs/Related/EPUB/Content/epub:type) attribute:
+Inside the navigation document, each navigation list uses an HTML [`<nav>`](/en-US/docs/Web/HTML/Reference/Elements/nav) element with an [`epub:type`](/en-US/docs/Related/EPUB/Content/epub:type) attribute:
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
@@ -62,9 +62,9 @@ Inside `nav.xhtml`, each navigation list uses an HTML [`<nav>`](/en-US/docs/Web/
 </html>
 ```
 
-## Types of `<nav>` elements
+## Types of navigation lists
 
-EPUB 3 defines three standard `<nav epub:type="...">` blocks—each allowed at most once in `nav.xhtml`—plus optional custom lists:
+EPUB 3 defines three standard navigation lists—each allowed at most once in the navigation document—plus optional custom lists:
 
 - [Table of contents (`epub:type="toc"`)](/en-US/docs/Related/EPUB/Navigation/TOC)
   - : Required. The book's primary outline of chapters and sections.
@@ -72,7 +72,7 @@ EPUB 3 defines three standard `<nav epub:type="...">` blocks—each allowed at m
   - : Optional. A short, flat list of major structural entry points (such as `cover`, `toc`, `bodymatter`, `glossary`, or `index`), where each `<a>` link carries its own `epub:type` attribute.
 - [Page list (`epub:type="page-list"`)](/en-US/docs/Related/EPUB/Navigation/Page-list)
   - : Optional. A flat list mapping static page numbers (usually from a print edition) to page-break anchors in the chapters.
-- Custom `<nav>` lists (such as `loi` or `lot`)
+- Custom navigation lists (such as `loi` or `lot`)
   - : Optional. Additional `<nav epub:type="...">` blocks for lists such as illustrations (`loi`) or tables (`lot`):
 
     ```xml
@@ -85,30 +85,30 @@ EPUB 3 defines three standard `<nav epub:type="...">` blocks—each allowed at m
     </nav>
     ```
 
-    Most reading apps do not build separate UI tabs for custom `<nav>` lists, so readers see them only if you include `nav.xhtml` in `<spine>` without hiding those lists.
+    Most reading apps do not build separate UI tabs for custom navigation lists, so readers see them only if you include the navigation document in the [spine](/en-US/docs/Related/EPUB/Package/Spine) without hiding those lists.
 
 ## Content rules for `<nav>` elements
 
-Outside `<nav epub:type="...">` elements, `nav.xhtml` can contain any valid [EPUB XHTML](/en-US/docs/Related/EPUB/Content/XHTML) markup. Inside any `<nav>` element with an `epub:type` attribute, EPUB restricts the HTML structure so reading apps can parse menus reliably:
+Outside `<nav epub:type="...">` elements, the navigation document can contain any valid [EPUB XHTML](/en-US/docs/Related/EPUB/Content/XHTML) markup. Inside any `<nav>` element with an `epub:type` attribute, EPUB restricts the HTML structure so reading apps can parse menus reliably:
 
 - Declare `xmlns:epub="http://www.idpf.org/2007/ops"` on `<html>` (or another ancestor).
 - Inside `<nav epub:type="...">`, include an optional heading (`<h1>`–`<h6>`) followed by a single [`<ol>`](/en-US/docs/Web/HTML/Reference/Elements/ol) ordered list. Unordered lists (`<ul>`), `<p>` paragraphs, and `<div>` wrappers are not allowed.
 - Each `<li>` inside `<ol>` must start with either an [`<a>`](/en-US/docs/Web/HTML/Reference/Elements/a) link (optionally followed by one nested `<ol>`) or an unlinked [`<span>`](/en-US/docs/Web/HTML/Reference/Elements/span) group heading (which must be followed by one nested `<ol>`).
 - Every `<a>` and `<span>` must produce a non-empty text label. Because reading apps strip HTML styling, images, and MathML when building native menus, make sure every entry reads clearly as plain text (and include `alt` text on any images inside `<a>`).
-- Links inside `toc`, `landmarks`, and `page-list` must point to content documents in the EPUB archive that are also listed in [`<spine>`](/en-US/docs/Related/EPUB/Package/Spine). Only custom `<nav>` types may link to external URLs.
+- Links inside the table of contents, landmarks, and page list must point to content documents in the EPUB archive that are also listed in the [spine](/en-US/docs/Related/EPUB/Package/Spine). Only custom navigation lists may link to external URLs.
 - List items inside EPUB `<nav>` elements default to `list-style: none`, so `<ol>` entries do not display automatic numbers (`1.`, `2.`, `3.`) unless you add custom CSS.
 
-## Including `nav.xhtml` in the reading order
+## Including the navigation document in the reading order
 
-Reading systems extract their navigation menus from `<item properties="nav">` whether or not `nav.xhtml` is listed in [`<spine>`](/en-US/docs/Related/EPUB/Package/Spine).
+Reading systems extract their navigation menus from the manifest item with `properties="nav"` whether or not the navigation document is listed in the [spine](/en-US/docs/Related/EPUB/Package/Spine).
 
-If you omit `nav.xhtml` from `<spine>`, readers open the table of contents only through the app's toolbar or menu. If you reference `nav.xhtml` in `<spine>`, it also renders as a styled page inside the book, avoiding a second HTML table of contents that could drift out of sync.
+If you omit the navigation document from the spine, readers open the table of contents only through the app's toolbar or menu. If you reference it in the spine, it also renders as a styled page inside the book, avoiding a second HTML table of contents that could drift out of sync.
 
-When `nav.xhtml` is in `<spine>`, add the HTML [`hidden`](/en-US/docs/Web/HTML/Reference/Global_attributes/hidden) attribute (`hidden=""` in XML syntax) to `<nav>` blocks or deep `<ol>` sublists that you do not want shown on the in-book page (typically `landmarks` and `page-list`). Reading systems still parse `hidden=""` navigation elements for their built-in menus.
+When the navigation document is in the spine, add the HTML [`hidden`](/en-US/docs/Web/HTML/Reference/Global_attributes/hidden) attribute (`hidden=""` in XML syntax) to `<nav>` blocks or deep `<ol>` sublists that you do not want shown on the in-book page (typically the landmarks and page list). Reading systems still parse `hidden=""` navigation elements for their built-in menus.
 
 ## EPUB 2 navigation formats
 
-EPUB 3's `nav.xhtml` replaces both EPUB 2 navigation structures: the standalone XML `.ncx` file (`toc.ncx`, referenced by `<spine toc="...">`) and the `<guide>` element in `package.opf`. You only need to include `toc.ncx` or `<guide>` if you must support older EPUB 2 e-readers.
+The EPUB 3 navigation document replaces both EPUB 2 navigation structures: the standalone XML NCX file (`toc.ncx`, referenced by `<spine toc="...">`) and the `<guide>` element in the package file. You only need to include `toc.ncx` or `<guide>` if you must support older EPUB 2 e-readers.
 
 ## Specifications
 

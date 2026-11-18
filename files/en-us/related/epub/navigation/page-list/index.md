@@ -6,7 +6,7 @@ page-type: guide
 sidebar: epub
 ---
 
-In EPUB 3, a **page list** is an optional navigation list inside the [navigation document](/en-US/docs/Related/EPUB/Navigation) (`nav.xhtml`), marked up with `<nav epub:type="page-list">`:
+In EPUB 3, a **page list** is an optional navigation list inside the [navigation document](/en-US/docs/Related/EPUB/Navigation), marked up with `<nav epub:type="page-list">`:
 
 ```xml
 <nav epub:type="page-list" hidden="">
@@ -20,19 +20,19 @@ In EPUB 3, a **page list** is an optional navigation list inside the [navigation
 </nav>
 ```
 
-Because reflowable pagination shifts whenever a reader changes font size, margins, or screen width, a `page-list` links to fixed page-break markers inside the chapters—usually matching a print edition, or static reference pages created for a digital-only book—so students, book clubs, and citations can jump to the exact same passage on any device. A navigation document may contain at most one `<nav epub:type="page-list">` element.
+Because reflowable pagination shifts whenever a reader changes font size, margins, or screen width, a page list links to fixed page-break markers inside the chapters—usually matching a print edition, or static reference pages created for a digital-only book—so students, book clubs, and citations can jump to the exact same passage on any device. A navigation document may contain at most one page list.
 
 ## Page list rules
 
-`<nav epub:type="page-list">` follows the [EPUB `<nav>` content rules](/en-US/docs/Related/EPUB/Navigation#content_rules_for_nav_elements) with these specifics:
+The page list follows the [EPUB `<nav>` content rules](/en-US/docs/Related/EPUB/Navigation#content_rules_for_nav_elements) with these specifics:
 
 - Keep `<ol>` as a single flat list of `<li>` elements without nested `<ol>` sublists or `<span>` group headings.
 - Set each `<a>` link's text to the bare page number or label (such as `iv`, `1`, `24`, or `A-1` rather than `Page 24`) so reading apps can match it against "Go to page" input.
-- Add [`hidden=""`](/en-US/docs/Web/HTML/Reference/Global_attributes/hidden) to `<nav epub:type="page-list">` when `nav.xhtml` is [included in `<spine>`](/en-US/docs/Related/EPUB/Navigation#including_nav_xhtml_in_the_reading_order) so hundreds of page links do not clutter the visible Contents page. If you do render the page list visibly without `hidden=""`, add [`role="doc-pagelist"`](https://www.w3.org/TR/dpub-aria-1.1/#doc-pagelist) and label `<nav>` with `aria-labelledby` or `aria-label`.
+- Add [`hidden=""`](/en-US/docs/Web/HTML/Reference/Global_attributes/hidden) to the `<nav>` element when the navigation document is [included in the spine](/en-US/docs/Related/EPUB/Navigation#including_the_navigation_document_in_the_reading_order) so hundreds of page links do not clutter the visible Contents page. If you do render the page list visibly without `hidden=""`, add [`role="doc-pagelist"`](https://www.w3.org/TR/dpub-aria-1.1/#doc-pagelist) and label `<nav>` with `aria-labelledby` or `aria-label`.
 
 ## Marking page breaks in content documents
 
-Each link in `page-list` points to an anchor inside an [XHTML](/en-US/docs/Related/EPUB/Content/XHTML) chapter where the new page begins. Mark each boundary using `id`, `epub:type="pagebreak"`, and [`role="doc-pagebreak"`](https://www.w3.org/TR/dpub-aria-1.1/#doc-pagebreak):
+Each link in the page list points to an anchor inside an [XHTML](/en-US/docs/Related/EPUB/Content/XHTML) chapter where the new page begins. Mark each boundary using `id`, `epub:type="pagebreak"`, and [`role="doc-pagebreak"`](https://www.w3.org/TR/dpub-aria-1.1/#doc-pagebreak):
 
 ```xml
 <!-- Page break at the start of a chapter or between blocks -->
@@ -49,7 +49,7 @@ Each link in `page-list` points to an anchor inside an [XHTML](/en-US/docs/Relat
 
 Using an empty `<span>` (inside inline text) or `<div>` (between blocks) with `aria-label` keeps page numbers invisible in reflowed prose while giving reading apps and screen readers the exact location and spoken number of each break. Keep `aria-label` to the page number itself (`aria-label="2"`) so screen readers do not announce "page page 2".
 
-When your EPUB includes static page breaks, [EPUB Accessibility 1.1](https://www.w3.org/TR/epub-a11y-11/#sec-page-nav) requires identifying their source in [`<metadata>`](/en-US/docs/Related/EPUB/Package/Metadata) with `<meta property="pageBreakSource">` (using `"none"` if the page breaks were created for a digital-only edition with no print counterpart):
+When your EPUB includes static page breaks, [EPUB Accessibility 1.1](https://www.w3.org/TR/epub-a11y-11/#sec-page-nav) requires identifying their source in the [package metadata](/en-US/docs/Related/EPUB/Package/Metadata) with `<meta property="pageBreakSource">` (using `"none"` if the page breaks were created for a digital-only edition with no print counterpart):
 
 ```xml
 <meta property="pageBreakSource">urn:isbn:9780142437247</meta>

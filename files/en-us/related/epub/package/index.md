@@ -6,7 +6,7 @@ page-type: guide
 sidebar: epub
 ---
 
-The **package file** (also called the **package document** or **OPF file**, usually named `package.opf` or `content.opf`) is the [XML](/en-US/docs/Web/XML/Guides/XML_introduction) file that acts as the central index of an EPUB. It uses the media type `application/oebps-package+xml` and groups three required sections inside a root `<package>` element: [`<metadata>`](/en-US/docs/Related/EPUB/Package/Metadata), [`<manifest>`](/en-US/docs/Related/EPUB/Package/Manifest), and [`<spine>`](/en-US/docs/Related/EPUB/Package/Spine).
+The **package file** (also called the **package document** or **OPF file**, usually named `package.opf` or `content.opf`) is the [XML](/en-US/docs/Web/XML/Guides/XML_introduction) file that acts as the central index of an EPUB. It uses the media type `application/oebps-package+xml` and groups three required sections inside a root `<package>` element: [metadata](/en-US/docs/Related/EPUB/Package/Metadata), [manifest](/en-US/docs/Related/EPUB/Package/Manifest), and [spine](/en-US/docs/Related/EPUB/Package/Spine).
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
@@ -37,22 +37,22 @@ The **package file** (also called the **package document** or **OPF file**, usua
 </package>
 ```
 
-Reading systems locate the package file via `<rootfile>` in [`META-INF/container.xml`](/en-US/docs/Related/EPUB/Structure/META-INF), and relative URLs inside the package file resolve from the folder containing the `.opf` file (see [Relative paths across an EPUB](/en-US/docs/Related/EPUB/Structure/Content#relative_paths_across_an_epub)).
+Reading systems locate the package file via `<rootfile>` in [`META-INF/container.xml`](/en-US/docs/Related/EPUB/Structure/META-INF), and relative URLs inside the package file resolve from the folder containing the package file (see [Relative paths across an EPUB](/en-US/docs/Related/EPUB/Structure/Content#relative_paths_across_an_epub)).
 
 ## Root `<package>` attributes
 
-Every package file has a root `<package>` element in the `http://www.idpf.org/2007/opf` XML namespace. Because `<metadata>` uses Dublin Core (`dc:`) elements, `<package>` (or `<metadata>`) also declares `xmlns:dc="http://purl.org/dc/elements/1.1/"`.
+Every package file has a root `<package>` element in the `http://www.idpf.org/2007/opf` XML namespace. Because the metadata section uses Dublin Core (`dc:`) elements, `<package>` (or `<metadata>`) also declares `xmlns:dc="http://purl.org/dc/elements/1.1/"`.
 
 - `xmlns`
   - : Required. Must be `"http://www.idpf.org/2007/opf"`.
 - `version`
   - : Required. Must be `"3.0"` for all EPUB 3 books, including EPUB 3.2 and EPUB 3.3 (never `"3.2"` or `"3.3"`).
 - `unique-identifier`
-  - : Required. Matches the `id` attribute of the primary [`<dc:identifier>`](/en-US/docs/Related/EPUB/Package/Metadata) element inside `<metadata>`. This attribute holds the XML `id` (such as `"pub-id"`), not the ISBN or UUID string itself.
+  - : Required. Matches the `id` attribute of the primary [`<dc:identifier>`](/en-US/docs/Related/EPUB/Package/Metadata) element inside the metadata. This attribute holds the XML `id` (such as `"pub-id"`), not the ISBN or UUID string itself.
 - `xml:lang`
-  - : Optional. A [BCP 47](https://www.rfc-editor.org/info/bcp47) language tag (such as `en`, `fr`, or `ja`) for text strings inside the `.opf` file itself, such as `<dc:title>` and `<dc:description>`. This is separate from [`<dc:language>`](/en-US/docs/Related/EPUB/Package/Metadata), which is required in `<metadata>` to declare the language of the book's content.
+  - : Optional. A [BCP 47](https://www.rfc-editor.org/info/bcp47) language tag (such as `en`, `fr`, or `ja`) for text strings inside the package file itself, such as `<dc:title>` and `<dc:description>`. This is separate from [`<dc:language>`](/en-US/docs/Related/EPUB/Package/Metadata), which is required in the metadata to declare the language of the book's content.
 - `dir`
-  - : Optional. Base text direction (`ltr`, `rtl`, or `auto`; defaults to `auto`) for metadata strings in `<package>` and its children. Note that EPUB 3.3 marks `dir` in the package file as under-implemented because many reading systems do not apply it in library views.
+  - : Optional. Base text direction (`ltr`, `rtl`, or `auto`; defaults to `auto`) for metadata strings in the package file. Note that EPUB 3.3 marks `dir` in the package file as under-implemented because many reading systems do not apply it in library views.
 - `prefix`
   - : Optional. Declares custom vocabulary prefixes for `property`, `properties`, and `rel` attributes as space-separated `prefix: url` pairs:
 
@@ -78,9 +78,9 @@ Child elements of `<package>` must appear in the exact order shown here. Placing
 2. [`<manifest>`](/en-US/docs/Related/EPUB/Package/Manifest)
    - : Required (once). Lists every publication resource using `<item>` elements with `id`, `href`, `media-type`, and optional `properties` (such as `nav` and `cover-image`).
 3. [`<spine>`](/en-US/docs/Related/EPUB/Package/Spine)
-   - : Required (once). Lists `<itemref>` elements pointing to `<manifest>` item IDs in the book's default reading order.
+   - : Required (once). Lists `<itemref>` elements pointing to manifest item IDs in the book's default reading order.
 4. `<guide>`
-   - : Optional (at most once, legacy). An EPUB 2 list of structural `<reference>` links, replaced in EPUB 3 by [`<nav epub:type="landmarks">`](/en-US/docs/Related/EPUB/Navigation/Landmarks). EPUB 3 reading systems ignore `<guide>`.
+   - : Optional (at most once, legacy). An EPUB 2 list of structural `<reference>` links, replaced in EPUB 3 by [landmarks](/en-US/docs/Related/EPUB/Navigation/Landmarks). EPUB 3 reading systems ignore `<guide>`.
 5. `<bindings>`
    - : Optional (at most once, deprecated). An obsolete EPUB 3.0 element for scripted media handlers. Do not use it in new books.
 6. `<collection>`

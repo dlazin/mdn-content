@@ -10,10 +10,10 @@ Rather than inventing proprietary formats, [EPUB 3.3](https://www.w3.org/TR/epub
 
 - **Markup**: Content and [navigation](/en-US/docs/Related/EPUB/Navigation) use [HTML](/en-US/docs/Web/HTML) serialized as [XHTML](/en-US/docs/Related/EPUB/Content/XHTML), along with [SVG](/en-US/docs/Related/EPUB/Content/SVG) and [MathML](/en-US/docs/Web/MathML). Container and [package](/en-US/docs/Related/EPUB/Package) files use [XML](/en-US/docs/Web/XML/Guides/XML_introduction).
 - **Styling**: Layout, typography, [fonts](/en-US/docs/Related/EPUB/Content/Fonts), and media queries use [CSS](/en-US/docs/Related/EPUB/Content/CSS).
-- **Media and interactivity**: Images, fonts, and audio use standard web [core media types](/en-US/docs/Related/EPUB/Content/Core_media_types), alongside HTML [`<audio>`](/en-US/docs/Related/EPUB/Content/Audio), [`<video>`](/en-US/docs/Related/EPUB/Content/Video), and optional [JavaScript](/en-US/docs/Related/EPUB/Content/Scripting).
+- **Media and interactivity**: Images, fonts, and audio use standard web [core media types](/en-US/docs/Related/EPUB/Content/Core_media_types), alongside HTML [audio](/en-US/docs/Related/EPUB/Content/Audio), [video](/en-US/docs/Related/EPUB/Content/Video), and optional [JavaScript](/en-US/docs/Related/EPUB/Content/Scripting).
 - **Accessibility**: Accessible ebooks rely on semantic HTML, `alt` text, [WCAG](https://www.w3.org/WAI/standards-guidelines/wcag/), and [ARIA](/en-US/docs/Web/Accessibility/ARIA) roles from the [Digital Publishing WAI-ARIA Module](https://www.w3.org/TR/dpub-aria-1.1/).
 
-Although EPUB points to living web standards, EPUB itself is a versioned specification, and most web browsers do not open `.epub` files natively without an extension. Newly standardized HTML and CSS features may be syntactically valid in EPUB while still unsupported by older reading systems.
+Although EPUB points to living web standards, EPUB itself is a versioned specification, and most web browsers do not open EPUBs natively without an extension. Newly standardized HTML and CSS features may be syntactically valid in EPUB while still unsupported by older reading systems.
 
 If you already know HTML and CSS, keep these key differences in mind when creating an EPUB:
 

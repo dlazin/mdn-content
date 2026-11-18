@@ -6,7 +6,7 @@ page-type: guide
 sidebar: epub
 ---
 
-**EPUB** (**Electronic Publication**) is the open, vendor-neutral file format for digital books (ebooks) and publications, standardized by the [World Wide Web Consortium (W3C)](https://www.w3.org/TR/epub-33/). An `.epub` file packages [XHTML](/en-US/docs/Glossary/XHTML) text and optional [CSS](/en-US/docs/Web/CSS) stylesheets, images, fonts, audio, or video—along with [XML](/en-US/docs/Web/XML/Guides/XML_introduction) metadata and navigation files—into a single compressed archive that works offline across phones, tablets, computers, and dedicated e-readers.
+**EPUB** (**Electronic Publication**) is the open, vendor-neutral file format for digital books (ebooks) and publications, standardized by the [World Wide Web Consortium (W3C)](https://www.w3.org/TR/epub-33/). An EPUB packages [XHTML](/en-US/docs/Glossary/XHTML) text and optional [CSS](/en-US/docs/Web/CSS) stylesheets, images, fonts, audio, or video—along with [XML](/en-US/docs/Web/XML/Guides/XML_introduction) metadata and navigation files—into a single compressed archive that works offline across phones, tablets, computers, and dedicated e-readers.
 
 ## Reflow vs. fixed layout
 
@@ -22,21 +22,21 @@ Most ebooks use reflowable layouts so they remain easy to read on any device. Th
 
 EPUB was first standardized by the [International Digital Publishing Forum (IDPF)](https://idpf.org/), which published the specification for the Open eBook Publication Structure in 1999, followed by EPUB 2 in 2007 and EPUB 3 in 2011. The IDPF merged into the W3C in 2017. The current [EPUB 3.3](https://www.w3.org/TR/epub-33/) recommendation, released in 2024, is backward-compatible with previous versions of EPUB 3 and thus supported by most publishing workflows and distributors.
 
-Where EPUB 2 relied on XHTML 1.1, a limited subset of CSS 2, and standalone XML `.ncx` navigation files, EPUB 3 adopts modern [web standards](/en-US/docs/Related/EPUB/Relationship_to_the_web), an HTML-based [navigation document](/en-US/docs/Related/EPUB/Navigation), embedded audio and video (including synchronized Media Overlays), global typography such as right-to-left and vertical writing modes, and rich [accessibility metadata](https://www.w3.org/TR/epub-a11y-11/).
+Where EPUB 2 relied on XHTML 1.1, a limited subset of CSS 2, and standalone XML NCX navigation files, EPUB 3 adopts modern [web standards](/en-US/docs/Related/EPUB/Relationship_to_the_web), an HTML-based [navigation document](/en-US/docs/Related/EPUB/Navigation), embedded audio and video (including synchronized Media Overlays), global typography such as right-to-left and vertical writing modes, and rich [accessibility metadata](https://www.w3.org/TR/epub-a11y-11/).
 
 ## App and retailer support
 
 EPUB is supported natively across nearly all ebook apps, devices, retailers, and lending platforms, including Apple Books, Google Play Books, Kobo, Libby, Nook, PocketBook, and Readium-based desktop readers such as Thorium Reader.
 
-Amazon Kindle devices and apps do not render EPUB directly on the device; instead, Amazon uses EPUB as an input format. Publishers and authors upload `.epub` files to Kindle Direct Publishing (KDP) or the Send to Kindle service, and Amazon converts those EPUBs into Kindle's proprietary format.
+Amazon Kindle devices and apps do not render EPUB directly on the device; instead, Amazon uses EPUB as an input format. Publishers and authors upload EPUB files to Kindle Direct Publishing (KDP) or the Send to Kindle service, and Amazon converts those EPUBs into Kindle's proprietary format.
 
 ## Creating an EPUB
 
 Most commercial ebooks are exported from authoring or layout software—most commonly Adobe InDesign, after the print book has been laid out. Other tools such as Pandoc, Pressbooks, Vellum, Sigil, and Calibre also generate EPUBs directly.
 
-The export operation generates the required [container structure](/en-US/docs/Related/EPUB/Structure), [package file](/en-US/docs/Related/EPUB/Package), and [navigation document](/en-US/docs/Related/EPUB/Navigation) automatically. Under the hood, every `.epub` file is a specialized [ZIP archive](/en-US/docs/Related/EPUB/Structure/OCF) whose XML, XHTML, CSS, and media files you can unzip, inspect, and edit directly.
+The export operation generates the required [container structure](/en-US/docs/Related/EPUB/Structure), [package file](/en-US/docs/Related/EPUB/Package), and [navigation document](/en-US/docs/Related/EPUB/Navigation) automatically. Under the hood, every EPUB is a specialized [ZIP archive](/en-US/docs/Related/EPUB/Structure/OCF) whose XML, XHTML, CSS, and media files you can unzip, inspect, and edit directly.
 
-Because reading systems and retailer pipelines reject malformed EPUBs, completed `.epub` files should always be validated with [EPUBCheck](https://www.w3.org/publishing/epubcheck/), the W3C's conformance checker.
+Because reading systems and retailer pipelines reject malformed EPUBs, completed EPUBs should always be validated with [EPUBCheck](https://www.w3.org/publishing/epubcheck/), the W3C's conformance checker.
 
 ## Specifications
 

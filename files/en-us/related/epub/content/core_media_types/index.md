@@ -6,7 +6,7 @@ page-type: guide
 sidebar: epub
 ---
 
-**Core media types** are the standard [MIME media types](/en-US/docs/Web/HTTP/Guides/MIME_types) that EPUB 3 reading systems support without requiring fallback formats. When you use a core media type inside a content document—such as a JPEG image, an MP3 audio clip, a CSS stylesheet, or a WOFF2 font—you can declare it in [`<manifest>`](/en-US/docs/Related/EPUB/Package/Manifest) and reference it directly.
+**Core media types** are the standard [MIME media types](/en-US/docs/Web/HTTP/Guides/MIME_types) that EPUB 3 reading systems support without requiring fallback formats. When you use a core media type inside a content document—such as a JPEG image, an MP3 audio clip, a CSS stylesheet, or a WOFF2 font—you can declare it in the [manifest](/en-US/docs/Related/EPUB/Package/Manifest) and reference it directly.
 
 Resources outside the core media types list are either **foreign resources** (which require a fallback to a core media type) or **[exempt resources](#exempt_resources)** (such as video files, which are not guaranteed reading-system support and do not require fallbacks).
 
@@ -37,12 +37,12 @@ The table lists all core media types defined in EPUB 3.3. Where legacy aliases e
 > [!NOTE]
 > Support for core media types still depends on device hardware: audio-only reading systems do not render images or fonts, and speakerless e-ink devices cannot play `audio/mpeg` clips.
 
-## Content documents vs. `<spine>` items
+## Content documents vs. spine items
 
-Not every core media type can be placed directly in [`<spine>`](/en-US/docs/Related/EPUB/Package/Spine):
+Not every core media type can be placed directly in the [spine](/en-US/docs/Related/EPUB/Package/Spine):
 
 - Inside XHTML or SVG content documents, you can embed or link any core media type (for example, `<img src="../images/cover.jpg" alt="Cover" />` or `<link rel="stylesheet" href="../styles/main.css" />`) without fallbacks.
-- Directly in `<spine>`, only `application/xhtml+xml` and `image/svg+xml` work without fallbacks. Placing any other core media type—such as a raw `image/jpeg` file—in `<spine>` treats it as a foreign content document and requires a manifest `fallback` chain ending at an XHTML or SVG document. To show a raster image as its own page, wrap it in an XHTML or SVG document instead.
+- Directly in the spine, only `application/xhtml+xml` and `image/svg+xml` work without fallbacks. Placing any other core media type—such as a raw JPEG image—in the spine treats it as a foreign content document and requires a manifest `fallback` chain ending at an XHTML or SVG document. To show a raster image as its own page, wrap it in an XHTML or SVG document instead.
 
 ## Foreign resources and fallbacks
 
@@ -52,7 +52,7 @@ Any resource whose MIME type is neither a core media type nor an [exempt resourc
 
 Where HTML provides native fallback elements, use them instead of manifest fallbacks so the reading system's browser engine can pick a supported format automatically:
 
-- For images, use [`<picture>`](/en-US/docs/Web/HTML/Reference/Elements/picture) with `type` on [`<source>`](/en-US/docs/Web/HTML/Reference/Elements/source) and a core image format on the fallback `<img>` element, declaring both files in `<manifest>`:
+- For images, use [`<picture>`](/en-US/docs/Web/HTML/Reference/Elements/picture) with `type` on [`<source>`](/en-US/docs/Web/HTML/Reference/Elements/source) and a core image format on the fallback `<img>` element, declaring both files in the manifest:
 
   ```xml
   <picture>
@@ -74,7 +74,7 @@ Where HTML provides native fallback elements, use them instead of manifest fallb
 
 ### Manifest fallback chains
 
-When an element has no built-in HTML fallback (or when a foreign document appears in [`<spine>`](/en-US/docs/Related/EPUB/Package/Spine)), set `fallback` on its `<item>` in [`<manifest>`](/en-US/docs/Related/EPUB/Package/Manifest) to the `id` of another `<item>` that resolves to a core media type (or to XHTML/SVG for `<spine>` items):
+When an element has no built-in HTML fallback (or when a foreign document appears in the [spine](/en-US/docs/Related/EPUB/Package/Spine)), set `fallback` on its `<item>` in the [manifest](/en-US/docs/Related/EPUB/Package/Manifest) to the `id` of another item that resolves to a core media type (or to XHTML or SVG for spine items):
 
 ```xml
 <manifest>
@@ -94,7 +94,7 @@ EPUB 3 exempts four categories of non-core resources from fallback requirements,
 - [Video](/en-US/docs/Related/EPUB/Content/Video) files referenced from [`<video>`](/en-US/docs/Web/HTML/Reference/Elements/video) or its `<source>` children (`video/mp4` and `video/webm` are the most widely supported choices).
 - Timed text tracks (such as WebVTT `text/vtt`) referenced from `<track>` inside `<audio>` or `<video>`.
 - Non-core [font](/en-US/docs/Related/EPUB/Content/Fonts) formats, because CSS `font-family` stacks fall back to system fonts.
-- Non-core targets of HTML `<link>` elements, plus unembedded data files (such as JSON or CSV files loaded by scripts) that are neither placed in `<spine>` nor embedded with elements like `<img>` or `<object>`.
+- Non-core targets of HTML `<link>` elements, plus unembedded data files (such as JSON or CSV files loaded by scripts) that are neither placed in the spine nor embedded with elements like `<img>` or `<object>`.
 
 ## Specifications
 

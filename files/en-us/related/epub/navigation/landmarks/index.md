@@ -6,7 +6,7 @@ page-type: guide
 sidebar: epub
 ---
 
-In EPUB 3, **landmarks** are an optional navigation list inside the [navigation document](/en-US/docs/Related/EPUB/Navigation) (`nav.xhtml`), marked up with `<nav epub:type="landmarks">`:
+In EPUB 3, **landmarks** are an optional navigation list inside the [navigation document](/en-US/docs/Related/EPUB/Navigation), marked up with `<nav epub:type="landmarks">`:
 
 ```xml
 <nav epub:type="landmarks" hidden="">
@@ -21,25 +21,25 @@ In EPUB 3, **landmarks** are an optional navigation list inside the [navigation 
 </nav>
 ```
 
-While the [table of contents](/en-US/docs/Related/EPUB/Navigation/TOC) (`epub:type="toc"`) outlines chapters for the reader, `landmarks` is a short, flat list of structural roles for the reading system—letting apps offer quick-jump shortcuts or open the book directly at Chapter 1 (`bodymatter`) on first launch. A navigation document may contain at most one `<nav epub:type="landmarks">` element. Do not repeat every chapter in `landmarks`.
+While the [table of contents](/en-US/docs/Related/EPUB/Navigation/TOC) outlines chapters for the reader, landmarks are a short, flat list of structural roles for the reading system—letting apps offer quick-jump shortcuts or open the book directly at Chapter 1 (`bodymatter`) on first launch. A navigation document may contain at most one landmarks list. Do not repeat every chapter in the landmarks list.
 
 ## Landmark rules
 
-`<nav epub:type="landmarks">` follows the [EPUB `<nav>` content rules](/en-US/docs/Related/EPUB/Navigation#content_rules_for_nav_elements) with a few landmark-specific requirements:
+The landmarks list follows the [EPUB `<nav>` content rules](/en-US/docs/Related/EPUB/Navigation#content_rules_for_nav_elements) with a few landmark-specific requirements:
 
 - Keep `<ol>` as a single flat list of `<li>` entries without nested `<ol>` sublists or `<span>` headings.
 - Include an [`epub:type`](/en-US/docs/Related/EPUB/Content/epub:type) attribute on every `<a>` link, using clear human-readable link text (since some apps show landmark labels directly in menus).
 - Do not include two landmark links with both the same `epub:type` value and the same target URL.
-- Add [`hidden=""`](/en-US/docs/Web/HTML/Reference/Global_attributes/hidden) to `<nav epub:type="landmarks">` when `nav.xhtml` is [included in `<spine>`](/en-US/docs/Related/EPUB/Navigation#including_nav_xhtml_in_the_reading_order) so landmarks do not render on the visible Contents page. Unlike `toc` and `page-list`, `landmarks` has no DPUB-ARIA `doc-*` role; if rendered visibly without `hidden=""`, label `<nav>` with `aria-labelledby` or `aria-label`.
+- Add [`hidden=""`](/en-US/docs/Web/HTML/Reference/Global_attributes/hidden) to the `<nav>` element when the navigation document is [included in the spine](/en-US/docs/Related/EPUB/Navigation#including_the_navigation_document_in_the_reading_order) so landmarks do not render on the visible Contents page. Unlike the table of contents and page list, landmarks have no DPUB-ARIA `doc-*` role; if rendered visibly without `hidden=""`, label `<nav>` with `aria-labelledby` or `aria-label`.
 
 ## Common landmark `epub:type` values
 
 - `bodymatter`
   - : Start of the main text (usually Chapter 1, after the frontmatter). Platforms such as Amazon Kindle (during EPUB conversion) and Apple Books use `bodymatter` to set the initial opening page when a reader opens the book for the first time.
 - `toc`
-  - : The in-book [table of contents](/en-US/docs/Related/EPUB/Navigation/TOC) when `nav.xhtml` (or another TOC file) is included in [`<spine>`](/en-US/docs/Related/EPUB/Package/Spine).
+  - : The in-book [table of contents](/en-US/docs/Related/EPUB/Navigation/TOC) when the navigation document (or another TOC file) is included in the [spine](/en-US/docs/Related/EPUB/Package/Spine).
 - `cover`
-  - : The XHTML or SVG cover page in `<spine>` (not a raw `.jpg` or `.png` image file).
+  - : The XHTML or SVG cover page in the spine (not a raw JPEG or PNG image file).
 - `glossary`, `index`, `bibliography`
   - : Reference sections in the backmatter.
 - `loi`, `lot`

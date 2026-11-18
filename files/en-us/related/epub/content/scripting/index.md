@@ -11,9 +11,9 @@ EPUB 3 supports client-side [JavaScript](/en-US/docs/Web/JavaScript) in [XHTML](
 > [!IMPORTANT]
 > JavaScript support in EPUB reading systems is optional and often disabled for security, privacy, battery life, and pagination stability. Treat JavaScript as progressive enhancement: your book must remain readable and understandable when scripts do not run.
 
-## Declaring scripted content in `<manifest>`
+## Declaring scripted content in the manifest
 
-Declare external `.js` files in [`<manifest>`](/en-US/docs/Related/EPUB/Package/Manifest) with `media-type="application/javascript"` (or `text/javascript`), and add [`properties="scripted"`](/en-US/docs/Related/EPUB/Package/Manifest#manifest_item_properties) to any XHTML or SVG `<item>` containing executable `<script>` elements or HTML `<form>` elements:
+Declare external JavaScript files in the [manifest](/en-US/docs/Related/EPUB/Package/Manifest) with `media-type="application/javascript"` (or `text/javascript`), and add [`properties="scripted"`](/en-US/docs/Related/EPUB/Package/Manifest#manifest_item_properties) to any XHTML or SVG manifest item containing executable `<script>` elements or HTML `<form>` elements:
 
 ```xml
 <manifest>
@@ -29,7 +29,7 @@ Inert data blocks such as `<script type="application/json">` do not require `pro
 
 EPUB 3 defines two execution contexts for scripts, with very different behavior in reflowable ebooks.
 
-### Container-constrained scripts (`<iframe>`)
+### Container-constrained scripts
 
 A container-constrained script runs inside an XHTML or SVG document embedded in a parent XHTML page via a fixed-size [`<iframe>`](/en-US/docs/Web/HTML/Reference/Elements/iframe). It must not modify the parent document's DOM or resize its `<iframe>` box.
 
@@ -37,14 +37,14 @@ Because the widget stays inside fixed dimensions, it cannot change chapter lengt
 
 ### Spine-level scripts
 
-A spine-level script runs directly inside a top-level content document listed in [`<spine>`](/en-US/docs/Related/EPUB/Package/Spine). Support for spine-level scripts is mostly limited to fixed-layout books or reflowable books viewed in scrolling mode. In paginated reflowable mode, reading systems often disable spine-level scripts (or switch scripted chapters to scrolling) because DOM changes can push content past the bottom of a paginated column.
+A spine-level script runs directly inside a top-level content document listed in the [spine](/en-US/docs/Related/EPUB/Package/Spine). Support for spine-level scripts is mostly limited to fixed-layout books or reflowable books viewed in scrolling mode. In paginated reflowable mode, reading systems often disable spine-level scripts (or switch scripted chapters to scrolling) because DOM changes can push content past the bottom of a paginated column.
 
 ## Security, storage, and XML rules
 
 - Reading systems assign each EPUB an isolated origin so scripts in one book cannot read data from another book. Do not assume `localStorage` or cookies persist across sessions.
-- Many reading systems run offline or block `fetch()` and `XMLHttpRequest`. If a script loads remote data, flag the host document's `<item>` with [`properties="remote-resources"`](/en-US/docs/Related/EPUB/Package/Manifest#manifest_item_properties), and obtain user consent before sending any user data.
+- Many reading systems run offline or block `fetch()` and `XMLHttpRequest`. If a script loads remote data, flag the host document's manifest item with [`properties="remote-resources"`](/en-US/docs/Related/EPUB/Package/Manifest#manifest_item_properties), and obtain user consent before sending any user data.
 - Design controls for touchscreens, e-ink tap zones (where edge taps or horizontal swipes often turn pages), mice, and assistive switches. Do not rely on hover states alone.
-- Put JavaScript in an external `.js` file (or wrap inline code in `<![CDATA[ ... ]]>`) so `<` and `&` operators in `i < 10` or `a && b` do not cause [XML parsing errors](/en-US/docs/Related/EPUB/Content/XHTML#xml_syntax_rules).
+- Put JavaScript in an external script file (or wrap inline code in `<![CDATA[ ... ]]>`) so `<` and `&` operators in `i < 10` or `a && b` do not cause [XML parsing errors](/en-US/docs/Related/EPUB/Content/XHTML#xml_syntax_rules).
 
 ## Detecting reading system capabilities
 

@@ -6,13 +6,13 @@ page-type: guide
 sidebar: epub
 ---
 
-In EPUB 3, chapters and text sections are **[XHTML](/en-US/docs/Glossary/XHTML) content documents**: [HTML](/en-US/docs/Web/HTML) files written in [XML](/en-US/docs/Web/XML/Guides/XML_introduction) syntax and declared in [`<manifest>`](/en-US/docs/Related/EPUB/Package/Manifest) with `media-type="application/xhtml+xml"`.
+In EPUB 3, chapters and text sections are **[XHTML](/en-US/docs/Glossary/XHTML) content documents**: [HTML](/en-US/docs/Web/HTML) files written in [XML](/en-US/docs/Web/XML/Guides/XML_introduction) syntax and declared in the [manifest](/en-US/docs/Related/EPUB/Package/Manifest) with `media-type="application/xhtml+xml"`.
 
-Most reflowable ebooks use one `.xhtml` file per chapter or section (such as `cover.xhtml`, `copyright.xhtml`, `chapter-1.xhtml`, and `chapter-2.xhtml`) and list them in order in [`<spine>`](/en-US/docs/Related/EPUB/Package/Spine). Splitting a book into chapter files helps low-memory e-readers load pages quickly and starts each chapter on a new screen page.
+Most reflowable ebooks use one XHTML file per chapter or section (such as `cover.xhtml`, `copyright.xhtml`, `chapter-1.xhtml`, and `chapter-2.xhtml`) and list them in order in the [spine](/en-US/docs/Related/EPUB/Package/Spine). Splitting a book into chapter files helps low-memory e-readers load pages quickly and starts each chapter on a new screen page.
 
 ## XML syntax rules
 
-Unlike web browsers parsing `text/html`, EPUB reading systems parse `.xhtml` files with a strict XML parser. A single XML syntax error stops the chapter from rendering and displays an error message instead.
+Unlike web browsers parsing `text/html`, EPUB reading systems parse XHTML files with a strict XML parser. A single XML syntax error stops the chapter from rendering and displays an error message instead.
 
 Every XHTML content document must follow XML well-formedness rules:
 
@@ -43,7 +43,7 @@ XHTML content documents can include mathematical notation using [MathML](/en-US/
 
 Follow three rules when including `<math>` elements:
 
-- Add `properties="mathml"` to the XHTML file's `<item>` in [`<manifest>`](/en-US/docs/Related/EPUB/Package/Manifest):
+- Add `properties="mathml"` to the XHTML file's item in the [manifest](/en-US/docs/Related/EPUB/Package/Manifest):
 
   ```xml
   <item id="ch2" href="text/chapter-2.xhtml" media-type="application/xhtml+xml" properties="mathml" />

@@ -5,9 +5,9 @@ page-type: guide
 sidebar: epub
 ---
 
-The **Open Container Format (OCF)** is the ZIP packaging specification that bundles the files of an EPUB into a single `.epub` archive. For an overview of the top-level files and folders inside an `.epub` archive, see [EPUB structure](/en-US/docs/Related/EPUB/Structure).
+The **Open Container Format (OCF)** is the ZIP packaging specification that bundles the files of an EPUB into a single archive. For an overview of the top-level files and folders inside an EPUB, see [EPUB structure](/en-US/docs/Related/EPUB/Structure).
 
-Every OCF archive has a single root directory containing [`mimetype`](/en-US/docs/Related/EPUB/Structure/mimetype), [`META-INF/container.xml`](/en-US/docs/Related/EPUB/Structure/META-INF), and the book's [package file](/en-US/docs/Related/EPUB/Package) and [publication content](/en-US/docs/Related/EPUB/Content) (usually grouped inside a [content directory](/en-US/docs/Related/EPUB/Structure/Content) such as `OEBPS/`). Neither `mimetype` nor files in `META-INF/` may be listed in [`<manifest>`](/en-US/docs/Related/EPUB/Package/Manifest) or referenced as publication content.
+Every OCF archive has a single root directory containing [`mimetype`](/en-US/docs/Related/EPUB/Structure/mimetype), [`META-INF/container.xml`](/en-US/docs/Related/EPUB/Structure/META-INF), and the book's [package file](/en-US/docs/Related/EPUB/Package) and [publication content](/en-US/docs/Related/EPUB/Content) (usually grouped inside a [content directory](/en-US/docs/Related/EPUB/Structure/Content) such as `OEBPS`). Neither `mimetype` nor files in `META-INF` may be listed in the [manifest](/en-US/docs/Related/EPUB/Package/Manifest) or referenced as publication content.
 
 ## ZIP archive requirements
 
@@ -18,11 +18,11 @@ Renaming an ordinary `.zip` file to `.epub` does not produce a valid OCF archive
 - Encode file and directory names in ZIP headers as UTF-8.
 - Do not split archives across multiple ZIP disks or volumes.
 - Use standard 32-bit ZIP headers unless the archive exceeds 4 GB or file-count limits, where ZIP64 (Version 1) extensions are allowed. Local file headers must set `version needed to extract` to `10`, `20` (for Deflate), or `45` (for ZIP64).
-- Do not use password-protected ZIP encryption. Resource encryption and [font obfuscation](/en-US/docs/Related/EPUB/Content/Fonts#font_licensing_and_obfuscation) must be declared in [`META-INF/encryption.xml`](/en-US/docs/Related/EPUB/Structure/META-INF), and `mimetype`, files in `META-INF/`, and the `.opf` [package file](/en-US/docs/Related/EPUB/Package) must remain unencrypted.
+- Do not use password-protected ZIP encryption. Resource encryption and [font obfuscation](/en-US/docs/Related/EPUB/Content/Fonts#font_licensing_and_obfuscation) must be declared in [`META-INF/encryption.xml`](/en-US/docs/Related/EPUB/Structure/META-INF), and `mimetype`, files in `META-INF`, and the [package file](/en-US/docs/Related/EPUB/Package) must remain unencrypted.
 
 ## File and path naming rules
 
-Because an `.epub` file may be opened across Linux, macOS, Windows, Android, iOS, and dedicated e-readers, OCF restricts file and folder names:
+Because an EPUB may be opened across Linux, macOS, Windows, Android, iOS, and dedicated e-readers, OCF restricts file and folder names:
 
 - Paths are case-sensitive: if a file is stored as `images/Cover.jpg`, referencing `images/cover.jpg` fails on case-sensitive reading systems even if it worked on macOS or Windows during authoring. At the same time, two files in the same folder cannot have names that match after Unicode normalization and case-insensitive comparison (for example, `Chapter1.xhtml` and `chapter1.xhtml` cannot coexist in one directory).
 - Each file or directory name must be at most 255 bytes in UTF-8, and the full path from the container root must be at most 65,535 bytes.
@@ -37,11 +37,11 @@ Reading systems assign an internal root URL to the archive root so relative link
 - Never include extra `..` segments that climb past the archive root (such as `../../../../secret.xhtml`).
 - Never use `file:` URLs anywhere in an EPUB.
 
-## Packaging and inspecting `.epub` files
+## Packaging and inspecting EPUB files
 
-You can inspect any unencrypted `.epub` file by unzipping it (for example, `unzip book.epub -d book-folder`).
+You can inspect any unencrypted EPUB by unzipping it (for example, `unzip book.epub -d book-folder`).
 
-When re-packaging an unzipped folder, do not use the built-in "Compress" command in macOS Finder or Windows File Explorer. Desktop archive utilities compress `mimetype`, add files out of order, and include hidden system files (such as `.DS_Store` or `Thumbs.db`) that are not listed in [`<manifest>`](/en-US/docs/Related/EPUB/Package/Manifest).
+When re-packaging an unzipped folder, do not use the built-in "Compress" command in macOS Finder or Windows File Explorer. Desktop archive utilities compress `mimetype`, add files out of order, and include hidden system files (such as `.DS_Store` or `Thumbs.db`) that are not listed in the [manifest](/en-US/docs/Related/EPUB/Package/Manifest).
 
 From a terminal inside the unzipped root folder, add `mimetype` first with compression (`-0`) and extra file attributes (`-X`) turned off, then add `META-INF` and your [content directory](/en-US/docs/Related/EPUB/Structure/Content) while excluding hidden files:
 

@@ -6,13 +6,13 @@ page-type: guide
 sidebar: epub
 ---
 
-The `<metadata>` element is the first child of `<package>` in an EPUB [package file](/en-US/docs/Related/EPUB/Package) (`.opf`). It describes the book—such as its title, identifier, language, and author—using [Dublin Core](https://www.dublincore.org/specifications/dublin-core/dcmi-terms/) (`dc:`) elements alongside EPUB `<meta>` and `<link>` elements.
+The `<metadata>` element is the first child of `<package>` in an EPUB [package file](/en-US/docs/Related/EPUB/Package). It describes the book—such as its title, identifier, language, and author—using [Dublin Core](https://www.dublincore.org/specifications/dublin-core/dcmi-terms/) (`dc:`) elements alongside EPUB `<meta>` and `<link>` elements.
 
 To use Dublin Core elements, declare `xmlns:dc="http://purl.org/dc/elements/1.1/"` on `<package>` or `<metadata>`.
 
 ## Required elements
 
-Every `<metadata>` section must include `<dc:identifier>`, `<dc:title>`, `<dc:language>`, and `<meta property="dcterms:modified">`. Child elements inside `<metadata>` can appear in any order.
+Every metadata section must include `<dc:identifier>`, `<dc:title>`, `<dc:language>`, and `<meta property="dcterms:modified">`. Child elements inside `<metadata>` can appear in any order.
 
 - [`<dc:identifier>`](https://www.dublincore.org/specifications/dublin-core/dcmi-terms/terms/identifier/)
   - : A unique identifier for the book, such as an ISBN, DOI, URL, or [UUID](/en-US/docs/Glossary/UUID). At least one `<dc:identifier>` is required.
@@ -52,7 +52,7 @@ Every `<metadata>` section must include `<dc:identifier>`, `<dc:title>`, `<dc:la
     For multilingual books, include a `<dc:language>` element for each language, placing the primary language first.
 
 - [`<meta property="dcterms:modified">`](https://www.dublincore.org/specifications/dublin-core/dcmi-terms/terms/modified/)
-  - : The UTC date and time when the EPUB was last modified. Every `<metadata>` section must include one unrefined `<meta property="dcterms:modified">` element formatted as `YYYY-MM-DDThh:mm:ssZ` (with a literal `Z` and no fractional seconds):
+  - : The UTC date and time when the EPUB was last modified. Every metadata section must include one unrefined `<meta property="dcterms:modified">` element formatted as `YYYY-MM-DDThh:mm:ssZ` (with a literal `Z` and no fractional seconds):
 
     ```xml
     <meta property="dcterms:modified">2023-05-25T12:00:00Z</meta>
@@ -62,7 +62,7 @@ Every `<metadata>` section must include `<dc:identifier>`, `<dc:title>`, `<dc:la
 
 ## Optional Dublin Core elements
 
-`<metadata>` can also include any of the other 12 elements from the Dublin Core Metadata Element Set. Each can repeat unless noted otherwise.
+Package metadata can also include any of the other 12 elements from the Dublin Core Metadata Element Set. Each can repeat unless noted otherwise.
 
 - [`<dc:contributor>`](https://www.dublincore.org/specifications/dublin-core/dcmi-terms/terms/contributor/)
   - : A person or organization that made a secondary contribution, such as an editor, illustrator, translator, or narrator. List each contributor in its own element, optionally refined with `<meta property="role">`:
@@ -141,7 +141,7 @@ Every `<metadata>` section must include `<dc:identifier>`, `<dc:title>`, `<dc:la
 
 ## `<meta>` and `<link>` elements
 
-In addition to Dublin Core elements, `<metadata>` supports `<meta>` and `<link>` in the `http://www.idpf.org/2007/opf` namespace:
+In addition to Dublin Core elements, package metadata supports `<meta>` and `<link>` in the `http://www.idpf.org/2007/opf` namespace:
 
 - `<meta>`
   - : Defines a metadata property for the whole book or refines another element:
@@ -157,7 +157,7 @@ In addition to Dublin Core elements, `<metadata>` supports `<meta>` and `<link>`
 
 - `<link>`
   - : Links an external or in-archive metadata resource (such as an ONIX, MARC, or JSON-LD record, or a spoken title audio clip) to the book:
-    - `href`: Required. The URL or path (relative to the `.opf` file) of the linked resource.
+    - `href`: Required. The URL or path (relative to the package file) of the linked resource.
     - `rel`: Required. Space-separated relationship tokens (such as `record`, `alternate`, `voicing`, or `xml-signature`).
     - `media-type`: Required when linking to a file inside the EPUB archive; optional for external URLs.
     - `hreflang`: Optional [BCP 47](https://www.rfc-editor.org/info/bcp47) language tag for the linked resource.
@@ -168,7 +168,7 @@ In addition to Dublin Core elements, `<metadata>` supports `<meta>` and `<link>`
     <link rel="record" href="meta/onix.xml" media-type="application/xml" properties="onix" />
     ```
 
-    Standalone metadata files referenced by `<link>` inside the archive must be stored outside `META-INF/` and must not be listed in [`<manifest>`](/en-US/docs/Related/EPUB/Package/Manifest).
+    Standalone metadata files referenced by `<link>` inside the archive must be stored outside `META-INF` and must not be listed in the [manifest](/en-US/docs/Related/EPUB/Package/Manifest).
 
 ## Examples
 

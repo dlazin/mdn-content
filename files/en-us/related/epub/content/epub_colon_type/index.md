@@ -1,5 +1,5 @@
 ---
-title: "EPUB `epub:type` attribute"
+title: "EPUB epub:type attribute"
 short-title: "epub:type"
 slug: Related/EPUB/Content/epub:type
 page-type: guide
@@ -24,7 +24,7 @@ The `epub:type` attribute adds publishing semantics—such as marking a footnote
 </html>
 ```
 
-Although the [EPUB 3 Structural Semantics Vocabulary](https://www.w3.org/TR/epub-ssv-11/) defines dozens of terms (for chapters, prologues, dedications, epigraphs, glossaries, and more), reading systems ignore most `epub:type` values in ordinary chapters. In practice, `epub:type` triggers reading-system behavior in only a few places: pop-up notes, [navigation documents](/en-US/docs/Related/EPUB/Navigation) ([`toc`](/en-US/docs/Related/EPUB/Navigation/TOC), [`landmarks`](/en-US/docs/Related/EPUB/Navigation/Landmarks), and [`page-list`](/en-US/docs/Related/EPUB/Navigation/Page-list)), static page breaks, and Media Overlays.
+Although the [EPUB 3 Structural Semantics Vocabulary](https://www.w3.org/TR/epub-ssv-11/) defines dozens of terms (for chapters, prologues, dedications, epigraphs, glossaries, and more), reading systems ignore most `epub:type` values in ordinary chapters. In practice, `epub:type` triggers reading-system behavior in only a few places: pop-up notes, [navigation documents](/en-US/docs/Related/EPUB/Navigation) ([table of contents](/en-US/docs/Related/EPUB/Navigation/TOC), [landmarks](/en-US/docs/Related/EPUB/Navigation/Landmarks), and [page lists](/en-US/docs/Related/EPUB/Navigation/Page-list)), static page breaks, and Media Overlays.
 
 ## Syntax and namespace rules
 
@@ -49,8 +49,8 @@ Interactive notes are the main `epub:type` feature supported in chapters across 
 
 ### Navigation documents, page breaks, and Media Overlays
 
-- Inside `nav.xhtml`, `epub:type` identifies [`toc`](/en-US/docs/Related/EPUB/Navigation/TOC), [`landmarks`](/en-US/docs/Related/EPUB/Navigation/Landmarks) (plus landmark target types such as `bodymatter`, `cover`, and `index` on child `<a>` links), and [`page-list`](/en-US/docs/Related/EPUB/Navigation/Page-list).
-- In chapters, `pagebreak` marks static print page boundaries targeted by `<nav epub:type="page-list">`.
+- Inside the navigation document, `epub:type` identifies [`toc`](/en-US/docs/Related/EPUB/Navigation/TOC), [`landmarks`](/en-US/docs/Related/EPUB/Navigation/Landmarks) (plus landmark target types such as `bodymatter`, `cover`, and `index` on child `<a>` links), and [`page-list`](/en-US/docs/Related/EPUB/Navigation/Page-list).
+- In chapters, `pagebreak` marks static print page boundaries targeted by the [page list](/en-US/docs/Related/EPUB/Navigation/Page-list).
 - In Media Overlays, terms such as `pagebreak`, `footnote`, `figure`, and `table` let listeners skip optional structures or escape nested ones during synchronized audio playback.
 
 Most other vocabulary terms—such as `prologue`, `epilogue`, `dedication`, `epigraph`, `part`, or `chapter`—produce no UI changes in mainstream reading apps, though publishers sometimes keep them for internal editorial or conversion workflows.
@@ -67,15 +67,15 @@ Most other vocabulary terms—such as `prologue`, `epilogue`, `dedication`, `epi
 
 On visible elements that benefit both reading systems and assistive technologies, include both attributes:
 
-| Structure                   | Element             | `epub:type` (reading systems)         | `role` (assistive technologies) |
-| --------------------------- | ------------------- | ------------------------------------- | ------------------------------- |
-| Visible table of contents   | `<nav>`             | `epub:type="toc"`                     | `role="doc-toc"`                |
-| Visible page list           | `<nav>`             | `epub:type="page-list"`               | `role="doc-pagelist"`           |
-| Static page break           | `<span>` or `<div>` | `epub:type="pagebreak"`               | `role="doc-pagebreak"`          |
-| Note reference link         | `<a>`               | `epub:type="noteref"`                 | `role="doc-noteref"`            |
-| Individual note (`<aside>`) | `<aside>`           | `epub:type="footnote"` (or `endnote`) | `role="doc-footnote"`           |
-| Note return link            | `<a>`               | `epub:type="backlink"`                | `role="doc-backlink"`           |
-| Endnotes section            | `<section>`         | `epub:type="endnotes"`                | `role="doc-endnotes"`           |
+| Structure                 | Element             | `epub:type` (reading systems)         | `role` (assistive technologies) |
+| ------------------------- | ------------------- | ------------------------------------- | ------------------------------- |
+| Visible table of contents | `<nav>`             | `epub:type="toc"`                     | `role="doc-toc"`                |
+| Visible page list         | `<nav>`             | `epub:type="page-list"`               | `role="doc-pagelist"`           |
+| Static page break         | `<span>` or `<div>` | `epub:type="pagebreak"`               | `role="doc-pagebreak"`          |
+| Note reference link       | `<a>`               | `epub:type="noteref"`                 | `role="doc-noteref"`            |
+| Individual note           | `<aside>`           | `epub:type="footnote"` (or `endnote`) | `role="doc-footnote"`           |
+| Note return link          | `<a>`               | `epub:type="backlink"`                | `role="doc-backlink"`           |
+| Endnotes section          | `<section>`         | `epub:type="endnotes"`                | `role="doc-endnotes"`           |
 
 Keep three ARIA details in mind:
 

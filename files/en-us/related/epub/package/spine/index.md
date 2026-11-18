@@ -6,16 +6,16 @@ page-type: guide
 sidebar: epub
 ---
 
-The `<spine>` element is the third child of `<package>` in an EPUB [package file](/en-US/docs/Related/EPUB/Package) (`.opf`), placed after [`<metadata>`](/en-US/docs/Related/EPUB/Package/Metadata) and [`<manifest>`](/en-US/docs/Related/EPUB/Package/Manifest). It sets the book's default reading order using an ordered list of `<itemref>` elements that point to content documents in `<manifest>`.
+The `<spine>` element is the third child of `<package>` in an EPUB [package file](/en-US/docs/Related/EPUB/Package), placed after the [metadata](/en-US/docs/Related/EPUB/Package/Metadata) and [manifest](/en-US/docs/Related/EPUB/Package/Manifest). It sets the book's default reading order using an ordered list of `<itemref>` elements that point to content documents in the manifest.
 
-While [`<manifest>`](/en-US/docs/Related/EPUB/Package/Manifest) lists every file in the EPUB in any order, `<spine>` lists only the viewable content documents (XHTML or SVG) in the sequence a reader encounters them when turning pages from start to finish.
+While the [manifest](/en-US/docs/Related/EPUB/Package/Manifest) lists every file in the EPUB in any order, the spine lists only the viewable content documents (XHTML or SVG) in the sequence a reader encounters them when turning pages from start to finish.
 
 ## Spine vs. navigation
 
-Because both list parts of the book in order, it is easy to confuse `<spine>` with the [navigation document](/en-US/docs/Related/EPUB/Navigation) (`nav.xhtml`):
+Because both list parts of the book in order, it is easy to confuse the spine with the [navigation document](/en-US/docs/Related/EPUB/Navigation):
 
-- `<spine>` tells the reading system which file to open first and which file comes next when the reader turns past the end of a chapter. Every content document reachable by links or navigation—including a cover page, copyright page, dedication, or standalone notes file—must appear in `<spine>`.
-- `nav.xhtml` provides the reader-facing [table of contents](/en-US/docs/Related/EPUB/Navigation/TOC). One XHTML file in `<spine>` can contain multiple subheadings linked separately in the table of contents, and minor frontmatter files in `<spine>` (such as a half-title or copyright page) can be omitted from the table of contents.
+- The spine tells the reading system which file to open first and which file comes next when the reader turns past the end of a chapter. Every content document reachable by links or navigation—including a cover page, copyright page, dedication, or standalone notes file—must appear in the spine.
+- The navigation document provides the reader-facing [table of contents](/en-US/docs/Related/EPUB/Navigation/TOC). One XHTML file in the spine can contain multiple subheadings linked separately in the table of contents, and minor frontmatter files in the spine (such as a half-title or copyright page) can be omitted from the table of contents.
 
 ## Attributes
 
@@ -29,11 +29,11 @@ Because both list parts of the book in order, it is easy to confuse `<spine>` wi
     - `rtl`: Right-to-left (used for Arabic, Hebrew, and vertically typeset Japanese or Chinese books).
     - `default`: Default when omitted; lets the reading system choose page progression automatically.
 - `toc`
-  - : Legacy EPUB 2 attribute referencing the `<manifest>` `id` of an NCX file (`application/x-dtbncx+xml`). Optional in EPUB 3 and used only for backward compatibility with older EPUB 2 devices.
+  - : Legacy EPUB 2 attribute referencing the manifest `id` of an NCX file (`application/x-dtbncx+xml`). Optional in EPUB 3 and used only for backward compatibility with older EPUB 2 devices.
 
 ## The `<itemref>` element
 
-`<spine>` contains one or more self-closing `<itemref>` elements:
+The spine contains one or more self-closing `<itemref>` elements:
 
 ```xml
 <itemref idref="chapter-1" />
@@ -42,13 +42,13 @@ Because both list parts of the book in order, it is easy to confuse `<spine>` wi
 ### `<itemref>` attributes
 
 - `idref`
-  - : Required. Matches the `id` of an `<item>` in [`<manifest>`](/en-US/docs/Related/EPUB/Package/Manifest). Each manifest `id` can be referenced at most once in `<spine>`.
+  - : Required. Matches the `id` of an item in the [manifest](/en-US/docs/Related/EPUB/Package/Manifest). Each manifest `id` can be referenced at most once in the spine.
 
-    The referenced `<item>` must be an EPUB content document (`application/xhtml+xml` or `image/svg+xml`, or another format with a manifest `fallback` chain resolving to one). Stylesheets, fonts, and raster images cannot be placed directly in `<spine>` without fallbacks; to show a JPEG cover at the start of the book, wrap it in an XHTML or SVG cover document and reference that document in `<spine>`.
+    The referenced item must be an EPUB content document (`application/xhtml+xml` or `image/svg+xml`, or another format with a manifest `fallback` chain resolving to one). Stylesheets, fonts, and raster images cannot be placed directly in the spine without fallbacks; to show a JPEG cover at the start of the book, wrap it in an XHTML or SVG cover document and reference that document in the spine.
 - `linear`
-  - : Optional (`yes` or `no`; defaults to `yes`). At least one `<itemref>` in `<spine>` must be linear.
+  - : Optional (`yes` or `no`; defaults to `yes`). At least one item in the spine must be linear.
     - `yes`: Part of the normal page-turning sequence.
-    - `no`: Marks supplementary material—such as an answer key or standalone endnotes file—meant to be opened from a hyperlink rather than during sequential page turns. You must provide links (in content or navigation) to every `linear="no"` document, and placing `linear="no"` items at the end of `<spine>` is recommended because some reading systems ignore `linear="no"` and include them in normal page turns.
+    - `no`: Marks supplementary material—such as an answer key or standalone endnotes file—meant to be opened from a hyperlink rather than during sequential page turns. You must provide links (in content or navigation) to every `linear="no"` document, and placing `linear="no"` items at the end of the spine is recommended because some reading systems ignore `linear="no"` and include them in normal page turns.
 - `properties`
   - : Optional. Space-separated spine property tokens. In reflowable books, `page-spread-left` and `page-spread-right` ask the reading system to start the document on the left-hand or right-hand side when rendering a two-page spread.
 - `id`

@@ -14,7 +14,7 @@ Unlike images, audio, and fonts, EPUB 3 defines no core media types for video; i
 
 In practice, MP4 with H.264 video and AAC audio (`video/mp4`) and WebM with VP8 or VP9 video and Vorbis or Opus audio (`video/webm`) have the widest support across tablet, desktop, and browser reading systems.
 
-## Embedding `<video>` in XHTML
+## Embedding video in XHTML
 
 Write boolean attributes in XML form (`controls="controls"`, `default="default"`), supply a `poster` image using an image [core media type](/en-US/docs/Related/EPUB/Content/Images) (such as `image/jpeg` or `image/png`), and include captions with [`<track>`](/en-US/docs/Web/HTML/Reference/Elements/track):
 
@@ -35,7 +35,7 @@ Write boolean attributes in XML form (`controls="controls"`, `default="default"`
 </figure>
 ```
 
-Declare every referenced file—the video, the `poster` image, and any `<track>` caption files—in [`<manifest>`](/en-US/docs/Related/EPUB/Package/Manifest):
+Declare every referenced file—the video, the `poster` image, and any `<track>` caption files—in the [manifest](/en-US/docs/Related/EPUB/Package/Manifest):
 
 ```xml
 <manifest>
@@ -49,8 +49,8 @@ Declare every referenced file—the video, the `poster` image, and any `<track>`
 ## Authoring guidelines
 
 - Design chapters so they still make sense on grayscale e-ink devices that cannot play video. Choose a clear `poster` frame and explain key steps in surrounding prose or a transcript. Do not rely on text placed inside `<video>...</video>` appearing on e-ink devices: most engines recognize `<video>` and show only the `poster` image when video playback is unavailable.
-- Because high-resolution video can push `.epub` archives past retailer size limits, EPUB 3 allows hosting video outside the container when flagged with [`properties="remote-resources"`](/en-US/docs/Related/EPUB/Package/Manifest#manifest_item_properties) in `<manifest>` (though remote videos cannot play offline).
-- When bundling `.mp4` or `.webm` files inside the `.epub` ZIP archive, keep clips short and web-optimized, or store them uncompressed (`STORE`) because video streams are already compressed.
+- Because high-resolution video can push EPUBs past retailer size limits, EPUB 3 allows hosting video outside the container when flagged with [`properties="remote-resources"`](/en-US/docs/Related/EPUB/Package/Manifest#manifest_item_properties) in the manifest (though remote videos cannot play offline).
+- When bundling MP4 or WebM files inside the EPUB archive, keep clips short and web-optimized, or store them uncompressed (`STORE`) because video streams are already compressed.
 
 ## Specifications
 
