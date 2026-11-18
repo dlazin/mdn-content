@@ -6,7 +6,7 @@ page-type: guide
 sidebar: epub
 ---
 
-Every EPUB 3 book includes one **navigation document** (commonly named `nav.xhtml` or `toc.xhtml`). It is an [XHTML content document](/en-US/docs/Related/EPUB/Reference/Content/XHTML) (`application/xhtml+xml`) that powers the reading system's built-in navigation menus and can also appear as a table of contents page inside the book.
+Every EPUB 3 book includes one navigation document (commonly named `nav.xhtml` or `toc.xhtml`). It is an [XHTML content document](/en-US/docs/Related/EPUB/Reference/Content/XHTML) (`application/xhtml+xml`) that powers the reading system's built-in navigation menus and can also appear as a table of contents page inside the book.
 
 Identify the navigation document in the [manifest](/en-US/docs/Related/EPUB/Reference/Package/Manifest) by setting `properties="nav"` on its `<item>`:
 
@@ -117,11 +117,3 @@ The EPUB 3 navigation document replaces both EPUB 2 navigation structures: the s
 - [EPUB 3.3: The `nav` element: restrictions](https://www.w3.org/TR/epub-33/#sec-nav-def-model)
 - [EPUB 3.3: The `nav` element: types](https://www.w3.org/TR/epub-33/#sec-nav-def-types)
 - [EPUB 3.3: Using in the spine](https://www.w3.org/TR/epub-33/#sec-nav-doc-use-spine)
-
-## See also
-
-- [EPUB table of contents (TOC)](/en-US/docs/Related/EPUB/Reference/Navigation/TOC)
-- [EPUB landmarks](/en-US/docs/Related/EPUB/Reference/Navigation/Landmarks)
-- [EPUB page list](/en-US/docs/Related/EPUB/Reference/Navigation/Page-list)
-- [EPUB package manifest](/en-US/docs/Related/EPUB/Reference/Package/Manifest)
-- [EPUB package spine](/en-US/docs/Related/EPUB/Reference/Package/Spine)

@@ -6,7 +6,7 @@ page-type: guide
 sidebar: epub
 ---
 
-In EPUB 3, **landmarks** are an optional navigation list inside the [navigation document](/en-US/docs/Related/EPUB/Reference/Navigation), marked up with `<nav epub:type="landmarks">`:
+In EPUB 3, landmarks are an optional navigation list inside the [navigation document](/en-US/docs/Related/EPUB/Reference/Navigation), marked up with `<nav epub:type="landmarks">`:
 
 ```xml
 <nav epub:type="landmarks" hidden="">
@@ -55,7 +55,4 @@ The landmarks list follows the [EPUB `<nav>` content rules](/en-US/docs/Related/
 
 ## See also
 
-- [EPUB navigation document](/en-US/docs/Related/EPUB/Reference/Navigation)
-- [EPUB table of contents (TOC)](/en-US/docs/Related/EPUB/Reference/Navigation/TOC)
 - [EPUB page list](/en-US/docs/Related/EPUB/Reference/Navigation/Page-list)
-- [EPUB `epub:type` attribute](/en-US/docs/Related/EPUB/Reference/Content/epub:type)

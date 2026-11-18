@@ -51,4 +51,3 @@ JavaScript is foundational on modern websites, whereas ebooks rarely contain [sc
 ## See also
 
 - [Introduction to EPUB](/en-US/docs/Related/EPUB/Overview)
-- [EPUB's relationship to the web](/en-US/docs/Related/EPUB/Relationship_to_the_web)

@@ -6,7 +6,7 @@ page-type: guide
 sidebar: epub
 ---
 
-In EPUB 3, chapters and text sections are **[XHTML](/en-US/docs/Glossary/XHTML) content documents**: [HTML](/en-US/docs/Web/HTML) files written in [XML](/en-US/docs/Web/XML/Guides/XML_introduction) syntax and declared in the [manifest](/en-US/docs/Related/EPUB/Reference/Package/Manifest) with `media-type="application/xhtml+xml"`.
+In EPUB 3, chapters and text sections are [XHTML](/en-US/docs/Glossary/XHTML) content documents: [HTML](/en-US/docs/Web/HTML) files written in [XML](/en-US/docs/Web/XML/Guides/XML_introduction) syntax and declared in the [manifest](/en-US/docs/Related/EPUB/Reference/Package/Manifest) with `media-type="application/xhtml+xml"`.
 
 Most reflowable ebooks use one XHTML file per chapter or section (such as `cover.xhtml`, `copyright.xhtml`, `chapter-1.xhtml`, and `chapter-2.xhtml`) and list them in order in the [spine](/en-US/docs/Related/EPUB/Reference/Package/Spine). Splitting a book into chapter files helps low-memory e-readers load pages quickly and starts each chapter on a new screen page.
 
@@ -97,10 +97,3 @@ EPUB 3.3 also discourages three HTML elements:
 - [EPUB 3.3: HTML extensions](https://www.w3.org/TR/epub-33/#sec-xhtml-extensions)
 - [EPUB 3.3: HTML deviations and constraints](https://www.w3.org/TR/epub-33/#sec-xhtml-deviations)
 - [EPUB 3.3: Embedded MathML](https://www.w3.org/TR/epub-33/#sec-xhtml-mathml)
-
-## See also
-
-- [EPUB publication content](/en-US/docs/Related/EPUB/Reference/Content)
-- [XHTML](/en-US/docs/Glossary/XHTML)
-- [EPUB `epub:type` attribute](/en-US/docs/Related/EPUB/Reference/Content/epub:type)
-- [MathML](/en-US/docs/Web/MathML)

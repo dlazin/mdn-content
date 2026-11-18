@@ -6,7 +6,7 @@ page-type: guide
 sidebar: epub
 ---
 
-In an unzipped EPUB, the **content directory** (commonly named `OEBPS`, `OPS`, or `EPUB`) is the folder that holds the [package file](/en-US/docs/Related/EPUB/Reference/Package), the [navigation document](/en-US/docs/Related/EPUB/Reference/Navigation), and all [publication content](/en-US/docs/Related/EPUB/Reference/Content).
+In an unzipped EPUB, the content directory (commonly named `OEBPS`, `OPS`, or `EPUB`) is the folder that holds the [package file](/en-US/docs/Related/EPUB/Reference/Package), the [navigation document](/en-US/docs/Related/EPUB/Reference/Navigation), and all [publication content](/en-US/docs/Related/EPUB/Reference/Content).
 
 ## Naming and folder layout
 
@@ -58,10 +58,3 @@ See [Container URLs](/en-US/docs/Related/EPUB/Reference/Structure/OCF#container_
 - [EPUB 3.3: File paths and file names](https://www.w3.org/TR/epub-33/#sec-container-filenames)
 - [EPUB 3.3: URLs in the OCF abstract container](https://www.w3.org/TR/epub-33/#sec-container-iri)
 - [EPUB 3.3: Parsing URLs in the package document](https://www.w3.org/TR/epub-33/#sec-parse-package-urls)
-
-## See also
-
-- [EPUB structure](/en-US/docs/Related/EPUB/Reference/Structure)
-- [Open Container Format](/en-US/docs/Related/EPUB/Reference/Structure/OCF)
-- [EPUB package manifest](/en-US/docs/Related/EPUB/Reference/Package/Manifest)
-- [EPUB publication content](/en-US/docs/Related/EPUB/Reference/Content)

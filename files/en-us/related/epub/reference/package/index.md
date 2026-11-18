@@ -6,7 +6,7 @@ page-type: guide
 sidebar: epub
 ---
 
-The **package file** (also called the **package document** or **OPF file**, usually named `package.opf` or `content.opf`) is the [XML](/en-US/docs/Web/XML/Guides/XML_introduction) file that acts as the central index of an EPUB. It uses the media type `application/oebps-package+xml` and groups three required sections inside a root `<package>` element: [metadata](/en-US/docs/Related/EPUB/Reference/Package/Metadata), [manifest](/en-US/docs/Related/EPUB/Reference/Package/Manifest), and [spine](/en-US/docs/Related/EPUB/Reference/Package/Spine).
+The package file (also called the package document or OPF file, usually named `package.opf` or `content.opf`) is the [XML](/en-US/docs/Web/XML/Guides/XML_introduction) file that acts as the central index of an EPUB. It uses the media type `application/oebps-package+xml` and groups three required sections inside a root `<package>` element: [metadata](/en-US/docs/Related/EPUB/Reference/Package/Metadata), [manifest](/en-US/docs/Related/EPUB/Reference/Package/Manifest), and [spine](/en-US/docs/Related/EPUB/Reference/Package/Spine).
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
@@ -92,11 +92,3 @@ Child elements of `<package>` must appear in the exact order shown here. Placing
 - [EPUB 3.3: The `package` element](https://www.w3.org/TR/epub-33/#sec-package-elem)
 - [EPUB 3.3: Shared attributes](https://www.w3.org/TR/epub-33/#sec-shared-attrs)
 - [EPUB 3.3: Package vocabulary association](https://www.w3.org/TR/epub-33/#sec-vocab-assoc)
-
-## See also
-
-- [EPUB package metadata](/en-US/docs/Related/EPUB/Reference/Package/Metadata)
-- [EPUB package manifest](/en-US/docs/Related/EPUB/Reference/Package/Manifest)
-- [EPUB package spine](/en-US/docs/Related/EPUB/Reference/Package/Spine)
-- [EPUB `container.xml` file](/en-US/docs/Related/EPUB/Reference/Structure/container.xml)
-- [EPUB content directory](/en-US/docs/Related/EPUB/Reference/Structure/Content)

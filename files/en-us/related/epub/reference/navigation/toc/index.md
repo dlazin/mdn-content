@@ -6,7 +6,7 @@ page-type: guide
 sidebar: epub
 ---
 
-In EPUB 3, the **table of contents (TOC)** is an HTML [`<nav>`](/en-US/docs/Web/HTML/Reference/Elements/nav) element with `epub:type="toc"` inside the book's [navigation document](/en-US/docs/Related/EPUB/Reference/Navigation):
+In EPUB 3, the table of contents (TOC) is an HTML [`<nav>`](/en-US/docs/Web/HTML/Reference/Elements/nav) element with `epub:type="toc"` inside the book's [navigation document](/en-US/docs/Related/EPUB/Reference/Navigation):
 
 ```xml
 <nav epub:type="toc" role="doc-toc" aria-labelledby="toc-heading" id="toc">
@@ -84,8 +84,5 @@ This example uses `<span>` for an unlinked part heading, nested `<ol>` lists for
 
 ## See also
 
-- [EPUB navigation document](/en-US/docs/Related/EPUB/Reference/Navigation)
 - [EPUB landmarks](/en-US/docs/Related/EPUB/Reference/Navigation/Landmarks)
 - [EPUB page list](/en-US/docs/Related/EPUB/Reference/Navigation/Page-list)
-- [EPUB package spine](/en-US/docs/Related/EPUB/Reference/Package/Spine)
-- [`<nav>` HTML element](/en-US/docs/Web/HTML/Reference/Elements/nav)

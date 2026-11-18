@@ -6,9 +6,9 @@ page-type: guide
 sidebar: epub
 ---
 
-**Core media types** are the standard [MIME media types](/en-US/docs/Web/HTTP/Guides/MIME_types) that EPUB 3 reading systems support without requiring fallback formats. When you use a core media type inside a content document—such as a JPEG image, an MP3 audio clip, a CSS stylesheet, or a WOFF2 font—you can declare it in the [manifest](/en-US/docs/Related/EPUB/Reference/Package/Manifest) and reference it directly.
+Core media types are the standard [MIME media types](/en-US/docs/Web/HTTP/Guides/MIME_types) that EPUB 3 reading systems support without requiring fallback formats. When you use a core media type inside a content document—such as a JPEG image, an MP3 audio clip, a CSS stylesheet, or a WOFF2 font—you can declare it in the [manifest](/en-US/docs/Related/EPUB/Reference/Package/Manifest) and reference it directly.
 
-Resources outside the core media types list are either **foreign resources** (which require a fallback to a core media type) or **[exempt resources](#exempt_resources)** (such as video files, which are not guaranteed reading-system support and do not require fallbacks).
+Resources outside the core media types list are either [foreign resources](#foreign_resources_and_fallbacks) (which require a fallback to a core media type) or [exempt resources](#exempt_resources) (such as video files, which are not guaranteed reading-system support and do not require fallbacks).
 
 ## Core media types reference
 
@@ -103,10 +103,3 @@ EPUB 3 exempts four categories of non-core resources from fallback requirements,
 - [EPUB 3.3: Foreign resources](https://www.w3.org/TR/epub-33/#sec-foreign-resources)
 - [EPUB 3.3: Exempt resources](https://www.w3.org/TR/epub-33/#sec-exempt-resources)
 - [EPUB 3.3: Resource fallbacks](https://www.w3.org/TR/epub-33/#sec-resource-fallbacks)
-
-## See also
-
-- [EPUB package manifest](/en-US/docs/Related/EPUB/Reference/Package/Manifest)
-- [EPUB package spine](/en-US/docs/Related/EPUB/Reference/Package/Spine)
-- [EPUB fonts](/en-US/docs/Related/EPUB/Reference/Content/Fonts)
-- [Media types (MIME types)](/en-US/docs/Web/HTTP/Guides/MIME_types)

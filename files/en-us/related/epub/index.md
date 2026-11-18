@@ -36,7 +36,6 @@ EPUB (Electronic Publication) is the W3C open standard file format for digital b
 
 ## See also
 
-- [EPUB reference](/en-US/docs/Related/EPUB/Reference)
 - [EPUB 3 Overview (W3C Working Group Note)](https://www.w3.org/TR/epub-overview-33/)
 - [DAISY Accessible Publishing Knowledge Base](https://kb.daisy.org/publishing/docs/)
 - [EPUBCheck](https://www.w3.org/publishing/epubcheck/) — the W3C's conformance checker for EPUBs

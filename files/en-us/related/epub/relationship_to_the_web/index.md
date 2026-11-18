@@ -30,4 +30,3 @@ Although EPUB points to living web standards, EPUB itself remains a versioned sp
 ## See also
 
 - [Introduction to EPUB](/en-US/docs/Related/EPUB/Overview)
-- [How EPUB differs from the web](/en-US/docs/Related/EPUB/Differences_from_the_web)

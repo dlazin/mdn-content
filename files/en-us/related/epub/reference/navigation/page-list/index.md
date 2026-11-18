@@ -6,7 +6,7 @@ page-type: guide
 sidebar: epub
 ---
 
-In EPUB 3, a **page list** is an optional navigation list inside the [navigation document](/en-US/docs/Related/EPUB/Reference/Navigation), marked up with `<nav epub:type="page-list">`:
+In EPUB 3, a page list is an optional navigation list inside the [navigation document](/en-US/docs/Related/EPUB/Reference/Navigation), marked up with `<nav epub:type="page-list">`:
 
 ```xml
 <nav epub:type="page-list" hidden="">
@@ -67,7 +67,5 @@ When your EPUB includes static page breaks, [EPUB Accessibility 1.1](https://www
 
 ## See also
 
-- [EPUB navigation document](/en-US/docs/Related/EPUB/Reference/Navigation)
 - [EPUB table of contents (TOC)](/en-US/docs/Related/EPUB/Reference/Navigation/TOC)
 - [EPUB landmarks](/en-US/docs/Related/EPUB/Reference/Navigation/Landmarks)
-- [EPUB package metadata](/en-US/docs/Related/EPUB/Reference/Package/Metadata)

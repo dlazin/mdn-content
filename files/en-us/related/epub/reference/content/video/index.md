@@ -60,7 +60,4 @@ Declare every referenced file—the video, the `poster` image, and any `<track>`
 
 ## See also
 
-- [`<video>`: The Video Embed element](/en-US/docs/Web/HTML/Reference/Elements/video)
-- [`<track>`: The Embed Text Track element](/en-US/docs/Web/HTML/Reference/Elements/track)
 - [EPUB audio and Media Overlays](/en-US/docs/Related/EPUB/Reference/Content/Audio)
-- [EPUB core media types](/en-US/docs/Related/EPUB/Reference/Content/Core_media_types)

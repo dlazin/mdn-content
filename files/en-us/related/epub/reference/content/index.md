@@ -6,7 +6,7 @@ page-type: guide
 sidebar: epub
 ---
 
-While [`mimetype`](/en-US/docs/Related/EPUB/Reference/Structure/mimetype), [`META-INF/container.xml`](/en-US/docs/Related/EPUB/Reference/Structure/container.xml), and the [package file](/en-US/docs/Related/EPUB/Reference/Package) handle packaging and metadata, **publication content** is what readers see, hear, and interact with.
+While [`mimetype`](/en-US/docs/Related/EPUB/Reference/Structure/mimetype), [`META-INF/container.xml`](/en-US/docs/Related/EPUB/Reference/Structure/container.xml), and the [package file](/en-US/docs/Related/EPUB/Reference/Package) handle packaging and metadata, publication content is what readers see, hear, and interact with.
 
 ## Content documents vs. supporting resources
 
@@ -48,5 +48,3 @@ Both content documents and supporting assets must be listed in the [manifest](/e
 ## See also
 
 - [EPUB content directory](/en-US/docs/Related/EPUB/Reference/Structure/Content)
-- [EPUB package manifest](/en-US/docs/Related/EPUB/Reference/Package/Manifest)
-- [EPUB package spine](/en-US/docs/Related/EPUB/Reference/Package/Spine)

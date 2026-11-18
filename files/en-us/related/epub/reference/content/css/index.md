@@ -121,7 +121,4 @@ Declare the stylesheet in the [manifest](/en-US/docs/Related/EPUB/Reference/Pack
 
 ## See also
 
-- [CSS: Cascading Style Sheets](/en-US/docs/Web/CSS)
 - [EPUB fonts](/en-US/docs/Related/EPUB/Reference/Content/Fonts)
-- [EPUB XHTML content documents](/en-US/docs/Related/EPUB/Reference/Content/XHTML)
-- [`dir` HTML global attribute](/en-US/docs/Web/HTML/Reference/Global_attributes/dir)

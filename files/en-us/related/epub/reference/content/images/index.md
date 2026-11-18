@@ -76,5 +76,3 @@ Most EPUB 3 books declare their cover in two places:
 
 - [`<img>`: The Image Embed element](/en-US/docs/Web/HTML/Reference/Elements/img)
 - [`<picture>`: The Picture element](/en-US/docs/Web/HTML/Reference/Elements/picture)
-- [EPUB SVG](/en-US/docs/Related/EPUB/Reference/Content/SVG)
-- [EPUB core media types](/en-US/docs/Related/EPUB/Reference/Content/Core_media_types)

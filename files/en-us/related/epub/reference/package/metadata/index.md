@@ -241,9 +241,3 @@ In addition to Dublin Core elements, package metadata supports `<meta>` and `<li
 - [EPUB 3.3: The `meta` element](https://www.w3.org/TR/epub-33/#sec-meta-elem)
 - [EPUB 3.3: The `link` element](https://www.w3.org/TR/epub-33/#sec-link-elem)
 - [EPUB Accessibility 1.1](https://www.w3.org/TR/epub-a11y-11/)
-
-## See also
-
-- [EPUB package file](/en-US/docs/Related/EPUB/Reference/Package)
-- [EPUB package manifest](/en-US/docs/Related/EPUB/Reference/Package/Manifest)
-- [EPUB structure](/en-US/docs/Related/EPUB/Reference/Structure)

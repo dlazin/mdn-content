@@ -46,5 +46,4 @@ Because reading systems and retailer pipelines reject malformed EPUBs, completed
 
 ## See also
 
-- [EPUB's relationship to the web](/en-US/docs/Related/EPUB/Relationship_to_the_web)
 - [How EPUB differs from the web](/en-US/docs/Related/EPUB/Differences_from_the_web)

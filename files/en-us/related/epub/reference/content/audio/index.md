@@ -9,7 +9,7 @@ sidebar: epub
 EPUB 3 supports audio in two ways:
 
 - Standalone audio clips embedded in [XHTML](/en-US/docs/Related/EPUB/Reference/Content/XHTML) content documents with the HTML [`<audio>`](/en-US/docs/Web/HTML/Reference/Elements/audio) element (such as pronunciations, music excerpts, or interviews).
-- **Media Overlays** (`application/smil+xml`), which synchronize prerecorded human narration with XHTML text elements for a highlighted read-aloud experience.
+- Media Overlays (`application/smil+xml`), which synchronize prerecorded human narration with XHTML text elements for a highlighted read-aloud experience.
 
 ## Supported audio formats
 
@@ -122,10 +122,3 @@ Reading systems that do not support Media Overlays ignore the overlay files and 
 - [EPUB 3.3: HTML `audio` and `video` fallbacks](https://www.w3.org/TR/epub-33/#sec-fallbacks-audio)
 - [EPUB 3.3: Resource locations](https://www.w3.org/TR/epub-33/#sec-resource-locations)
 - [EPUB 3.3: Media Overlays](https://www.w3.org/TR/epub-33/#sec-media-overlays)
-
-## See also
-
-- [`<audio>`: The Embed Audio element](/en-US/docs/Web/HTML/Reference/Elements/audio)
-- [EPUB video](/en-US/docs/Related/EPUB/Reference/Content/Video)
-- [EPUB core media types](/en-US/docs/Related/EPUB/Reference/Content/Core_media_types)
-- [EPUB package manifest](/en-US/docs/Related/EPUB/Reference/Package/Manifest)
