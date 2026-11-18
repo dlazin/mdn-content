@@ -37,15 +37,7 @@ The **package file** (also called the **package document** or **OPF file**, usua
 </package>
 ```
 
-## Location and relative paths
-
-The package file has no fixed path or filename. Reading systems find it through `<rootfile>` in [`META-INF/container.xml`](/en-US/docs/Related/EPUB/Structure/META-INF):
-
-```xml
-<rootfile full-path="OEBPS/package.opf" media-type="application/oebps-package+xml" />
-```
-
-Relative URLs inside the package file (such as `href` values in `<manifest>` and `<metadata>`) resolve from the directory containing the `.opf` file—for example, from `OEBPS/` when the file is at `OEBPS/package.opf`. Keep the package file unencrypted and place it at the top of your [content directory](/en-US/docs/Related/EPUB/Structure/Content) so all book files sit in the same folder or in subfolders inside it.
+Reading systems locate the package file via `<rootfile>` in [`META-INF/container.xml`](/en-US/docs/Related/EPUB/Structure/META-INF), and relative URLs inside the package file resolve from the folder containing the `.opf` file (see [Relative paths across an EPUB](/en-US/docs/Related/EPUB/Structure/Content#relative_paths_across_an_epub)).
 
 ## Root `<package>` attributes
 

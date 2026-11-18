@@ -13,10 +13,7 @@ EPUB 3 supports client-side [JavaScript](/en-US/docs/Web/JavaScript) in [XHTML](
 
 ## Declaring scripted content in `<manifest>`
 
-Follow two rules whenever an EPUB includes scripts or HTML forms:
-
-- Declare external `.js` files in [`<manifest>`](/en-US/docs/Related/EPUB/Package/Manifest) with `media-type="application/javascript"` (or the core aliases `text/javascript` or `application/ecmascript`).
-- Add `properties="scripted"` to any XHTML or SVG `<item>` in `<manifest>` that contains executable `<script>` elements (inline or external) or HTML `<form>` elements:
+Declare external `.js` files in [`<manifest>`](/en-US/docs/Related/EPUB/Package/Manifest) with `media-type="application/javascript"` (or `text/javascript`), and add [`properties="scripted"`](/en-US/docs/Related/EPUB/Package/Manifest#manifest_item_properties) to any XHTML or SVG `<item>` containing executable `<script>` elements or HTML `<form>` elements:
 
 ```xml
 <manifest>
@@ -26,10 +23,7 @@ Follow two rules whenever an EPUB includes scripts or HTML forms:
 </manifest>
 ```
 
-Two cases do not require `properties="scripted"`:
-
-- Non-executable data blocks such as `<script type="application/json">`.
-- Parent documents that embed a scripted widget via [`<iframe>`](/en-US/docs/Web/HTML/Reference/Elements/iframe): `properties="scripted"` is not transitive, so only the embedded widget's `<item>` declares `properties="scripted"`.
+Inert data blocks such as `<script type="application/json">` do not require `properties="scripted"`, and `properties="scripted"` is not transitive across `<iframe>` boundaries (only the scripted document itself declares `properties="scripted"`).
 
 ## Scripting contexts
 
@@ -48,9 +42,9 @@ A spine-level script runs directly inside a top-level content document listed in
 ## Security, storage, and XML rules
 
 - Reading systems assign each EPUB an isolated origin so scripts in one book cannot read data from another book. Do not assume `localStorage` or cookies persist across sessions.
-- Many reading systems run offline or block `fetch()` and `XMLHttpRequest`. If a script loads remote data, the host document's `<item>` in `<manifest>` must also declare `properties="remote-resources"`, and the script must obtain user consent before sending any user data.
+- Many reading systems run offline or block `fetch()` and `XMLHttpRequest`. If a script loads remote data, flag the host document's `<item>` with [`properties="remote-resources"`](/en-US/docs/Related/EPUB/Package/Manifest#manifest_item_properties), and obtain user consent before sending any user data.
 - Design controls for touchscreens, e-ink tap zones (where edge taps or horizontal swipes often turn pages), mice, and assistive switches. Do not rely on hover states alone.
-- Because XHTML is parsed as XML, characters like `<` and `&` in `i < 10` or `a && b` inside an inline `<script>` element cause fatal XML parsing errors. Put JavaScript in an external `.js` file (recommended) or wrap inline code in `<![CDATA[ ... ]]>`.
+- Put JavaScript in an external `.js` file (or wrap inline code in `<![CDATA[ ... ]]>`) so `<` and `&` operators in `i < 10` or `a && b` do not cause [XML parsing errors](/en-US/docs/Related/EPUB/Content/XHTML#xml_syntax_rules).
 
 ## Detecting reading system capabilities
 
@@ -63,7 +57,7 @@ Supporting reading systems expose [`navigator.epubReadingSystem`](https://www.w3
 
 ### Progressive enhancement with an external script
 
-In this `text/quiz-widget.xhtml` example, readers can reveal the answer with native HTML `<details>` and `<summary>` when JavaScript is disabled. When scripts are enabled, `scripts/quiz.js` enhances the widget without risking XML syntax errors from inline `<` or `&` operators:
+In this `text/quiz-widget.xhtml` example, readers can reveal the answer with native HTML `<details>` and `<summary>` when JavaScript is disabled, while `scripts/quiz.js` enhances the widget when scripts run:
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>

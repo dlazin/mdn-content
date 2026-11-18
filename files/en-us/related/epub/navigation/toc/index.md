@@ -18,85 +18,30 @@ In EPUB 3, the **table of contents (TOC)** is an HTML [`<nav>`](/en-US/docs/Web/
 </nav>
 ```
 
-Every EPUB [navigation document](/en-US/docs/Related/EPUB/Navigation) must contain one `<nav epub:type="toc">` element. Reading systems use it to build their table of contents menu, and you can also include `nav.xhtml` in the package [`<spine>`](/en-US/docs/Related/EPUB/Package/Spine) to display the TOC as a page inside the book.
-
-## TOC vs. the package spine
-
-`<nav epub:type="toc">` and the package [`<spine>`](/en-US/docs/Related/EPUB/Package/Spine) serve different roles:
-
-- `<spine>` lists every viewable content document in the sequence the reading system loads them as pages turn.
-- `<nav epub:type="toc">` is an outline for the reader. You can leave out minor frontmatter files (such as a cover or copyright page) and link to multiple subheadings inside a single chapter file using fragments (such as `chapter-1.xhtml#section-2`).
-
-Links in the TOC should follow the same order as the documents in `<spine>` and the elements inside each document.
+Every EPUB [navigation document](/en-US/docs/Related/EPUB/Navigation) must contain exactly one `<nav epub:type="toc">` element. Links in the TOC should follow the same order as the documents in [`<spine>`](/en-US/docs/Related/EPUB/Package/Spine) and the sections within each document, though the TOC can omit minor frontmatter files and link to multiple subheadings inside a single chapter (see [Spine vs. navigation](/en-US/docs/Related/EPUB/Package/Spine#spine_vs_navigation)).
 
 ## Structure and elements
 
-Unlike `<nav>` on an ordinary webpage, `<nav epub:type="toc">` follows a restricted HTML structure so reading systems can turn it into native collapsible menus:
+`<nav epub:type="toc">` follows the [EPUB `<nav>` content rules](/en-US/docs/Related/EPUB/Navigation#content_rules_for_nav_elements) and builds a single-level or nested outline from these elements:
 
 - `<nav epub:type="toc">`
-  - : Container for the table of contents. Declare `xmlns:epub="http://www.idpf.org/2007/ops"` on `<html>`. When `nav.xhtml` is rendered in `<spine>`, adding [`role="doc-toc"`](https://www.w3.org/TR/dpub-aria-1.1/#doc-toc) exposes the table of contents role to screen readers. Contains an optional heading followed by a single `<ol>`.
+  - : Container for the table of contents. When `nav.xhtml` is rendered visibly in `<spine>` (without `hidden=""`), include [`role="doc-toc"`](https://www.w3.org/TR/dpub-aria-1.1/#doc-toc) and label the region with `aria-labelledby` (pointing to the heading's `id`) or `aria-label` for screen readers.
 - [`<h1>`–`<h6>`](/en-US/docs/Web/HTML/Reference/Elements/Heading_Elements)
-  - : Optional heading for the TOC (such as `<h1 id="toc-heading">Contents</h1>`). Reference its `id` with `aria-labelledby` on `<nav>` (or set `aria-label` on `<nav>` if there is no heading) so assistive technologies announce a label for the navigation region.
+  - : Optional heading for the TOC (such as `<h1 id="toc-heading">Contents</h1>`).
 - [`<ol>`](/en-US/docs/Web/HTML/Reference/Elements/ol)
-  - : A level in the TOC hierarchy containing one or more `<li>` elements. Unordered lists (`<ul>`) are not allowed. Default styling inside EPUB `<nav>` elements is `list-style: none`, so list items are not numbered unless styled with CSS.
+  - : A level in the TOC hierarchy containing one or more `<li>` elements. Add [`hidden=""`](/en-US/docs/Web/HTML/Reference/Global_attributes/hidden) to deeply nested `<ol>` sublists if you want to omit lower-level headings from the visible [in-book TOC page](/en-US/docs/Related/EPUB/Navigation#including_nav_xhtml_in_the_reading_order) while keeping them in the reading app's expandable TOC menu.
 - [`<li>`](/en-US/docs/Web/HTML/Reference/Elements/li)
-  - : A single TOC entry. Must start with one `<a>` or `<span>`, optionally followed by one nested `<ol>` for subsections (required after `<span>`).
+  - : A single TOC entry, starting with one `<a>` or `<span>` and optionally followed by one nested `<ol>` for subsections (required after `<span>`).
 - [`<a>`](/en-US/docs/Web/HTML/Reference/Elements/a)
-  - : Links to a chapter or section in the EPUB (never an external URL). Every linked content document must be listed in `<spine>`, and `<a>` must have a non-empty text label.
+  - : Links to a chapter or `#` fragment in a `<spine>` document, with a non-empty text label.
 - [`<span>`](/en-US/docs/Web/HTML/Reference/Elements/span)
-  - : An unlinked group heading (such as `<span>Part I</span>` when Part I has no separate page). Must have a non-empty text label and must be followed by a nested `<ol>`.
-
-> [!NOTE]
-> Many reading apps strip inline HTML tags, CSS styling, and images when rendering their built-in TOC menu. Make sure every TOC entry makes sense as plain text, and add `alt` (and `title` if needed) whenever an entry uses an image.
-
-## Displaying and trimming the TOC in `<spine>`
-
-If you include `nav.xhtml` in `<spine>` so readers see an in-book Contents page, you can use the HTML [`hidden`](/en-US/docs/Web/HTML/Reference/Global_attributes/hidden) attribute (`hidden=""` in XML syntax) to control what appears on the page:
-
-- Add `hidden=""` to deeply nested `<ol>` sublists so the in-book TOC page shows only top-level chapters while the reading app's expandable menu still includes every subsection.
-- Add `hidden=""` to sibling [`landmarks`](/en-US/docs/Related/EPUB/Navigation/Landmarks) or [`page-list`](/en-US/docs/Related/EPUB/Navigation/Page-list) `<nav>` elements so they do not appear on the visible TOC page.
+  - : An unlinked group heading (such as `<span>Part I</span>` when Part I has no dedicated page), followed by a nested `<ol>`.
 
 ## Examples
 
-### Minimal TOC document
-
-```xml
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:epub="http://www.idpf.org/2007/ops"
-      xml:lang="en"
-      lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <title>Contents</title>
-    <link rel="stylesheet" type="text/css" href="styles/main.css" />
-  </head>
-  <body>
-    <nav epub:type="toc" role="doc-toc" aria-labelledby="toc-heading" id="toc">
-      <h1 id="toc-heading">Contents</h1>
-      <ol>
-        <li><a href="text/preface.xhtml">Preface</a></li>
-        <li><a href="text/chapter-1.xhtml">Chapter 1: Loomings</a></li>
-        <li><a href="text/chapter-2.xhtml">Chapter 2: The Carpet-Bag</a></li>
-      </ol>
-    </nav>
-  </body>
-</html>
-```
-
-Declare this file in [`<manifest>`](/en-US/docs/Related/EPUB/Package/Manifest) with `properties="nav"`:
-
-```xml
-<manifest>
-  <item id="nav" href="nav.xhtml" media-type="application/xhtml+xml" properties="nav" />
-  <!-- other manifest items -->
-</manifest>
-```
-
 ### Multi-level TOC with an unlinked group heading and hidden sublists
 
-This example uses `<span>` for an unlinked part heading, nested `<ol>` lists for subsections, and `hidden=""` on a third-level `<ol>` to keep third-level headings out of the in-book TOC page while keeping them in the app's TOC menu:
+This example uses `<span>` for an unlinked part heading, nested `<ol>` lists for subsections, and `hidden=""` on a third-level `<ol>` to hide third-level headings on the in-book Contents page while preserving them in the app's TOC menu:
 
 ```xml
 <nav epub:type="toc" role="doc-toc" aria-labelledby="toc-heading" id="toc">
@@ -134,7 +79,6 @@ This example uses `<span>` for an unlinked part heading, nested `<ol>` lists for
 ## Specifications
 
 - [EPUB 3.3: The `toc nav` element](https://www.w3.org/TR/epub-33/#sec-nav-toc)
-- [EPUB 3.3: EPUB navigation document](https://www.w3.org/TR/epub-33/#sec-nav)
 - [EPUB 3.3: The `nav` element: restrictions](https://www.w3.org/TR/epub-33/#sec-nav-def-model)
 - [EPUB 3.3: Using in the spine](https://www.w3.org/TR/epub-33/#sec-nav-doc-use-spine)
 
@@ -143,6 +87,5 @@ This example uses `<span>` for an unlinked part heading, nested `<ol>` lists for
 - [EPUB navigation document](/en-US/docs/Related/EPUB/Navigation)
 - [EPUB landmarks](/en-US/docs/Related/EPUB/Navigation/Landmarks)
 - [EPUB page list](/en-US/docs/Related/EPUB/Navigation/Page-list)
-- [EPUB package manifest](/en-US/docs/Related/EPUB/Package/Manifest)
 - [EPUB package spine](/en-US/docs/Related/EPUB/Package/Spine)
 - [`<nav>` HTML element](/en-US/docs/Web/HTML/Reference/Elements/nav)

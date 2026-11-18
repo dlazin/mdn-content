@@ -18,7 +18,7 @@ This file tells reading systems and operating systems that the ZIP container is 
 
 An EPUB is packaged as a ZIP archive using the [Open Container Format (OCF)](/en-US/docs/Related/EPUB/Structure/OCF). Because a ZIP archive can hold any kind of data, a system cannot tell from the ZIP header alone that the archive is an ebook.
 
-To solve this without relying on the `.epub` file extension or unzipping the entire archive, the EPUB specification requires that the first file in the ZIP container be an uncompressed `mimetype` file. This places the above string `application/epub+zip` at a fixed byte offset (starting at byte 38 of the EPUB file), letting software identify the file by reading its first few dozen bytes.
+To solve this without relying on the `.epub` file extension or unzipping the entire archive, the EPUB specification requires that the first file in the ZIP container be an uncompressed `mimetype` file. This places the string `application/epub+zip` at a fixed byte offset (starting at byte 38 of the EPUB file), letting software identify the file by reading its first few dozen bytes.
 
 ## Requirements
 
@@ -30,13 +30,7 @@ Every EPUB `mimetype` file must follow strict formatting and packaging rules:
 - The file must be stored uncompressed (using the ZIP `STORE` method rather than `DEFLATE`) and unencrypted so that it remains plain text in the archive header.
 - The ZIP header for `mimetype` must not include extra fields that would shift the `application/epub+zip` string away from byte offset 38.
 
-> [!NOTE]
-> If you package an EPUB from the command line using `zip`, add the `mimetype` file first with compression disabled (`-0`) and extra file attributes excluded (`-X`) before adding the remaining directories:
->
-> ```bash
-> zip -0 -X book.epub mimetype
-> zip -r -X book.epub META-INF OEBPS
-> ```
+For command-line `zip` instructions that add `mimetype` with these flags, see [Packaging and inspecting `.epub` files](/en-US/docs/Related/EPUB/Structure/OCF#packaging_and_inspecting_epub_files).
 
 ## Specifications
 
@@ -45,6 +39,6 @@ Every EPUB `mimetype` file must follow strict formatting and packaging rules:
 ## See also
 
 - [EPUB structure](/en-US/docs/Related/EPUB/Structure)
-- [Open Container Format (OCF)](/en-US/docs/Related/EPUB/Structure/OCF)
-- [`META-INF` directory](/en-US/docs/Related/EPUB/Structure/META-INF)
+- [Open Container Format](/en-US/docs/Related/EPUB/Structure/OCF)
+- [EPUB `META-INF` directory](/en-US/docs/Related/EPUB/Structure/META-INF)
 - [Common MIME types](/en-US/docs/Web/HTTP/Guides/MIME_types/Common_types)

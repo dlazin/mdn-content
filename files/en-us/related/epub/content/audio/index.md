@@ -13,15 +13,15 @@ EPUB 3 supports audio in two ways:
 
 ## Supported audio formats
 
-EPUB 3 defines three audio [core media types](/en-US/docs/Related/EPUB/Content/Core_media_types) that audio-capable reading systems support without fallbacks:
+EPUB 3 defines three audio [core media types](/en-US/docs/Related/EPUB/Content/Core_media_types):
 
-| Format                                            | `media-type` in `<manifest>` |
-| ------------------------------------------------- | ---------------------------- |
-| MP3 audio                                         | `audio/mpeg`                 |
-| AAC LC audio in an MP4 container (`.m4a`, `.mp4`) | `audio/mp4`                  |
-| Opus audio in an Ogg container (`.opus`, `.ogg`)  | `audio/ogg; codecs=opus`     |
+| Format                                               | `media-type` in `<manifest>` |
+| ---------------------------------------------------- | ---------------------------- |
+| MP3 audio                                            | `audio/mpeg`                 |
+| AAC LC audio in an MP4 container (`.m4a`, `.mp4`)    | `audio/mp4`                  |
+| Opus audio in an Ogg container (`.opus`, `.ogg`)     | `audio/ogg; codecs=opus`     |
 
-MP3 (`audio/mpeg`) and AAC (`audio/mp4`) have the widest support across mobile, desktop, and web reading systems.
+MP3 (`audio/mpeg`) and AAC (`audio/mp4`) have the widest support across mobile, desktop, and web reading systems. Non-core audio formats such as FLAC require a child `<source>` fallback to a core audio format (see [HTML intrinsic fallbacks](/en-US/docs/Related/EPUB/Content/Core_media_types#html_intrinsic_fallbacks_recommended)).
 
 ## Embedding `<audio>` clips in XHTML
 
@@ -34,11 +34,8 @@ Include audio clips in an XHTML content document with [`<audio>`](/en-US/docs/We
 </figure>
 ```
 
-### Fallbacks, transcripts, and remote hosting
-
-- If you include a non-core (*foreign*) audio format such as FLAC (`audio/flac`) or WAV (`audio/wav`), add a child [`<source>`](/en-US/docs/Web/HTML/Reference/Elements/source) element referencing an audio core media type (such as `audio/mpeg`). Text inside `<audio>...</audio>` does not satisfy EPUB's fallback rules because modern reading systems recognize `<audio>` and ignore its inner fallback text even when a codec is unsupported.
 - Provide a visible text transcript (or a link to a transcript section in the book) whenever an audio clip conveys information not already in the surrounding text. Many readers are deaf or hard of hearing or use e-ink devices without speakers, and `<audio>` elements do not visually render WebVTT `<track>` captions without custom scripting (or switching to [`<video>`](/en-US/docs/Related/EPUB/Content/Video)). Never place transcripts inside `<audio>...</audio>`, where readers cannot see them.
-- EPUB 3 allows hosting audio files outside the `.epub` container to keep file sizes small (using `https:` URLs is strongly recommended). You must still declare the remote URL as an `<item>` in `<manifest>` and add `properties="remote-resources"` to the referencing XHTML or Media Overlay `<item>`. Bundle short clips inside the container whenever offline playback matters.
+- Audio files may be hosted outside the `.epub` container when flagged with [`properties="remote-resources"`](/en-US/docs/Related/EPUB/Package/Manifest#manifest_item_properties) in `<manifest>`, though bundling short clips inside the container is recommended whenever offline playback matters.
 
 ## Synchronized narration with Media Overlays
 
@@ -93,7 +90,7 @@ Media Overlays use a profile of SMIL 3.0 (`application/smil+xml`) built from thr
    </smil>
    ```
 
-3. Link the `.smil` file to its XHTML document with `media-overlay` in [`<manifest>`](/en-US/docs/Related/EPUB/Package/Manifest). In [`<metadata>`](/en-US/docs/Related/EPUB/Package/Metadata), declare `media:duration` both for each `.smil` item (using `refines`) and for the publication as a whole. You can also set `media:active-class` to a CSS class name defined in your chapter stylesheet (for example, `.-epub-media-overlay-active`) to style the highlighted phrase during playback:
+3. Link the `.smil` file to its XHTML document with `media-overlay` in [`<manifest>`](/en-US/docs/Related/EPUB/Package/Manifest). In [`<metadata>`](/en-US/docs/Related/EPUB/Package/Metadata), declare `media:duration` both for each `.smil` item (using `refines`) and for the book as a whole. You can also set `media:active-class` to a CSS class name defined in your chapter stylesheet (for example, `.-epub-media-overlay-active`) to style the highlighted phrase during playback:
 
    ```xml
    <metadata xmlns:dc="http://purl.org/dc/elements/1.1/">

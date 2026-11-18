@@ -6,9 +6,9 @@ page-type: guide
 sidebar: epub
 ---
 
-Every EPUB 3 publication includes one **navigation document** (commonly named `nav.xhtml` or `toc.xhtml`). It is an [XHTML content document](/en-US/docs/Related/EPUB/Content/XHTML) (`application/xhtml+xml`) that powers the reading system's built-in navigation menus and can also appear as a table of contents page inside the book.
+Every EPUB 3 book includes one **navigation document** (commonly named `nav.xhtml` or `toc.xhtml`). It is an [XHTML content document](/en-US/docs/Related/EPUB/Content/XHTML) (`application/xhtml+xml`) that powers the reading system's built-in navigation menus and can also appear as a table of contents page inside the book.
 
-Identify the navigation document in the package [`<manifest>`](/en-US/docs/Related/EPUB/Package/Manifest) by setting `properties="nav"` on its `<item>`:
+Identify the navigation document in [`<manifest>`](/en-US/docs/Related/EPUB/Package/Manifest) by setting `properties="nav"` on its `<item>`:
 
 ```xml
 <manifest>
@@ -49,6 +49,15 @@ Inside `nav.xhtml`, each navigation list uses an HTML [`<nav>`](/en-US/docs/Web/
         <li><a epub:type="bodymatter" href="text/chapter-1.xhtml">Start of Content</a></li>
       </ol>
     </nav>
+
+    <nav epub:type="page-list" hidden="">
+      <h2>Page List</h2>
+      <ol>
+        <li><a href="text/preface.xhtml#page-i">i</a></li>
+        <li><a href="text/chapter-1.xhtml#page-1">1</a></li>
+        <li><a href="text/chapter-2.xhtml#page-2">2</a></li>
+      </ol>
+    </nav>
   </body>
 </html>
 ```
@@ -85,7 +94,7 @@ Outside `<nav epub:type="...">` elements, `nav.xhtml` can contain any valid [EPU
 - Declare `xmlns:epub="http://www.idpf.org/2007/ops"` on `<html>` (or another ancestor).
 - Inside `<nav epub:type="...">`, include an optional heading (`<h1>`–`<h6>`) followed by a single [`<ol>`](/en-US/docs/Web/HTML/Reference/Elements/ol) ordered list. Unordered lists (`<ul>`), `<p>` paragraphs, and `<div>` wrappers are not allowed.
 - Each `<li>` inside `<ol>` must start with either an [`<a>`](/en-US/docs/Web/HTML/Reference/Elements/a) link (optionally followed by one nested `<ol>`) or an unlinked [`<span>`](/en-US/docs/Web/HTML/Reference/Elements/span) group heading (which must be followed by one nested `<ol>`).
-- Every `<a>` and `<span>` must produce a non-empty text label. Because reading apps strip HTML styling, images, and MathML when building native menus, make sure every entry reads clearly as plain text.
+- Every `<a>` and `<span>` must produce a non-empty text label. Because reading apps strip HTML styling, images, and MathML when building native menus, make sure every entry reads clearly as plain text (and include `alt` text on any images inside `<a>`).
 - Links inside `toc`, `landmarks`, and `page-list` must point to content documents in the EPUB archive that are also listed in [`<spine>`](/en-US/docs/Related/EPUB/Package/Spine). Only custom `<nav>` types may link to external URLs.
 - List items inside EPUB `<nav>` elements default to `list-style: none`, so `<ol>` entries do not display automatic numbers (`1.`, `2.`, `3.`) unless you add custom CSS.
 

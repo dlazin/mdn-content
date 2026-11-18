@@ -10,7 +10,7 @@ sidebar: epub
 
 ## Ways to use SVG in EPUB
 
-EPUB 3 supports three ways to include SVG in a publication.
+EPUB 3 supports three ways to include SVG in a book.
 
 ### Referenced from XHTML
 
@@ -23,21 +23,15 @@ You can embed an external `.svg` file inside an [XHTML](/en-US/docs/Related/EPUB
 </figure>
 ```
 
-Declare both the `.svg` file (`media-type="image/svg+xml"`) and the `.xhtml` file in the package [`<manifest>`](/en-US/docs/Related/EPUB/Package/Manifest), and include `properties="svg"` on the `.xhtml` manifest `<item>`.
+Declare both the `.svg` file (`media-type="image/svg+xml"`) and the `.xhtml` file in [`<manifest>`](/en-US/docs/Related/EPUB/Package/Manifest), and include `properties="svg"` on the `.xhtml` manifest `<item>`.
 
 ### Inline `<svg>` in XHTML
 
-You can place an `<svg xmlns="http://www.w3.org/2000/svg" viewBox="...">` fragment directly inside an XHTML file. Inline SVG lets CSS rules (such as `fill: currentColor`) adapt line art automatically when a reader switches to sepia or dark mode.
-
-Any XHTML document containing inline `<svg>` must declare `properties="svg"` on its `<item>` in `<manifest>`:
-
-```xml
-<item id="ch3" href="text/chapter-3.xhtml" media-type="application/xhtml+xml" properties="svg" />
-```
+You can place an `<svg xmlns="http://www.w3.org/2000/svg" viewBox="...">` fragment directly inside an XHTML file. Inline SVG lets CSS rules (such as `fill: currentColor`) adapt line art automatically when a reader switches to sepia or dark mode. Any XHTML document containing inline `<svg>` must also declare `properties="svg"` on its `<item>` in `<manifest>`.
 
 ### Standalone SVG spine items
 
-Alongside XHTML, `image/svg+xml` is one of the two native EPUB content document formats that can appear directly in the package [`<spine>`](/en-US/docs/Related/EPUB/Package/Spine) without a fallback. Standalone SVG spine items are mainly used for fixed-layout graphic spreads, comics, and manga.
+Alongside XHTML, `image/svg+xml` is one of the two native EPUB content document formats that can appear directly in [`<spine>`](/en-US/docs/Related/EPUB/Package/Spine) without a fallback. Standalone SVG spine items are mainly used for fixed-layout graphic spreads, comics, and manga.
 
 > [!NOTE]
 > Even though standalone `.svg` files are valid in `<spine>`, wrapping `<svg>` inside an `.xhtml` document (such as `cover.xhtml`) is usually more reliable in reflowable ebooks. Some reading systems handle pagination, zooming, and text selection more consistently on XHTML spine items than on standalone SVG spine items.
@@ -102,17 +96,7 @@ Wrapping a raster cover image in an `<svg>` element with `viewBox` set to the im
 </html>
 ```
 
-If you need compatibility with older SVG 1.1 e-readers that do not recognize bare `href` on `<image>`, declare `xmlns:xlink="http://www.w3.org/1999/xlink"` on `<svg>` and use `xlink:href="../images/cover.jpg"`.
-
-Declare `properties="svg"` on the `cover.xhtml` item and `properties="cover-image"` on `images/cover.jpg` in [`<manifest>`](/en-US/docs/Related/EPUB/Package/Manifest):
-
-```xml
-<manifest>
-  <item id="cover-img" href="images/cover.jpg" media-type="image/jpeg" properties="cover-image" />
-  <item id="cover-page" href="text/cover.xhtml" media-type="application/xhtml+xml" properties="svg" />
-  <!-- other manifest items -->
-</manifest>
-```
+If you need compatibility with older SVG 1.1 e-readers that do not recognize bare `href` on `<image>`, declare `xmlns:xlink="http://www.w3.org/1999/xlink"` on `<svg>` and use `xlink:href="../images/cover.jpg"`. Remember to set `properties="svg"` on `cover.xhtml` and `properties="cover-image"` on `images/cover.jpg` in [`<manifest>`](/en-US/docs/Related/EPUB/Content/Images#cover_images).
 
 ## Specifications
 

@@ -6,31 +6,16 @@ page-type: guide
 sidebar: epub
 ---
 
-While [`mimetype`](/en-US/docs/Related/EPUB/Structure/mimetype), [`META-INF/container.xml`](/en-US/docs/Related/EPUB/Structure/META-INF), and the [package file](/en-US/docs/Related/EPUB/Package) (`.opf`) handle packaging and metadata, **publication content** is what readers actually see, hear, and interact with. EPUB 3 uses standard web formats for content: [XHTML](/en-US/docs/Related/EPUB/Content/XHTML), [CSS](/en-US/docs/Related/EPUB/Content/CSS), [SVG](/en-US/docs/Related/EPUB/Content/SVG), [fonts](/en-US/docs/Related/EPUB/Content/Fonts), [images](/en-US/docs/Related/EPUB/Content/Images), [audio](/en-US/docs/Related/EPUB/Content/Audio), [video](/en-US/docs/Related/EPUB/Content/Video), and optional [JavaScript](/en-US/docs/Related/EPUB/Content/Scripting).
+While [`mimetype`](/en-US/docs/Related/EPUB/Structure/mimetype), [`META-INF/container.xml`](/en-US/docs/Related/EPUB/Structure/META-INF), and the [package file](/en-US/docs/Related/EPUB/Package) (`.opf`) handle packaging and metadata, **publication content** is what readers see, hear, and interact with.
 
-## Content documents and supporting resources
+## Content documents vs. supporting resources
 
-EPUB separates top-level documents in the reading order from the assets those documents load:
+EPUB separates top-level documents in the reading order from the assets those documents reference:
 
 - Only [XHTML](/en-US/docs/Related/EPUB/Content/XHTML) (`application/xhtml+xml`) and [SVG](/en-US/docs/Related/EPUB/Content/SVG) (`image/svg+xml`) are EPUB content documents that can appear directly in the package [`<spine>`](/en-US/docs/Related/EPUB/Package/Spine) without fallbacks. In most reflowable books, each chapter or frontmatter section is its own `.xhtml` file.
 - Supporting assets—stylesheets, fonts, raster images, audio, video, caption tracks, scripts, and Media Overlays—are referenced from inside XHTML or SVG documents rather than placed in `<spine>`.
 
-Both content documents and supporting assets must be listed in the package [`<manifest>`](/en-US/docs/Related/EPUB/Package/Manifest).
-
-## Formats and offline storage
-
-To keep ebooks portable across reading apps and devices, EPUB adds two rules beyond standard web authoring:
-
-- Standard web formats listed as [core media types](/en-US/docs/Related/EPUB/Content/Core_media_types) work inside content documents without fallbacks. Non-core (*foreign*) formats require an HTML or manifest fallback unless they belong to an *exempt* category such as `<video>`, `<track>`, or non-core fonts.
-- XHTML documents, CSS stylesheets, and images must be stored inside the `.epub` archive for offline reading. Only audio, video, fonts, and script-fetched data may be loaded from remote URLs (using `https:` is recommended), and any manifest item referencing a remote resource must declare `properties="remote-resources"`.
-
-## Rendering differences from web browsers
-
-Although modern reading apps use browser engines to render pages, ebook environments behave differently from scrolling browser tabs:
-
-- Reflowable reading systems split each chapter into screen-sized pages (often using CSS multi-column layout internally), recalculating page breaks whenever font size or screen orientation changes.
-- Readers frequently override fonts, line spacing, margins, and color themes such as sepia or dark mode.
-- The same `.epub` file may be opened on a phone, tablet, computer, screen reader, or grayscale e-ink reader without speakers or JavaScript support.
+Both content documents and supporting assets must be listed in [`<manifest>`](/en-US/docs/Related/EPUB/Package/Manifest). For media format rules and how ebook rendering differs from web browsers, see [Core media types](/en-US/docs/Related/EPUB/Content/Core_media_types) and [EPUB's relationship to the web](/en-US/docs/Related/EPUB/Relationship_to_the_web).
 
 ## Publication content topics
 
