@@ -18,35 +18,35 @@ Web browsers parse HTML leniently and recover silently from missing closing tags
 - Boolean attributes must have explicit values (`hidden=""` or `controls="controls"`, never bare `hidden`).
 - Only the five predefined XML character entities (`&amp;`, `&lt;`, `&gt;`, `&quot;`, and `&apos;`) are recognized; other named HTML entities like `&mdash;` are not permitted. Instead, special characters must be represented as numeric entities (like `&#160;`) or directly as UTF-8 (like `—`).
 
-A single XML syntax error causes reading systems to halt and display an error message instead of rendering the chapter. See [EPUB XHTML](/en-US/docs/Related/EPUB/Content/XHTML) for details.
+A single XML syntax error causes reading systems to halt and display an error message instead of rendering the chapter. See [EPUB XHTML](/en-US/docs/Related/EPUB/Reference/Content/XHTML) for details.
 
 ## Self-contained offline packaging
 
 Websites fetch pages, stylesheets, images, and APIs on demand from remote servers. An EPUB is designed to be downloaded once and read offline anywhere—including on airplane-mode tablets and offline e-readers—for years to come. Consequently:
 
-- All files are bundled inside a single [OCF ZIP archive](/en-US/docs/Related/EPUB/Structure/OCF).
-- Every resource must be listed in the package [manifest](/en-US/docs/Related/EPUB/Package/Manifest).
+- All files are bundled inside a single [OCF ZIP archive](/en-US/docs/Related/EPUB/Reference/Structure/OCF).
+- Every resource must be listed in the package [manifest](/en-US/docs/Related/EPUB/Reference/Package/Manifest).
 - Documents, stylesheets, and images must be stored inside the container. Only audio, video, fonts, and scripted data can be fetched from remote URLs, and only when flagged in the manifest with `properties="remote-resources"`.
 
 ## Book metadata
 
-Book-level bibliographic data (title, author, ISBN, language, publication date) lives in the package [metadata](/en-US/docs/Related/EPUB/Package/Metadata) rather than in HTML `<meta>` tags.
+Book-level bibliographic data (title, author, ISBN, language, publication date) lives in the package [metadata](/en-US/docs/Related/EPUB/Reference/Package/Metadata) rather than in HTML `<meta>` tags.
 
 ## Reading order
 
-A website connects pages through links and URL routing with no specific sequence, whereas a book has a defined start-to-finish reading order. Instead of putting an entire book into one large XHTML file (which might behave slowly on low-memory e-readers), an EPUB typically splits each chapter into its own file, then sequences them in the package [spine](/en-US/docs/Related/EPUB/Package/Spine) (which controls document order) and [navigation](/en-US/docs/Related/EPUB/Navigation) (used to select chapters in the reading system's UI).
+A website connects pages through links and URL routing with no specific sequence, whereas a book has a defined start-to-finish reading order. Instead of putting an entire book into one large XHTML file (which might behave slowly on low-memory e-readers), an EPUB typically splits each chapter into its own file, then sequences them in the package [spine](/en-US/docs/Related/EPUB/Reference/Package/Spine) (which controls document order) and [navigation](/en-US/docs/Related/EPUB/Reference/Navigation) (used to select chapters in the reading system's UI).
 
 ## Pagination and user restyling
 
-Web browsers give designers full control over layout. EPUB reading systems paginate reflowable chapters into screen-sized columns and prioritize reader control, typically letting users change typography, margins, and themes (light, dark, sepia). See [EPUB CSS](/en-US/docs/Related/EPUB/Content/CSS) to learn about safe styling patterns.
+Web browsers give designers full control over layout. EPUB reading systems paginate reflowable chapters into screen-sized columns and prioritize reader control, typically letting users change typography, margins, and themes (light, dark, sepia). See [EPUB CSS](/en-US/docs/Related/EPUB/Reference/Content/CSS) to learn about safe styling patterns.
 
 ## Core media types
 
-While web browsers negotiate formats dynamically and update continuously, EPUB guarantees support only for a defined set of [core media types](/en-US/docs/Related/EPUB/Content/Core_media_types). Newer or specialized formats (such as AVIF images) require an explicit fallback to a core format.
+While web browsers negotiate formats dynamically and update continuously, EPUB guarantees support only for a defined set of [core media types](/en-US/docs/Related/EPUB/Reference/Content/Core_media_types). Newer or specialized formats (such as AVIF images) require an explicit fallback to a core format.
 
 ## Limited JavaScript
 
-JavaScript is foundational on modern websites, whereas ebooks rarely contain [scripting](/en-US/docs/Related/EPUB/Content/Scripting). Many EPUB reading systems—especially e-ink devices and conversion pipelines—disable or heavily restrict scripting. Any scripted interactivity in an EPUB should use progressive enhancement so the book remains readable when scripts are blocked.
+JavaScript is foundational on modern websites, whereas ebooks rarely contain [scripting](/en-US/docs/Related/EPUB/Reference/Content/Scripting). Many EPUB reading systems—especially e-ink devices and conversion pipelines—disable or heavily restrict scripting. Any scripted interactivity in an EPUB should use progressive enhancement so the book remains readable when scripts are blocked.
 
 ## See also
 

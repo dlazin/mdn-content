@@ -14,9 +14,9 @@ At the same time, working on an EPUB is [not quite the same as a website](/en-US
 
 Rather than inventing proprietary formats, the EPUB 3.3 spec [references existing web standards](https://www.w3.org/TR/epub-33/#sec-intro-relations):
 
-- [Content](/en-US/docs/Related/EPUB/Content) and [navigation](/en-US/docs/Related/EPUB/Navigation) use [HTML](/en-US/docs/Web/HTML) serialized as [XHTML](/en-US/docs/Related/EPUB/Content/XHTML), along with [SVG](/en-US/docs/Related/EPUB/Content/SVG) and [MathML](/en-US/docs/Web/MathML). Container and [package](/en-US/docs/Related/EPUB/Package) files use [XML](/en-US/docs/Web/XML/Guides/XML_introduction).
-- Layout, typography, [fonts](/en-US/docs/Related/EPUB/Content/Fonts), and media queries use [CSS](/en-US/docs/Related/EPUB/Content/CSS).
-- Images, fonts, and audio use [core media types](/en-US/docs/Related/EPUB/Content/Core_media_types) drawn from the web, alongside HTML [audio](/en-US/docs/Related/EPUB/Content/Audio), [video](/en-US/docs/Related/EPUB/Content/Video), and optional [JavaScript](/en-US/docs/Related/EPUB/Content/Scripting).
+- [Content](/en-US/docs/Related/EPUB/Reference/Content) and [navigation](/en-US/docs/Related/EPUB/Reference/Navigation) use [HTML](/en-US/docs/Web/HTML) serialized as [XHTML](/en-US/docs/Related/EPUB/Reference/Content/XHTML), along with [SVG](/en-US/docs/Related/EPUB/Reference/Content/SVG) and [MathML](/en-US/docs/Web/MathML). Container and [package](/en-US/docs/Related/EPUB/Reference/Package) files use [XML](/en-US/docs/Web/XML/Guides/XML_introduction).
+- Layout, typography, [fonts](/en-US/docs/Related/EPUB/Reference/Content/Fonts), and media queries use [CSS](/en-US/docs/Related/EPUB/Reference/Content/CSS).
+- Images, fonts, and audio use [core media types](/en-US/docs/Related/EPUB/Reference/Content/Core_media_types) drawn from the web, alongside HTML [audio](/en-US/docs/Related/EPUB/Reference/Content/Audio), [video](/en-US/docs/Related/EPUB/Reference/Content/Video), and optional [JavaScript](/en-US/docs/Related/EPUB/Reference/Content/Scripting).
 - Accessible ebooks rely on semantic HTML, `alt` text, [WCAG](https://www.w3.org/WAI/standards-guidelines/wcag/), and [ARIA](/en-US/docs/Web/Accessibility/ARIA) roles from the [Digital Publishing WAI-ARIA Module](https://www.w3.org/TR/dpub-aria-1.1/).
 
 Although EPUB points to living web standards, EPUB itself remains a versioned specification. Newly standardized HTML and CSS features may be syntactically valid in EPUB while still unsupported by older reading systems.

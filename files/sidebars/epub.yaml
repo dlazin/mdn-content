@@ -7,40 +7,42 @@ sidebar:
   - /Related/EPUB/Relationship_to_the_web
   - /Related/EPUB/Differences_from_the_web
   - type: section
+    link: /Related/EPUB/Reference
     title: Reference
-  - link: /Related/EPUB/Structure
+  - link: /Related/EPUB/Reference/Structure
     title: Structure
     details: open
     children:
-      - /Related/EPUB/Structure/OCF
-      - /Related/EPUB/Structure/mimetype
-      - /Related/EPUB/Structure/META-INF
-      - /Related/EPUB/Structure/Content
-  - link: /Related/EPUB/Package
+      - /Related/EPUB/Reference/Structure/OCF
+      - /Related/EPUB/Reference/Structure/mimetype
+      - /Related/EPUB/Reference/Structure/container.xml
+      - /Related/EPUB/Reference/Structure/encryption.xml
+      - /Related/EPUB/Reference/Structure/Content
+  - link: /Related/EPUB/Reference/Package
     title: Package file
     details: open
     children:
-      - /Related/EPUB/Package/Metadata
-      - /Related/EPUB/Package/Manifest
-      - /Related/EPUB/Package/Spine
-  - link: /Related/EPUB/Navigation
+      - /Related/EPUB/Reference/Package/Metadata
+      - /Related/EPUB/Reference/Package/Manifest
+      - /Related/EPUB/Reference/Package/Spine
+  - link: /Related/EPUB/Reference/Navigation
     title: Navigation
     details: open
     children:
-      - /Related/EPUB/Navigation/TOC
-      - /Related/EPUB/Navigation/Landmarks
-      - /Related/EPUB/Navigation/Page-list
-  - link: /Related/EPUB/Content
+      - /Related/EPUB/Reference/Navigation/TOC
+      - /Related/EPUB/Reference/Navigation/Landmarks
+      - /Related/EPUB/Reference/Navigation/Page-list
+  - link: /Related/EPUB/Reference/Content
     title: Publication content
     details: open
     children:
-      - /Related/EPUB/Content/XHTML
-      - /Related/EPUB/Content/SVG
-      - /Related/EPUB/Content/CSS
-      - /Related/EPUB/Content/Fonts
-      - /Related/EPUB/Content/Images
-      - /Related/EPUB/Content/Audio
-      - /Related/EPUB/Content/Video
-      - /Related/EPUB/Content/Scripting
-      - /Related/EPUB/Content/epub:type
-      - /Related/EPUB/Content/Core_media_types
+      - /Related/EPUB/Reference/Content/XHTML
+      - /Related/EPUB/Reference/Content/SVG
+      - /Related/EPUB/Reference/Content/CSS
+      - /Related/EPUB/Reference/Content/Fonts
+      - /Related/EPUB/Reference/Content/Images
+      - /Related/EPUB/Reference/Content/Audio
+      - /Related/EPUB/Reference/Content/Video
+      - /Related/EPUB/Reference/Content/Scripting
+      - /Related/EPUB/Reference/Content/epub:type
+      - /Related/EPUB/Reference/Content/Core_media_types
