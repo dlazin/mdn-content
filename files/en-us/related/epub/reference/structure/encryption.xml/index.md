@@ -6,9 +6,9 @@ page-type: guide
 sidebar: epub
 ---
 
-The optional `encryption.xml` file in [`META-INF`](/en-US/docs/Related/EPUB/Reference/Structure/OCF#meta-inf_directory) (`META-INF/encryption.xml`) lists any encrypted or obfuscated files in an EPUB archive and describes how to decode them. Most EPUBs omit `encryption.xml` unless they use [font obfuscation](#font_obfuscation) or vendor Digital Rights Management (DRM).
+The optional `encryption.xml` file in [`META-INF`](/en-US/docs/Related/EPUB/Reference/Structure/OCF#meta-inf_directory) lists any encrypted or obfuscated files in an EPUB archive and describes how to decode them. Most EPUBs omit `encryption.xml` unless they use [font obfuscation](#font_obfuscation) or vendor Digital Rights Management (DRM).
 
-Whenever any resource in the container is encrypted or obfuscated, `META-INF/encryption.xml` is required.
+`META-INF/encryption.xml` is required if any resource in the container is encrypted or obfuscated.
 
 ## Structure and encryption rules
 
@@ -37,7 +37,7 @@ Use font obfuscation only when no simpler option—such as open-licensed fonts, 
      <enc:EncryptedData>
        <enc:EncryptionMethod Algorithm="http://www.idpf.org/2008/embedding" />
        <enc:CipherData>
-         <enc:CipherReference URI="OEBPS/fonts/display-heading.otf" />
+         <enc:CipherReference URI="EPUB/fonts/display-heading.otf" />
        </enc:CipherData>
      </enc:EncryptedData>
    </encryption>

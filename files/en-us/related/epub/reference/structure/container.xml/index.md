@@ -6,7 +6,7 @@ page-type: guide
 sidebar: epub
 ---
 
-Every EPUB archive must include a `container.xml` file inside its root [`META-INF`](/en-US/docs/Related/EPUB/Reference/Structure/OCF#meta-inf_directory) directory (`META-INF/container.xml`). It tells reading systems where to find the book's [package file](/en-US/docs/Related/EPUB/Reference/Package).
+Every EPUB archive must include a `container.xml` file inside its root [`META-INF`](/en-US/docs/Related/EPUB/Reference/Structure/OCF#meta-inf_directory) directory. It tells reading systems where to find the book's [package file](/en-US/docs/Related/EPUB/Reference/Package).
 
 Like other files in `META-INF`, `container.xml` must not be encrypted and must not be listed in the package [manifest](/en-US/docs/Related/EPUB/Reference/Package/Manifest).
 
@@ -18,7 +18,7 @@ In almost all EPUBs, `META-INF/container.xml` has the following [XML](/en-US/doc
 <?xml version="1.0" encoding="UTF-8"?>
 <container xmlns="urn:oasis:names:tc:opendocument:xmlns:container" version="1.0">
   <rootfiles>
-    <rootfile full-path="OEBPS/package.opf" media-type="application/oebps-package+xml" />
+    <rootfile full-path="EPUB/package.opf" media-type="application/oebps-package+xml" />
   </rootfiles>
 </container>
 ```
@@ -34,7 +34,7 @@ All standard elements in `container.xml` belong to the `urn:oasis:names:tc:opend
 - `<rootfile>`
   - : Empty element identifying a [package file](/en-US/docs/Related/EPUB/Reference/Package) in the archive. Although multiple `<rootfile>` elements are allowed for multi-rendition books (where each package file conforms to the same version of EPUB), almost all EPUBs have just one, and reading systems are only required to use the first `<rootfile>` as the default rendition. Requires two attributes:
     - `full-path`
-      - : Path to the package file relative to the root of the EPUB archive (not relative to `META-INF`), such as `OEBPS/package.opf`, `OPS/content.opf`, or `EPUB/package.opf`. See [Relative paths across an EPUB](/en-US/docs/Related/EPUB/Reference/Structure/Content#relative_paths_across_an_epub).
+      - : Path to the package file relative to the root of the EPUB archive (not relative to `META-INF`), such as `EPUB/package.opf`, `OEBPS/content.opf`, or `OPS/package.opf`. See [Relative paths across an EPUB](/en-US/docs/Related/EPUB/Reference/Structure/Content#relative_paths_across_an_epub).
     - `media-type`
       - : Must be `application/oebps-package+xml`.
 

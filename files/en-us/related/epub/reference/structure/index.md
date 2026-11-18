@@ -12,8 +12,9 @@ An EPUB is a ZIP archive that follows the [Open Container Format (OCF)](/en-US/d
 book.epub/
 ├── mimetype
 ├── META-INF/
-│   └── container.xml
-└── OEBPS/
+│   ├── container.xml
+│   └── encryption.xml
+└── EPUB/
     ├── package.opf
     ├── nav.xhtml
     ├── images/
