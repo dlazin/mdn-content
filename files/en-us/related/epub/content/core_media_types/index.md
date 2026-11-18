@@ -35,7 +35,7 @@ The table lists all core media types defined in EPUB 3.3. Where legacy aliases e
 | Legacy navigation  | EPUB 2 NCX table of contents                                           | `application/x-dtbncx+xml` | None                                                   |
 
 > [!NOTE]
-> Support for core media types still depends on device hardware: audio-only reading systems do not render images or fonts, and speakerless e-ink devices cannot play `audio/mpeg` clips.
+> Support for core media types still depends on device capabilities and software versions. Audio-only reading systems do not render images or fonts, speakerless e-ink devices cannot play audio clips, and older e-readers and retailer ingestion systems often reject WebP (`image/webp`)—avoid using `image/webp` for `properties="cover-image"`, and prefer JPEG or PNG instead.
 
 ## Content documents vs. spine items
 

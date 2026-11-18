@@ -49,7 +49,7 @@ The `properties` attribute on `<item>` tells reading systems which files serve s
 - `nav`
   - : Identifies the book's [navigation document](/en-US/docs/Related/EPUB/Navigation). Exactly one item in the manifest must declare `properties="nav"`, and its `media-type` must be `application/xhtml+xml`.
 - `cover-image`
-  - : Identifies the [cover image](/en-US/docs/Related/EPUB/Content/Images#cover_images) displayed on the reading app's bookshelf. Optional; allowed on at most one item.
+  - : Identifies the [cover image](/en-US/docs/Related/EPUB/Content/Images#cover_images) displayed on the reading app's bookshelf. Optional; allowed on at most one item. Avoid using `image/webp` for `properties="cover-image"`, as older e-readers and many retailer ingestion pipelines require JPEG or PNG covers.
 - `mathml`
   - : Required on any content document item that contains [MathML](/en-US/docs/Related/EPUB/Content/XHTML#embedded_mathml) markup.
 - `svg`

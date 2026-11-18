@@ -20,7 +20,7 @@ Most ebooks use reflowable layouts so they remain easy to read on any device. Th
 
 ## EPUB 3 and EPUB 2
 
-EPUB was first standardized by the [International Digital Publishing Forum (IDPF)](https://idpf.org/), which published the specification for the Open eBook Publication Structure in 1999, followed by EPUB 2 in 2007 and EPUB 3 in 2011. The IDPF merged into the W3C in 2017. The current [EPUB 3.3](https://www.w3.org/TR/epub-33/) recommendation, released in 2024, is backward-compatible with previous versions of EPUB 3 and thus supported by most publishing workflows and distributors.
+EPUB was first standardized by the [International Digital Publishing Forum (IDPF)](https://idpf.org/), which published the specification for the Open eBook Publication Structure in 1999, followed by EPUB 2 in 2007 and EPUB 3 in 2011. The IDPF merged into the W3C in 2017. The current [EPUB 3.3](https://www.w3.org/TR/epub-33/) recommendation, released in 2023, is backward-compatible with previous versions of EPUB 3 and thus supported by most publishing workflows and distributors.
 
 Where EPUB 2 relied on XHTML 1.1, a limited subset of CSS 2, and standalone XML NCX navigation files, EPUB 3 adopts modern [web standards](/en-US/docs/Related/EPUB/Relationship_to_the_web), an HTML-based [navigation document](/en-US/docs/Related/EPUB/Navigation), embedded audio and video (including synchronized Media Overlays), global typography such as right-to-left and vertical writing modes, and rich [accessibility metadata](https://www.w3.org/TR/epub-a11y-11/).
 
