@@ -1,6 +1,6 @@
 ---
 title: EPUB publication content
-short-title: Overview
+short-title: Publication content
 slug: Related/EPUB/Content
 page-type: guide
 sidebar: epub

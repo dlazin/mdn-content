@@ -1,6 +1,6 @@
 ---
 title: EPUB structure
-short-title: Overview
+short-title: Structure
 slug: Related/EPUB/Structure
 page-type: guide
 sidebar: epub

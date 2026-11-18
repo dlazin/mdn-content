@@ -1,6 +1,6 @@
 ---
 title: EPUB package file
-short-title: Overview
+short-title: Package
 slug: Related/EPUB/Package
 page-type: guide
 sidebar: epub

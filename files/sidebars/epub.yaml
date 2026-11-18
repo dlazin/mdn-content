@@ -8,32 +8,32 @@ sidebar:
   - /Related/EPUB/Differences_from_the_web
   - type: section
     title: Reference
-  - title: Structure
+  - link: /Related/EPUB/Structure
+    title: Structure
     details: open
     children:
-      - /Related/EPUB/Structure
       - /Related/EPUB/Structure/OCF
       - /Related/EPUB/Structure/mimetype
       - /Related/EPUB/Structure/META-INF
       - /Related/EPUB/Structure/Content
-  - title: Package file
+  - link: /Related/EPUB/Package
+    title: Package file
     details: open
     children:
-      - /Related/EPUB/Package
       - /Related/EPUB/Package/Metadata
       - /Related/EPUB/Package/Manifest
       - /Related/EPUB/Package/Spine
-  - title: Navigation
+  - link: /Related/EPUB/Navigation
+    title: Navigation
     details: open
     children:
-      - /Related/EPUB/Navigation
       - /Related/EPUB/Navigation/TOC
       - /Related/EPUB/Navigation/Landmarks
       - /Related/EPUB/Navigation/Page-list
-  - title: Publication content
+  - link: /Related/EPUB/Content
+    title: Publication content
     details: open
     children:
-      - /Related/EPUB/Content
       - /Related/EPUB/Content/XHTML
       - /Related/EPUB/Content/SVG
       - /Related/EPUB/Content/CSS

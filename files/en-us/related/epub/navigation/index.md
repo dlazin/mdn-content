@@ -1,6 +1,6 @@
 ---
 title: EPUB navigation document
-short-title: Overview
+short-title: Navigation
 slug: Related/EPUB/Navigation
 page-type: guide
 sidebar: epub
