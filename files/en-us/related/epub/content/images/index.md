@@ -6,26 +6,28 @@ page-type: guide
 sidebar: epub
 ---
 
-EPUB 3 supports standard web raster and vector image formats for illustrations, photographs, charts, decorative ornaments, and book covers. Every image file used in the publication **must** be stored inside the EPUB container (remote image hosting is not allowed) and declared as an `<item>` in the package [`<manifest>`](/en-US/docs/Related/EPUB/Package/Manifest).
+EPUB 3 supports standard web raster and vector image formats for illustrations, photographs, charts, ornaments, and book covers. Every image file must be stored inside the EPUB container (remote image URLs are not allowed) and declared as an `<item>` in [`<manifest>`](/en-US/docs/Related/EPUB/Package/Manifest).
 
 ## Supported image formats
 
-EPUB 3 defines five **image [core media types](/en-US/docs/Related/EPUB/Content/Core_media_types)** that visual reading systems support without requiring fallback formats:
+EPUB 3 defines five image [core media types](/en-US/docs/Related/EPUB/Content/Core_media_types) that visual reading systems support without fallbacks:
 
-| Format | `media-type` in `<manifest>` | Typical use cases |
-| --- | --- | --- |
-| JPEG (`.jpg`, `.jpeg`) | `image/jpeg` | Photographs, painted illustrations, and full-color cover art |
-| PNG (`.png`) | `image/png` | Screenshots, graphics requiring alpha transparency, and sharp contrast edges |
-| WebP (`.webp`) | `image/webp` | Lossy or lossless photographs and illustrations with smaller file sizes (added as a core media type in EPUB 3.3) |
-| GIF (`.gif`) | `image/gif` | Simple legacy graphics (prefer PNG or SVG for static artwork) |
-| [SVG](/en-US/docs/Related/EPUB/Content/SVG) (`.svg`) | `image/svg+xml` | Line art, diagrams, maps, logos, and scalable ornaments |
+| Format                                               | `media-type` in `<manifest>` | Typical use cases                                                                         |
+| ---------------------------------------------------- | ---------------------------- | ----------------------------------------------------------------------------------------- |
+| JPEG (`.jpg`, `.jpeg`)                               | `image/jpeg`                 | Photographs, painted illustrations, and full-color cover art                              |
+| PNG (`.png`)                                         | `image/png`                  | Screenshots, graphics with transparency, and sharp edges                                  |
+| WebP (`.webp`)                                       | `image/webp`                 | Lossy or lossless photographs and illustrations at smaller file sizes (added in EPUB 3.3) |
+| GIF (`.gif`)                                         | `image/gif`                  | Simple legacy graphics (prefer PNG or SVG for static artwork)                             |
+| [SVG](/en-US/docs/Related/EPUB/Content/SVG) (`.svg`) | `image/svg+xml`              | Line art, diagrams, maps, logos, and scalable ornaments                                   |
+
+Because `image/webp` was added in EPUB 3.3, older EPUB 3 e-readers and some retailer cover-ingestion tools may not render WebP images. JPEG and PNG remain the safest choices for cover thumbnails and maximum device compatibility.
 
 > [!NOTE]
-> Whenever an XHTML document references an `.svg` image (even via `<img src="...">`), you must include `properties="svg"` on that XHTML document's `<item>` in [`<manifest>`](/en-US/docs/Related/EPUB/Package/Manifest).
+> Whenever an XHTML document references an `.svg` image—even via `<img src="...">`—you must add `properties="svg"` to that XHTML document's `<item>` in [`<manifest>`](/en-US/docs/Related/EPUB/Package/Manifest).
 
-### Using non-core image formats (`<picture>`)
+### Non-core image formats (`<picture>`)
 
-Newer formats such as AVIF (`image/avif`) or HEIC (`image/heic`) are classified as *foreign resources* in EPUB 3. You can include them by wrapping them in an HTML [`<picture>`](/en-US/docs/Web/HTML/Reference/Elements/picture) element with an explicit `type` attribute on [`<source>`](/en-US/docs/Web/HTML/Reference/Elements/source) and a core media type fallback on [`<img>`](/en-US/docs/Web/HTML/Reference/Elements/img), declaring both image files in `<manifest>`:
+Formats such as AVIF (`image/avif`) are *foreign resources* in EPUB 3. You can include them with an HTML [`<picture>`](/en-US/docs/Web/HTML/Reference/Elements/picture) element by setting `type` on [`<source>`](/en-US/docs/Web/HTML/Reference/Elements/source), providing a core media type fallback on [`<img>`](/en-US/docs/Web/HTML/Reference/Elements/img), and declaring both image files in `<manifest>`:
 
 ```xml
 <picture>
@@ -36,7 +38,7 @@ Newer formats such as AVIF (`image/avif`) or HEIC (`image/heic`) are classified 
 
 ## Markup and accessibility
 
-Embed images inside [XHTML](/en-US/docs/Related/EPUB/Content/XHTML) content documents using self-closed `<img ... />` elements, wrapped in [`<figure>`](/en-US/docs/Web/HTML/Reference/Elements/figure) and [`<figcaption>`](/en-US/docs/Web/HTML/Reference/Elements/figcaption) when accompanied by a caption:
+Embed images in [XHTML](/en-US/docs/Related/EPUB/Content/XHTML) content documents with self-closed `<img ... />` elements, wrapped in [`<figure>`](/en-US/docs/Web/HTML/Reference/Elements/figure) and [`<figcaption>`](/en-US/docs/Web/HTML/Reference/Elements/figcaption) when accompanied by a caption:
 
 ```xml
 <figure>
@@ -46,23 +48,28 @@ Embed images inside [XHTML](/en-US/docs/Related/EPUB/Content/XHTML) content docu
 </figure>
 ```
 
-- **Meaningful `alt` text**: Provide concise, descriptive `alt` text for every image that conveys information. Do not repeat the visible `<figcaption>` verbatim inside `alt`—describe what the image shows while `<figcaption>` provides the editorial caption.
-- **Decorative images**: For purely decorative dividers or flourishes that convey no content meaning, use an empty `alt=""` attribute (optionally paired with `role="presentation"`) so screen readers skip them cleanly.
-- **Dark-mode contrast**: Transparent PNGs or SVGs drawn with pure black strokes (`#000000`) disappear when a reader switches to a dark/night reading theme. For transparent diagrams or wordmarks, either add a subtle light pad/halo behind dark ink or use [inline SVG](/en-US/docs/Related/EPUB/Content/SVG) with `currentColor`.
+- Write concise `alt` text for every image that conveys information. Describe what the image shows rather than repeating a visible `<figcaption>` word for word.
+- Use `alt=""` (optionally with `role="presentation"`) on purely decorative dividers or flourishes so screen readers skip them.
+- Check transparent PNGs and SVGs in dark mode: pure black line art (`#000000`) on a transparent background disappears against dark reading themes. Add a light background or halo behind dark ink, or use [inline SVG](/en-US/docs/Related/EPUB/Content/SVG) with `currentColor`.
 
 ## Sizing images for paginated screens
 
-Unlike scrolling webpages, reflowable reading systems fit content into fixed-height screen pages. Large images without responsive sizing can overflow the page edge or clip across two pages:
+Unlike scrolling webpages, reflowable reading systems fit content into fixed-height screen pages. Oversized images without responsive sizing can overflow the viewport or split awkwardly:
 
-- Set `max-width: 100%; height: auto;` in CSS so wide images shrink proportionally on narrow phone screens without distorting their aspect ratio.
-- Add `break-inside: avoid;` on `figure` elements so reading systems keep an image and its `<figcaption>` together on the same page whenever they fit.
+- Set `max-width: 100%; height: auto;` in CSS so wide images shrink proportionally on small screens without distorting their aspect ratio.
+- Set `break-inside: avoid;` on `figure` elements so reading systems keep an image and its `<figcaption>` on the same page whenever they fit.
 
 ## Cover images
 
-In EPUB 3, a book's cover is typically set up in two complementary places:
+Most EPUB 3 books declare their cover in two places:
 
-1. **Bookshelf thumbnail (`properties="cover-image"`)**: Declare `properties="cover-image"` on the raster or SVG cover image `<item>` in [`<manifest>`](/en-US/docs/Related/EPUB/Package/Manifest). Reading systems use this asset to display your book's cover in the user's library view—even before the book is opened. At most one `<item>` in `<manifest>` may have `properties="cover-image"`.
-2. **First page in the reading order (`cover.xhtml`)**: Because raw JPEG, PNG, or WebP files cannot be placed directly in [`<spine>`](/en-US/docs/Related/EPUB/Package/Spine) without fallbacks, wrap the cover image inside an XHTML document (or [SVG wrapper](/en-US/docs/Related/EPUB/Content/SVG#scalable_cover_wrapper_using_svg_inside_xhtml)) and list that document as the first `<itemref>` in `<spine>`:
+- Add `properties="cover-image"` to the cover image `<item>` in [`<manifest>`](/en-US/docs/Related/EPUB/Package/Manifest) (allowed on at most one `<item>`). Reading apps use this file to show the cover thumbnail on the user's bookshelf before the book is opened.
+- Wrap the cover image inside an XHTML document (such as `cover.xhtml`, or an [SVG cover wrapper](/en-US/docs/Related/EPUB/Content/SVG#scalable_cover_wrapper_using_svg_inside_xhtml)) and list that document first in [`<spine>`](/en-US/docs/Related/EPUB/Package/Spine), because raw JPEG, PNG, or WebP files cannot be placed directly in `<spine>` without fallbacks. When using `<img>` in `cover.xhtml`, put `role="doc-cover"` and descriptive `alt` text on the `<img>` element itself (not on `<section>` or `<body>`):
+
+```xml
+<!-- In text/cover.xhtml -->
+<img src="../images/cover.jpg" role="doc-cover" alt="Cover: Moby-Dick by Herman Melville" />
+```
 
 ```xml
 <!-- In package.opf -->

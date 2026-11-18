@@ -6,7 +6,7 @@ page-type: guide
 sidebar: epub
 ---
 
-In an unzipped EPUB, the **content directory** (often named `OEBPS`, `OPS`, or `EPUB`) is the folder that holds the ebook's [package file](/en-US/docs/Related/EPUB/Package) (`.opf`), [navigation document](/en-US/docs/Related/EPUB/Navigation) (`nav.xhtml`), and all [publication content](/en-US/docs/Related/EPUB/Content)—including XHTML chapters, CSS stylesheets, images, fonts, audio, video, and scripts:
+In an unzipped EPUB, the **content directory** (commonly named `OEBPS`, `OPS`, or `EPUB`) is the folder that holds the [package file](/en-US/docs/Related/EPUB/Package) (`.opf`), the [navigation document](/en-US/docs/Related/EPUB/Navigation) (`nav.xhtml`), and all [publication content](/en-US/docs/Related/EPUB/Content) such as XHTML chapters, CSS stylesheets, images, fonts, audio, video, and scripts.
 
 ```plain
 book.epub/
@@ -29,40 +29,37 @@ book.epub/
         └── chapter-2.xhtml
 ```
 
-## Naming and directory requirements
+## Naming and folder layout
 
-Unlike [`mimetype`](/en-US/docs/Related/EPUB/Structure/mimetype) and [`META-INF`](/en-US/docs/Related/EPUB/Structure/META-INF), whose exact names and root locations are mandated by the [Open Container Format (OCF)](/en-US/docs/Related/EPUB/Structure/OCF), **the EPUB specification does not require a specific name for the content directory**:
+Unlike [`mimetype`](/en-US/docs/Related/EPUB/Structure/mimetype) and [`META-INF`](/en-US/docs/Related/EPUB/Structure/META-INF), which have fixed names at the root of the archive, the content directory has no required name. Authoring tools usually name it `OEBPS` (_Open eBook Publication Structure_), `OPS` (_Open Publication Structure_), or `EPUB`. You can use any valid folder name as long as `full-path` on `<rootfile>` in [`META-INF/container.xml`](/en-US/docs/Related/EPUB/Structure/META-INF) matches the path to your `.opf` file.
 
-- **Common naming conventions**: Authoring tools most commonly name this folder `OEBPS` (_Open eBook Publication Structure_), `OPS` (_Open Publication Structure_), or `EPUB`. You can choose any valid folder name—as long as the `full-path` attribute on `<rootfile>` inside [`META-INF/container.xml`](/en-US/docs/Related/EPUB/Structure/META-INF) points to the exact path of your `.opf` package file (for example, `full-path="OEBPS/package.opf"`).
-- **Why use a single content directory**: Technically, OCF permits placing `package.opf` and content files directly in the root directory of the container (as long as nothing is placed inside `META-INF` or named `mimetype`). In practice, however, placing `package.opf` at the top of a dedicated content directory—and keeping every publication resource inside or in subfolders beneath that directory—is strongly recommended:
-  - It cleanly separates container files (`mimetype` and `META-INF/`) from book files.
-  - Some reading systems restrict access to files located in parent or sibling directories outside the folder that contains `package.opf`. Keeping `package.opf` at the top of the content directory (such as `OEBPS/package.opf` rather than `OEBPS/metadata/package.opf`) ensures every asset lives at or below the package file's directory.
+Technically, the [Open Container Format (OCF)](/en-US/docs/Related/EPUB/Structure/OCF) allows placing `package.opf` and content files directly in the archive root. In practice, placing `package.opf` at the top of a dedicated content directory and keeping all book files inside that directory (or subfolders beneath it) is strongly recommended. It keeps book files separate from container files, and it avoids compatibility issues in reading systems that block access to files located in parent directories outside `package.opf`'s folder.
 
-Similarly, subfolders inside the content directory (such as `text/`, `styles/`, `images/`, `fonts/`, and `audio/`) are optional organizational conventions. Small ebooks sometimes keep all files flat inside `OEBPS/`, while larger publications group files by asset type.
+Subfolders inside the content directory (such as `text/`, `styles/`, `images/`, and `fonts/`) are optional. Short books sometimes keep all files flat inside `OEBPS/`, while larger books organize assets by type.
 
-## Every content file must be in the manifest
+## Declaring files in the manifest
 
-Every publication resource stored in the content directory **must** be declared as an `<item>` in the package [`<manifest>`](/en-US/docs/Related/EPUB/Package/Manifest). Leaving unused images, backup files, or hidden operating-system metadata files (such as `.DS_Store` or `Thumbs.db`) inside the content directory without a matching `<manifest>` entry causes [EPUBCheck](https://www.w3.org/publishing/epubcheck/) validation errors and retailer upload rejections.
+Every publication resource stored in the content directory must be listed as an `<item>` in the package [`<manifest>`](/en-US/docs/Related/EPUB/Package/Manifest). Leaving unused images, backup files, or hidden OS files such as `.DS_Store` or `Thumbs.db` in the archive without a matching `<manifest>` entry causes [EPUBCheck](https://www.w3.org/publishing/epubcheck/) errors and bookstore upload rejections.
 
 ## Relative paths across an EPUB
 
-One of the most common sources of broken links and missing images in hand-edited EPUBs is mixing up base directories when writing relative paths. Depending on which file you are editing, relative URLs resolve from one of **three different base locations**:
+A common cause of broken links and missing images in hand-edited EPUBs is using the wrong base folder for relative paths. Relative URLs resolve from one of three base locations depending on which file contains the link:
 
-| File containing the path                                                                                | Path is relative to                                                   | Example target: `OEBPS/images/cover.jpg`                               |
-| ------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------- | ---------------------------------------------------------------------- |
-| Files in [`META-INF/`](/en-US/docs/Related/EPUB/Structure/META-INF) (`container.xml`, `encryption.xml`) | **Container root directory**                                          | `OEBPS/package.opf` (or `OEBPS/fonts/display.otf` in `encryption.xml`) |
-| [Package file](/en-US/docs/Related/EPUB/Package) (`OEBPS/package.opf`)                                  | **Directory containing `package.opf`** (`OEBPS/`)                     | `images/cover.jpg`                                                     |
-| Content files (`OEBPS/text/cover.xhtml` or `OEBPS/styles/main.css`)                                     | **Directory containing that file** (`OEBPS/text/` or `OEBPS/styles/`) | `../images/cover.jpg`                                                  |
+| File containing the path                                                                                | Path is relative to                                          | Example path to `OEBPS/images/cover.jpg`                               |
+| ------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------ | ---------------------------------------------------------------------- |
+| Files in [`META-INF/`](/en-US/docs/Related/EPUB/Structure/META-INF) (`container.xml`, `encryption.xml`) | Archive root directory                                       | `OEBPS/package.opf` (or `OEBPS/fonts/display.otf` in `encryption.xml`) |
+| [Package file](/en-US/docs/Related/EPUB/Package) (`OEBPS/package.opf`)                                  | Folder containing `package.opf` (`OEBPS/`)                   | `images/cover.jpg`                                                     |
+| Content files (`OEBPS/text/cover.xhtml`, `OEBPS/styles/main.css`)                                       | Folder containing that file (`OEBPS/text/`, `OEBPS/styles/`) | `../images/cover.jpg`                                                  |
 
-For example, given the directory tree at the top of this page:
+For example, using the directory layout at the start of this page:
 
-1. **`META-INF/container.xml`** resolves from the container root, so it includes the `OEBPS/` folder name:
+1. `META-INF/container.xml` resolves from the archive root, so it includes `OEBPS/`:
 
    ```xml
    <rootfile full-path="OEBPS/package.opf" media-type="application/oebps-package+xml" />
    ```
 
-2. **`OEBPS/package.opf`** already lives inside `OEBPS/`, so `<manifest>` paths omit `OEBPS/`:
+2. `OEBPS/package.opf` is already inside `OEBPS/`, so `<manifest>` paths omit `OEBPS/`:
 
    ```xml
    <item id="cover-img" href="images/cover.jpg" media-type="image/jpeg" properties="cover-image" />
@@ -70,16 +67,16 @@ For example, given the directory tree at the top of this page:
    <item id="css" href="styles/main.css" media-type="text/css" />
    ```
 
-3. **`OEBPS/text/cover.xhtml`** lives inside `OEBPS/text/`, so it steps up one directory (`../`) to reach `styles/` and `images/`:
+3. `OEBPS/text/cover.xhtml` is inside `OEBPS/text/`, so it steps up one folder (`../`) to reach `styles/` and `images/`:
 
    ```xml
    <link rel="stylesheet" type="text/css" href="../styles/main.css" />
    <!-- ... -->
-   <img src="../images/cover.jpg" alt="Book cover: Moby-Dick by Herman Melville" />
+   <img src="../images/cover.jpg" alt="Book cover: Moby-Dick by Herman Melville" role="doc-cover" />
    ```
 
 > [!WARNING]
-> Never start relative paths in EPUB files with a leading slash (`/`, such as `/OEBPS/images/cover.jpg` or `/images/cover.jpg`). Leading-slash paths are invalid in OCF containers and fail across reading systems. Also remember that all paths are **case-sensitive**—`../Images/cover.jpg` will not match `OEBPS/images/cover.jpg`.
+> Do not start relative paths with a leading slash (`/`, such as `/OEBPS/images/cover.jpg` or `/images/cover.jpg`). Leading slashes fail across EPUB reading systems. All paths are also case-sensitive: `../Images/cover.jpg` will not match `OEBPS/images/cover.jpg`.
 
 ## Specifications
 
@@ -91,6 +88,6 @@ For example, given the directory tree at the top of this page:
 ## See also
 
 - [EPUB structure](/en-US/docs/Related/EPUB/Structure)
-- [Open Container Format (OCF)](/en-US/docs/Related/EPUB/Structure/OCF)
+- [Open Container Format](/en-US/docs/Related/EPUB/Structure/OCF)
 - [EPUB package manifest](/en-US/docs/Related/EPUB/Package/Manifest)
 - [EPUB publication content](/en-US/docs/Related/EPUB/Content)

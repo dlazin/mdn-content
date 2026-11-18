@@ -25,7 +25,7 @@ EPUB was first standardized by the [International Digital Publishing Forum (IDPF
 Unlike EPUB 2, which relied on XHTML 1.1, a limited subset of CSS 2, and standalone XML navigation formats, EPUB 3:
 
 - Uses semi-modern [HTML](/en-US/docs/Web/HTML) (serialized as [XHTML](/en-US/docs/Glossary/XHTML)), [CSS](/en-US/docs/Web/CSS), [SVG](/en-US/docs/Web/SVG), and [MathML](/en-US/docs/Web/MathML).
-- Replaces the legacy XML `.ncx` table of contents with an HTML-based [navigation document](/en-US/docs/Related/EPUB/Navigation)).
+- Replaces the legacy XML `.ncx` table of contents with an HTML-based [navigation document](/en-US/docs/Related/EPUB/Navigation).
 - Supports embedded [`<audio>`](/en-US/docs/Related/EPUB/Content/Audio), [`<video>`](/en-US/docs/Related/EPUB/Content/Video), synchronized read-aloud narration (Media Overlays), and [JavaScript](/en-US/docs/Related/EPUB/Content/Scripting).
 - Adds global language support—including right-to-left text and page progression and vertical writing modes—alongside rich [accessibility metadata](https://www.w3.org/TR/epub-a11y-11/) and [ARIA](/en-US/docs/Web/Accessibility/ARIA) roles.
 

@@ -6,22 +6,22 @@ page-type: guide
 sidebar: epub
 ---
 
-EPUB 3 allows embedding video clips inside [XHTML](/en-US/docs/Related/EPUB/Content/XHTML) content documents using the standard HTML [`<video>`](/en-US/docs/Web/HTML/Reference/Elements/video) element. Video is primarily used in digital textbooks, technical manuals, cookbooks, and enhanced nonfiction read on tablets, phones, and computers.
+EPUB 3 supports video clips in [XHTML](/en-US/docs/Related/EPUB/Content/XHTML) content documents via the HTML [`<video>`](/en-US/docs/Web/HTML/Reference/Elements/video) element. Video is mainly used in digital textbooks, technical manuals, cookbooks, and illustrated nonfiction read on tablets, phones, and computers.
 
-## Video formats and exempt-resource status
+## Video formats and exempt status
 
-Unlike images, audio, and fonts, **EPUB 3 defines no [core media types](/en-US/docs/Related/EPUB/Content/Core_media_types) for video**, because device platforms historically split between patent-encumbered and royalty-free video codecs.
+Unlike images, audio, and fonts, EPUB 3 defines no [core media types](/en-US/docs/Related/EPUB/Content/Core_media_types) for video because device platforms historically split between patent-encumbered and royalty-free codecs.
 
-Instead, EPUB 3 classifies all video files referenced from `<video>` (and its child [`<source>`](/en-US/docs/Web/HTML/Reference/Elements/source) elements) as **exempt resources**:
+Instead, all video files referenced from `<video>` (and its child [`<source>`](/en-US/docs/Web/HTML/Reference/Elements/source) elements) are **exempt resources**:
 
-- **No fallback required**: You do not need to declare a `fallback` attribute in [`<manifest>`](/en-US/docs/Related/EPUB/Package/Manifest) for video files.
-- **Support is not guaranteed**: Reading systems are not required to play video—for example, grayscale e-ink devices typically cannot play video at all.
+- You do not need to set a `fallback` attribute on video items in [`<manifest>`](/en-US/docs/Related/EPUB/Package/Manifest).
+- Reading systems are not required to play video; grayscale e-ink readers typically cannot play video at all.
 
-In practice, **MP4 using H.264 video and AAC audio** (`media-type="video/mp4"`) and **WebM using VP8/VP9 video and Opus/Vorbis audio** (`media-type="video/webm"`) have the widest support across tablet, desktop, and browser-based reading systems. You can supply both formats using multiple `<source>` elements inside `<video>` if needed.
+In practice, MP4 with H.264 video and AAC audio (`video/mp4`) and WebM with VP8 or VP9 video and Vorbis or Opus audio (`video/webm`) have the widest support across tablet, desktop, and browser reading systems. You can include both formats with multiple `<source>` elements inside `<video>`.
 
 ## Embedding `<video>` in XHTML
 
-Use XML syntax for boolean attributes (`controls="controls"`), provide a static `poster` image (using an image [core media type](/en-US/docs/Related/EPUB/Content/Images) such as `image/jpeg` or `image/png`), and include accessible captions via [`<track>`](/en-US/docs/Web/HTML/Reference/Elements/track):
+Write boolean attributes in XML form (`controls="controls"`, `default="default"`), supply a `poster` image using an image [core media type](/en-US/docs/Related/EPUB/Content/Images) (such as `image/jpeg` or `image/png`), and include captions with [`<track>`](/en-US/docs/Web/HTML/Reference/Elements/track):
 
 ```xml
 <figure>
@@ -40,7 +40,7 @@ Use XML syntax for boolean attributes (`controls="controls"`), provide a static 
 </figure>
 ```
 
-Declare **every** referenced asset—the video file, the `poster` image, and any `<track>` caption files—in the package [`<manifest>`](/en-US/docs/Related/EPUB/Package/Manifest):
+Declare every referenced file—the video, the `poster` image, and any `<track>` caption files—in [`<manifest>`](/en-US/docs/Related/EPUB/Package/Manifest):
 
 ```xml
 <manifest>
@@ -51,15 +51,13 @@ Declare **every** referenced asset—the video file, the `poster` image, and any
 </manifest>
 ```
 
-Note that timed text track files referenced from `<track>` (such as WebVTT `text/vtt`) are also **exempt resources** in EPUB 3 and do not require fallbacks.
+Timed text tracks referenced from `<track>` (such as WebVTT `text/vtt`) are also exempt resources in EPUB 3 and do not require fallbacks.
 
-## Practical authoring guidelines
+## Authoring guidelines
 
-- **Design for devices that cannot play video**: Because e-ink readers and print-disabled workflows may not play `<video>`, choose an informative `poster` frame and write surrounding prose or captions so the chapter still makes sense without playing the video. (Do not rely on text placed *inside* `<video>...</video>` to display on e-ink devices—many engines recognize the `<video>` tag and display only the `poster` frame even when playback is unavailable.)
-- **Watch container file size vs. remote hosting**: High-resolution video quickly inflates `.epub` file sizes past retailer upload limits. Like [audio](/en-US/docs/Related/EPUB/Content/Audio) and [fonts](/en-US/docs/Related/EPUB/Content/Fonts), video is permitted to be hosted outside the `.epub` container over `https:`:
-  - If you host a video remotely, you must still declare its `https:` URL as an `<item>` in `<manifest>` and add `properties="remote-resources"` to the XHTML document's `<item>` in `<manifest>`.
-  - Keep in mind that remote videos cannot be played offline and may be blocked by privacy-focused reading systems that disable network access.
-- **Avoid compressing video twice in the ZIP archive**: When packaging an `.epub` containing bundled `.mp4` or `.webm` files, storing already-compressed video streams uncompressed (`STORE`) or keeping clips short and web-optimized avoids slow extraction overhead on mobile devices.
+- Design chapters so they still make sense when video cannot play. Choose a clear `poster` frame and explain key steps in surrounding prose or a transcript. Do not rely on text placed inside `<video>...</video>` appearing on e-ink devices: most engines recognize `<video>` and show only the `poster` image when video playback is unavailable.
+- Watch file size limits. High-resolution video quickly pushes `.epub` archives past retailer upload caps. Like [audio](/en-US/docs/Related/EPUB/Content/Audio) and [fonts](/en-US/docs/Related/EPUB/Content/Fonts), video may be hosted outside the container (using `https:` URLs is strongly recommended, as reading systems may block `http:`): declare the remote URL as an `<item>` in `<manifest>` and add `properties="remote-resources"` to the XHTML document's `<item>`. Keep in mind that remote videos require network access and cannot play offline.
+- When bundling `.mp4` or `.webm` files inside the `.epub` ZIP archive, keep clips short and web-optimized, or store them uncompressed (`STORE`) because video streams are already compressed.
 
 ## Specifications
 

@@ -6,17 +6,13 @@ page-type: guide
 sidebar: epub
 ---
 
-Every EPUB contains a directory named **`META-INF`** in the root directory of the container. This directory holds container-level files that tell reading systems how to locate and process the publication, most importantly the required `container.xml` file.
+Every EPUB archive contains a `META-INF` directory at its root. This directory stores container configuration files—most importantly the required `container.xml` file that tells reading systems where to find the book's [package file](/en-US/docs/Related/EPUB/Package).
 
-The `META-INF` directory only stores information about the container itself. Publication content—such as XHTML documents, CSS stylesheets, images, audio, and the [package file](/en-US/docs/Related/EPUB/Package) that holds the book's bibliographic metadata—belongs in the [content directory](/en-US/docs/Related/EPUB/Structure/Content), not in `META-INF`.
+`META-INF` only holds container-level files. Chapters, stylesheets, images, metadata records, and the `.opf` package file belong outside `META-INF` in the [content directory](/en-US/docs/Related/EPUB/Structure/Content).
 
 ## The `container.xml` file
 
-Every `META-INF` directory must include a file named `container.xml`. This file tells the reading system where to find the publication's [package file](/en-US/docs/Related/EPUB/Package) (`.opf`), which serves as the manifest and structural index for the ebook.
-
-### Example `container.xml`
-
-In almost all EPUB publications, `META-INF/container.xml` has the following structure, varying only in the `full-path` attribute:
+Every `META-INF` directory must contain a `container.xml` file pointing to the `.opf` [package file](/en-US/docs/Related/EPUB/Package). In almost all EPUBs, `META-INF/container.xml` has the following structure, changing only the `full-path` value:
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
@@ -31,28 +27,30 @@ In almost all EPUB publications, `META-INF/container.xml` has the following stru
 ### Elements and attributes
 
 - `<container>`
-  - : The root element of `container.xml`. It must declare the XML namespace `xmlns="urn:oasis:names:tc:opendocument:xmlns:container"` and the attribute `version="1.0"`.
+  - : Required root element. Must declare `xmlns="urn:oasis:names:tc:opendocument:xmlns:container"` and `version="1.0"`.
 - `<rootfiles>`
-  - : A required wrapper element that contains one or more `<rootfile>` elements.
+  - : Required child of `<container>` that wraps one or more `<rootfile>` elements.
 - `<rootfile>`
-  - : Identifies a [package file](/en-US/docs/Related/EPUB/Package) for the publication. Although the specification allows multiple `<rootfile>` elements, an EPUB almost always contains only one, and reading systems are only required to process the first `<rootfile>` listed. Each `<rootfile>` element requires two attributes:
-    - `full-path`: The path to the package file, relative to the root directory of the unzipped EPUB container (not relative to the `META-INF` directory). This value changes from book to book depending on how the [content directory](/en-US/docs/Related/EPUB/Structure/Content) and package file are named—for example, `OEBPS/package.opf`, `OPS/content.opf`, or `EPUB/package.opf`.
-    - `media-type`: The MIME media type of the package file. For an EPUB package file, this value is always `application/oebps-package+xml`.
+  - : Identifies a [package file](/en-US/docs/Related/EPUB/Package) in the archive. Although multiple `<rootfile>` elements are allowed for multi-rendition books, almost all EPUBs have just one, and reading systems are only required to use the first `<rootfile>`. Requires two attributes:
+    - `full-path`
+      - : Path to the package file relative to the root of the EPUB archive (not relative to `META-INF/`), such as `OEBPS/package.opf`, `OPS/content.opf`, or `EPUB/package.opf`.
+    - `media-type`
+      - : Must be `application/oebps-package+xml`.
 
 ## Optional files in `META-INF`
 
-In addition to `container.xml`, the EPUB specification reserves several optional filenames in the `META-INF` directory. Most EPUBs do not need any of these optional files unless they use font obfuscation or Digital Rights Management (DRM):
+EPUB reserves several optional filenames in `META-INF`. Most ebooks do not include any of these unless they use font obfuscation, digital signatures, or Digital Rights Management (DRM):
 
 - `encryption.xml`
-  - : Describes how files in the container are encrypted and holds the keys needed to decrypt them. In practice, this file is almost always used either for [font obfuscation](/en-US/docs/Related/EPUB/Content/Fonts#font_licensing_and_obfuscation) (protecting licensed font files embedded in the ebook) or for DRM schemes.
+  - : Lists encrypted or obfuscated files in the archive and how to decode them. Most commonly used for [font obfuscation](/en-US/docs/Related/EPUB/Content/Fonts#font_licensing_and_obfuscation) or vendor DRM.
 - `signatures.xml`
-  - : Contains digital signatures for files in the container, allowing a reading system to verify the authenticity and integrity of the publication.
+  - : Stores XML digital signatures used to verify that files in the archive have not been modified.
 - `metadata.xml`
-  - : Reserved for container-level metadata. The EPUB specification does not define a required format for this file; standard ebook metadata (such as title, creator, and identifier) is placed in the [package file](/en-US/docs/Related/EPUB/Package) instead.
+  - : Reserved for container-level metadata. EPUB defines no standard format for this file; place book metadata in the [package file](/en-US/docs/Related/EPUB/Package/Metadata) instead.
 - `rights.xml`
-  - : Reserved for Digital Rights Management (DRM) information. The EPUB specification does not standardize a format for this file, so its contents depend on the specific DRM system used by a retailer or distributor.
+  - : Reserved for vendor-specific DRM information. EPUB does not standardize its format.
 - `manifest.xml`
-  - : A container manifest format inherited from the OASIS OpenDocument Format (ODF) standard. It is not used by EPUB reading systems, which read the publication manifest from the [package file](/en-US/docs/Related/EPUB/Package) instead.
+  - : Inherited from the OpenDocument Format (ODF) container specification. EPUB reading systems ignore it and read the manifest from the [package file](/en-US/docs/Related/EPUB/Package/Manifest) instead.
 
 ## Specifications
 
@@ -61,6 +59,6 @@ In addition to `container.xml`, the EPUB specification reserves several optional
 ## See also
 
 - [EPUB structure](/en-US/docs/Related/EPUB/Structure)
-- [The EPUB `mimetype` file](/en-US/docs/Related/EPUB/Structure/mimetype)
-- [Content directory](/en-US/docs/Related/EPUB/Structure/Content)
+- [EPUB `mimetype` file](/en-US/docs/Related/EPUB/Structure/mimetype)
+- [EPUB content directory](/en-US/docs/Related/EPUB/Structure/Content)
 - [EPUB package file](/en-US/docs/Related/EPUB/Package)

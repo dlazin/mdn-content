@@ -6,30 +6,29 @@ page-type: guide
 sidebar: epub
 ---
 
-By default, EPUB reading systems render text using their own built-in fonts and let readers switch typefaces according to personal preference or visual needs. When a publication needs custom typography—such as display fonts for chapter headings, specialized mathematical or phonetic glyphs, or support for scripts that may not be preinstalled on all devices—you can bundle font files in the [content directory](/en-US/docs/Related/EPUB/Structure/Content), declare them in the package [`<manifest>`](/en-US/docs/Related/EPUB/Package/Manifest), and load them in CSS with [`@font-face`](/en-US/docs/Web/CSS/Reference/At-rules/@font-face).
+By default, EPUB reading systems render text with built-in fonts and let readers switch typefaces to suit their preferences. When a book needs custom typography—such as display fonts for headings, mathematical or phonetic glyphs, or scripts not preinstalled on every device—you can bundle font files in the [content directory](/en-US/docs/Related/EPUB/Structure/Content), declare them in [`<manifest>`](/en-US/docs/Related/EPUB/Package/Manifest), and load them in CSS with [`@font-face`](/en-US/docs/Web/CSS/Reference/At-rules/@font-face).
 
 ## Supported font formats and media types
 
-EPUB 3 defines four **font core media types** that visual reading systems are expected to support without fallbacks:
+EPUB 3 defines four font [core media types](/en-US/docs/Related/EPUB/Content/Core_media_types) that visual reading systems support without fallbacks:
 
-| Format | Preferred `media-type` | Legacy `media-type` aliases | CSS `format()` value |
-| --- | --- | --- | --- |
-| WOFF2 (`.woff2`) | `font/woff2` | None | `"woff2"` |
-| WOFF (`.woff`) | `font/woff` | `application/font-woff` | `"woff"` |
-| OpenType (`.otf`) | `font/otf` | `application/font-sfnt`, `application/vnd.ms-opentype` | `"opentype"` |
-| TrueType (`.ttf`) | `font/ttf` | `application/font-sfnt` | `"truetype"` |
+| Format            | Preferred `media-type` | Legacy `media-type` aliases                            | CSS `format()` value |
+| ----------------- | ---------------------- | ------------------------------------------------------ | -------------------- |
+| WOFF2 (`.woff2`)  | `font/woff2`           | None                                                   | `"woff2"`            |
+| WOFF (`.woff`)    | `font/woff`            | `application/font-woff`                                | `"woff"`             |
+| OpenType (`.otf`) | `font/otf`             | `application/font-sfnt`, `application/vnd.ms-opentype` | `"opentype"`         |
+| TrueType (`.ttf`) | `font/ttf`             | `application/font-sfnt`                                | `"truetype"`         |
 
-When declaring fonts in [`<manifest>`](/en-US/docs/Related/EPUB/Package/Manifest), always use the preferred `font/*` media type (`font/woff2`, `font/woff`, `font/otf`, or `font/ttf`) in new EPUB 3 publications. The `application/*` strings are legacy aliases retained for backward compatibility with older authoring tools.
+Use the preferred `font/*` media types (`font/woff2`, `font/woff`, `font/otf`, or `font/ttf`) in new EPUB 3 files. The `application/*` values are legacy aliases kept for backward compatibility.
 
-- **Choosing a format**: WOFF2 (`font/woff2`) produces the smallest `.epub` file sizes thanks to built-in compression, while OpenType (`font/otf`) and TrueType (`font/ttf`) offer broad compatibility across both modern and older e-readers.
-- **Exempt font formats**: Any font format outside the four core media types is classified as an *exempt resource* in EPUB 3. Unlike other non-core media types, exempt fonts do not require a manifest `fallback` attribute, because CSS `font-family` stacks automatically fall back to a system font when a reading system cannot load a font file.
+WOFF2 (`font/woff2`) produces the smallest `.epub` files thanks to built-in compression, while OpenType (`font/otf`) and TrueType (`font/ttf`) are also recognized by older e-readers. Any font format outside these four core media types is an *exempt resource* in EPUB 3: it does not require a manifest `fallback` attribute because CSS `font-family` stacks fall back to a system font automatically.
 
 ## Embedding and styling fonts
 
 To embed custom fonts in an EPUB:
 
-1. Copy the font files into your [content directory](/en-US/docs/Related/EPUB/Structure/Content) (for example, `OEBPS/fonts/`).
-2. Declare every font file as an `<item>` in the package [`<manifest>`](/en-US/docs/Related/EPUB/Package/Manifest):
+1. Place the font files in your [content directory](/en-US/docs/Related/EPUB/Structure/Content) (for example, `OEBPS/fonts/`).
+2. Declare each font file as an `<item>` in [`<manifest>`](/en-US/docs/Related/EPUB/Package/Manifest):
 
    ```xml
    <manifest>
@@ -41,7 +40,7 @@ To embed custom fonts in an EPUB:
    </manifest>
    ```
 
-3. Define [`@font-face`](/en-US/docs/Web/CSS/Reference/At-rules/@font-face) rules in your CSS stylesheet—using paths relative to the stylesheet itself—and include fallback font families in every `font-family` declaration:
+3. Define [`@font-face`](/en-US/docs/Web/CSS/Reference/At-rules/@font-face) rules in CSS using paths relative to the stylesheet, and include fallback families in every `font-family` rule:
 
    ```css
    @font-face {
@@ -72,26 +71,26 @@ To embed custom fonts in an EPUB:
    ```
 
 > [!NOTE]
-> Many reading systems allow users to override publisher body-text fonts (for example, to switch to a high-legibility or dyslexic-friendly typeface) or ignore embedded body fonts unless the reader explicitly selects "Publisher Default." Avoid forcing custom fonts on body prose with `!important`, and always test that your book remains readable when the user switches to a built-in device font.
+> Many reading systems let readers override body fonts or ignore embedded body fonts unless the user selects "Publisher Default." Avoid `!important` on `font-family`, and verify that your book remains readable when switched to a built-in device font.
 
 ### Remotely hosted fonts
 
-Fonts are one of the few publication resource types that EPUB 3 permits hosting outside the `.epub` container over `https:`. If a CSS stylesheet (or [XHTML](/en-US/docs/Glossary/XHTML) document) references a remote font URL:
+EPUB 3 permits hosting font files outside the `.epub` container (using `https:` URLs is strongly recommended, as reading systems may block insecure `http:` requests). If a stylesheet or XHTML document references a remote font:
 
-- You must still declare the remote font URL as an `<item>` in `<manifest>`.
-- You must add `properties="remote-resources"` to the `<manifest>` item for the stylesheet or content document that references the remote font.
+- Declare the remote font URL as an `<item>` in `<manifest>`.
+- Add `properties="remote-resources"` to the `<manifest>` item for the stylesheet or content document that references the font.
 
-Because ebooks are frequently read offline on e-ink devices or in airplane mode, bundling font files inside the EPUB container is strongly preferred over loading remote web fonts.
+Because ebooks are often read offline, bundling fonts inside the container is more reliable than loading remote web fonts.
 
 ## Font licensing and obfuscation
 
-Because an `.epub` file is a standard ZIP container, anyone can unzip an ebook and inspect unencrypted files inside it. Before embedding a commercial font, verify that your font license explicitly covers ebook or EPUB distribution (standard desktop and webfont licenses often do not).
+Because an `.epub` file is a ZIP archive, anyone can unzip it and extract unencrypted files. Before embedding a commercial font, confirm that its license covers ebook distribution—standard desktop and webfont licenses often do not.
 
-Some commercial font foundries allow EPUB embedding only if the font files are bound to the publication so they cannot be casually extracted and installed on a computer. To satisfy these license terms without applying full Digital Rights Management (DRM), EPUB defines a lightweight **font obfuscation** mechanism:
+Some commercial foundries permit EPUB embedding only if the font is tied to the publication so it cannot be casually copied and installed elsewhere. Use **font obfuscation** only when no simpler option—such as open-licensed fonts, WOFF2 compression, or glyph subsetting—satisfies your font license:
 
-1. **Key derivation**: Strip all XML whitespace characters (`U+0020`, `U+0009`, `U+000D`, and `U+000A`) from the publication's primary [`<dc:identifier>`](/en-US/docs/Related/EPUB/Package/Metadata) (the one referenced by `unique-identifier` on `<package>`) and compute the 20-byte SHA-1 digest of its UTF-8 bytes.
-2. **Byte scrambling**: Before compressing the font into the ZIP archive, XOR the first 1,040 bytes of the raw font file against the repeating 20-byte SHA-1 key, leaving the remainder of the file unchanged.
-3. **Declaring obfuscated fonts in `META-INF/encryption.xml`**: List each obfuscated font in [`META-INF/encryption.xml`](/en-US/docs/Related/EPUB/Structure/META-INF) using an `<enc:EncryptedData>` block with `Algorithm="http://www.idpf.org/2008/embedding"` and a `URI` relative to the root of the EPUB container:
+1. Strip all XML whitespace characters (`U+0020`, `U+0009`, `U+000D`, and `U+000A`) from the publication's primary [`<dc:identifier>`](/en-US/docs/Related/EPUB/Package/Metadata) (the one referenced by `unique-identifier` on `<package>`) and compute the 20-byte SHA-1 digest of its UTF-8 bytes.
+2. Before compressing the font into the ZIP archive, XOR the first 1,040 bytes of the raw font file against the repeating 20-byte SHA-1 key, leaving the rest of the file unchanged.
+3. List each obfuscated font in [`META-INF/encryption.xml`](/en-US/docs/Related/EPUB/Structure/META-INF) with `Algorithm="http://www.idpf.org/2008/embedding"` and a `URI` relative to the container root:
 
    ```xml
    <?xml version="1.0" encoding="UTF-8"?>
@@ -106,12 +105,12 @@ Some commercial font foundries allow EPUB embedding only if the font files are b
    </encryption>
    ```
 
-   Every obfuscated font listed in `META-INF/encryption.xml` must be declared in `<manifest>` with one of the font core media types (`font/woff2`, `font/woff`, `font/otf`, or `font/ttf`, or their core aliases)—not an arbitrary non-core MIME type. Do not store the obfuscation key inside `encryption.xml`.
+Declare every obfuscated font in `<manifest>` with its normal font core media type (`font/woff2`, `font/woff`, `font/otf`, or `font/ttf`, or a legacy alias), and do not include the obfuscation key in `encryption.xml`.
 
-Keep two limitations of font obfuscation in mind:
+Font obfuscation has two important limits:
 
-- **Not cryptographic security**: Font obfuscation only deters casual copying from an unzipped `.epub` folder; because the key is derived from the public `<dc:identifier>` in the package file, a determined user or reading system can reverse it.
-- **Optional reading system support**: EPUB reading systems are not required to support font deobfuscation. If a reading system does not deobfuscate fonts, it falls back to the next typeface in your CSS `font-family` list. Using open-licensed fonts (such as SIL Open Font License fonts) avoids the need for obfuscation altogether.
+- It only deters casual extraction from an unzipped `.epub` archive; because the key comes from the public `<dc:identifier>` in the package file, it is not cryptographic protection.
+- Reading systems are not required to support font deobfuscation. Non-supporting readers ignore obfuscated fonts and fall back to the next typeface in your CSS `font-family` stack.
 
 ## Specifications
 
@@ -122,7 +121,7 @@ Keep two limitations of font obfuscation in mind:
 
 ## See also
 
-- [Content directory](/en-US/docs/Related/EPUB/Structure/Content)
+- [EPUB content directory](/en-US/docs/Related/EPUB/Structure/Content)
 - [EPUB package manifest](/en-US/docs/Related/EPUB/Package/Manifest)
-- [The EPUB `META-INF` directory](/en-US/docs/Related/EPUB/Structure/META-INF)
+- [EPUB `META-INF` directory](/en-US/docs/Related/EPUB/Structure/META-INF)
 - [`@font-face`](/en-US/docs/Web/CSS/Reference/At-rules/@font-face)

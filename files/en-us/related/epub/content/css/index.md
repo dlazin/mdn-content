@@ -6,43 +6,51 @@ page-type: guide
 sidebar: epub
 ---
 
-EPUB 3 uses standard [Cascading Style Sheets (CSS)](/en-US/docs/Web/CSS) to control typography, spacing, borders, and layout across [XHTML](/en-US/docs/Related/EPUB/Content/XHTML) and [SVG](/en-US/docs/Related/EPUB/Content/SVG) content documents. Every `.css` file must be encoded in UTF-8 (or UTF-16, with UTF-8 strongly recommended), stored inside the EPUB container, declared in the package [`<manifest>`](/en-US/docs/Related/EPUB/Package/Manifest) with `media-type="text/css"`, and linked from each content document that uses it.
+EPUB 3 uses standard [Cascading Style Sheets (CSS)](/en-US/docs/Web/CSS) to style [XHTML](/en-US/docs/Related/EPUB/Content/XHTML) and [SVG](/en-US/docs/Related/EPUB/Content/SVG) content documents. Every `.css` file must be encoded in UTF-8 (or UTF-16, with UTF-8 recommended), stored inside the EPUB container, declared in [`<manifest>`](/en-US/docs/Related/EPUB/Package/Manifest) with `media-type="text/css"`, and linked from each content document that uses it.
 
 ## Designing CSS for reflowable ebooks
 
-While EPUB reading systems use modern browser engines to parse CSS, styling a reflowable ebook requires different habits than styling a fixed-brand website because readers control the reading environment and reading systems dynamically paginate the text:
+Although modern reading systems parse CSS with browser engines, styling a reflowable ebook differs from styling a website because readers customize the display and reading apps paginate chapters dynamically.
 
-- **Respect dark mode and reader color themes**: Most reading apps offer white, sepia, gray, and black ("night") reading modes. Never set `color: #000000` (or `color: black`) on body prose—in night mode, some reading systems darken the page background without overriding hardcoded inline or element colors, rendering black text unreadable against a dark background. Leave body text `color` and `background-color` unset so the reading system's theme applies cleanly, and whenever you set a custom `background-color` on a callout box, explicitly set a contrasting `color` on that same box (or style borders with `currentColor` instead of solid fills).
-- **Use relative units for typography**: Size headings, paragraphs, indents, and vertical spacing with relative units (`rem`, `em`, `%`) rather than fixed `px` or `pt` values so text scales proportionally when the user increases or decreases font size.
-- **Account for dynamic column pagination**: Reflowable reading systems typically paginate chapters by laying out the document inside CSS multi-column containers behind the scenes. Avoid `position: fixed` and `position: absolute`, which interact unpredictably with column pagination and can push content off-screen. Use `break-inside: avoid` on `<figure>`, `<blockquote>`, and table elements where supported to reduce awkward mid-element page splits, and avoid rigid heights (`height: 100vh`) that can clip text when font sizes increase.
-- **Avoid `!important`**: Users with low vision or dyslexia frequently override fonts, line heights, and paragraph spacing through reading system settings; `!important` declarations can block those accessibility adjustments.
+### Dark mode and reader color themes
+
+Most reading apps provide white, sepia, gray, and dark ("night") themes. Do not set `color: #000000` (or `color: black`) on body text: in dark mode, some reading systems darken the page background without overriding author text colors, leaving black text unreadable on a dark background.
+
+Leave body `color` and `background-color` unset so the reader's chosen theme applies cleanly. Whenever you set a `background-color` on a callout box, set a contrasting `color` on that same element, or style borders with `currentColor` instead of solid fills.
+
+### Relative units and user overrides
+
+Size headings, paragraphs, indents, and spacing with relative units (`rem`, `em`, `%`) rather than fixed `px` or `pt` values so text scales proportionally when the reader changes font size. Avoid `!important`, which can block font, line-height, and spacing overrides used by readers with low vision or dyslexia.
+
+### Dynamic pagination
+
+Reflowable reading systems usually paginate chapters by laying out content inside CSS multi-column containers. Avoid `position: fixed`, `position: absolute`, and rigid viewport heights (`height: 100vh`), which interact poorly with column pagination and can clip or hide overflowing text. Use `break-inside: avoid` on `<figure>`, `<blockquote>`, and table elements where supported to reduce mid-element page splits.
 
 ## Prohibited CSS properties
 
-EPUB 3 allows any standard CSS property **except** two directional properties, which **must not** appear in EPUB stylesheets:
+EPUB 3 allows any standard CSS property except two directional properties, which must not appear in EPUB stylesheets:
 
-- `direction` (prohibited)
-- `unicode-bidi` (prohibited)
+- `direction`
+- `unicode-bidi`
 
-Because a reading system may disable CSS or lack visual CSS rendering (for example, a text-to-speech or refreshable Braille system), expressing right-to-left or bidirectional text order only in CSS would scramble the text when stylesheets are turned off. Always declare text directionality in markup instead, using the HTML [`dir`](/en-US/docs/Web/HTML/Reference/Global_attributes/dir) attribute (`dir="rtl"`, `dir="ltr"`, or `dir="auto"`) and the [`<bdo>`](/en-US/docs/Web/HTML/Reference/Elements/bdo) element (or SVG's `direction` attribute).
+Because a reading system may disable CSS or render text non-visually (such as text-to-speech or refreshable braille), setting right-to-left or bidirectional text order only in CSS would scramble text when stylesheets are not applied. Declare text direction in markup instead using the HTML [`dir`](/en-US/docs/Web/HTML/Reference/Global_attributes/dir) attribute (`dir="rtl"`, `dir="ltr"`, or `dir="auto"`) and [`<bdo>`](/en-US/docs/Web/HTML/Reference/Elements/bdo) (or SVG's `direction` attribute).
 
 > [!NOTE]
-> Vertical text layout via the CSS [`writing-mode`](/en-US/docs/Web/CSS/Reference/Properties/writing-mode) property (such as `writing-mode: vertical-rl` for vertically typeset Japanese or Chinese ebooks) **is** permitted in EPUB CSS and is typically paired with `page-progression-direction="rtl"` on [`<spine>`](/en-US/docs/Related/EPUB/Package/Spine).
+> Vertical text layout via CSS [`writing-mode`](/en-US/docs/Web/CSS/Reference/Properties/writing-mode) (such as `writing-mode: vertical-rl` for vertically typeset Japanese or Chinese ebooks) is allowed in EPUB CSS and is usually paired with `page-progression-direction="rtl"` on [`<spine>`](/en-US/docs/Related/EPUB/Package/Spine).
 
 ## Legacy `-epub-` prefixed properties
 
-Before CSS Writing Modes, CSS Text Level 3, and CSS Text Decoration Level 3 reached maturity on the web, earlier versions of EPUB 3 defined `-epub-` vendor-prefixed equivalents so global typography features could be used reliably. EPUB 3.3 retains a subset of these prefixed properties for backward compatibility—such as `-epub-writing-mode`, `-epub-text-combine-horizontal`, `-epub-hyphens`, `-epub-line-break`, `-epub-word-break`, `-epub-text-align-last`, `-epub-text-emphasis-style`, `-epub-text-emphasis-color`, `-epub-text-emphasis-position`, and `-epub-text-underline-position`.
+Before CSS Writing Modes, CSS Text Level 3, and CSS Text Decoration Level 3 matured on the web, earlier versions of EPUB 3 defined `-epub-` prefixed equivalents for international typography. EPUB 3.3 keeps several of these for backward compatibility, including `-epub-writing-mode`, `-epub-text-combine-horizontal`, `-epub-hyphens`, `-epub-line-break`, `-epub-word-break`, `-epub-text-align-last`, `-epub-text-emphasis-style`, `-epub-text-emphasis-color`, `-epub-text-emphasis-position`, and `-epub-text-underline-position`.
 
-For new EPUB publications, **use the standard unprefixed CSS properties** (`writing-mode`, `text-combine-upright`, `hyphens`, `line-break`, `word-break`, `text-align-last`, `text-emphasis`, `text-underline-position`), as the W3C Publishing Working Group plans to drop `-epub-` prefixes in future major versions of EPUB.
+In new EPUBs, use standard unprefixed CSS properties (`writing-mode`, `text-combine-upright`, `hyphens`, `line-break`, `word-break`, `text-align-last`, `text-emphasis`, and `text-underline-position`). Future major versions of EPUB plan to drop `-epub-` prefixes.
 
 ## Examples
 
 ### Reflowable chapter stylesheet
 
-The following example shows a clean `styles/main.css` stylesheet tailored for reflowable prose—using relative units, traditional book first-line paragraph indents, theme-safe borders via `currentColor`, and responsive figure sizing:
+This `styles/main.css` stylesheet uses relative units, book-style first-line paragraph indents, theme-safe `currentColor` borders, and responsive figure sizing:
 
 ```css
-/* Keep margins and typography relative to the reader's chosen font size */
 body {
   line-height: 1.5;
   margin: 0;
@@ -57,7 +65,7 @@ h3 {
   break-after: avoid;
 }
 
-/* Traditional book typography: indent consecutive paragraphs rather than spacing them */
+/* Indent consecutive paragraphs rather than adding vertical gaps */
 p {
   margin: 0;
   text-indent: 1.5em;
@@ -71,7 +79,7 @@ figure + p {
   text-indent: 0;
 }
 
-/* Use currentColor borders instead of hardcoded colors so dark mode works cleanly */
+/* Use currentColor so borders adapt to sepia and dark modes */
 blockquote {
   margin: 1em 1.5em;
   padding-inline-start: 1em;

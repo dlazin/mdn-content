@@ -6,26 +6,27 @@ page-type: guide
 sidebar: epub
 ---
 
-In EPUB 3, the chapters and text sections of a book are written as **[XHTML](/en-US/docs/Glossary/XHTML) content documents**—standard [HTML](/en-US/docs/Web/HTML) documents written using strict [XML](/en-US/docs/Web/XML/Guides/XML_introduction) syntax rules and declared in the package [`<manifest>`](/en-US/docs/Related/EPUB/Package/Manifest) with `media-type="application/xhtml+xml"`.
+In EPUB 3, chapters and text sections are **[XHTML](/en-US/docs/Glossary/XHTML) content documents**: [HTML](/en-US/docs/Web/HTML) files written in [XML](/en-US/docs/Web/XML/Guides/XML_introduction) syntax and declared in [`<manifest>`](/en-US/docs/Related/EPUB/Package/Manifest) with `media-type="application/xhtml+xml"`.
 
-Most reflowable ebooks divide the book into one `.xhtml` file per chapter or major section (such as `cover.xhtml`, `copyright.xhtml`, `chapter-1.xhtml`, and `chapter-2.xhtml`) and list those files in reading order in the package [`<spine>`](/en-US/docs/Related/EPUB/Package/Spine). Splitting a book by chapter helps e-readers load chapters quickly even on low-memory devices and ensures each chapter starts cleanly on a new screen page.
+Most reflowable ebooks use one `.xhtml` file per chapter or section (such as `cover.xhtml`, `copyright.xhtml`, `chapter-1.xhtml`, and `chapter-2.xhtml`) and list them in order in [`<spine>`](/en-US/docs/Related/EPUB/Package/Spine). Splitting a book into chapter files helps low-memory e-readers load pages quickly and starts each chapter on a new screen page.
 
-## XML syntax requirements
+## XML syntax rules
 
-Unlike web browsers rendering `text/html` pages—which silently repair unclosed tags or unescaped ampersands—EPUB reading systems parse `.xhtml` files with a strict XML parser. Even a single XML syntax error causes the reading system to halt rendering and display a fatal error banner instead of the chapter.
+Unlike web browsers parsing `text/html`, EPUB reading systems parse `.xhtml` files with a strict XML parser. A single XML syntax error stops the chapter from rendering and displays an error message instead.
 
 Every XHTML content document must follow XML well-formedness rules:
 
-- **Declare the XHTML namespace**: The root `<html>` element must include `xmlns="http://www.w3.org/1999/xhtml"`. Include both `xml:lang` and `lang` on `<html>` to declare the document language, and declare `xmlns:epub="http://www.idpf.org/2007/ops"` whenever the document uses attributes like [`epub:type`](/en-US/docs/Related/EPUB/Content/epub:type).
-- **Close every element**: Void HTML elements such as `<img>`, `<meta>`, `<link>`, `<br>`, `<hr>`, and `<source>` must be self-closed (`<br />`, `<img src="..." alt="..." />`). Non-void elements such as `<p>` and `<li>` must always have matching closing tags (`</p>`, `</li>`).
-- **Quote all attributes and expand boolean attributes**: Every attribute value must be enclosed in quotes (`id="ch1"`). Bare HTML boolean attributes such as `hidden` or `controls` are invalid XML; write `hidden=""` (or `hidden="hidden"`) and `controls="controls"`.
-- **Use lowercase element and attribute names**: XML is case-sensitive, so `<P>` or `<DIV>` does not match `<p>` or `<div>` in the XHTML namespace.
-- **Escape `&` and `<` in text and URLs**: Write raw ampersands as `&amp;` (including inside query strings in `href` URLs) and literal less-than signs as `&lt;`.
-- **Avoid HTML named character entities**: XML only predefines five named entities (`&amp;`, `&lt;`, `&gt;`, `&quot;`, and `&apos;`). Named HTML entities such as `&nbsp;`, `&mdash;`, or `&copy;` cause a fatal XML undefined-entity error in EPUB 3. Enter Unicode characters directly in UTF-8 (`—`, `©`) or use numeric character references (`&#160;` for a non-breaking space, `&#8212;` for an em dash).
+- Encode files in UTF-8 (or UTF-16, with UTF-8 recommended). Including `<?xml version="1.0" encoding="UTF-8"?>` at the top and `<!DOCTYPE html>` before `<html>` is standard practice, though both are optional in UTF-8 XML.
+- Set `xmlns="http://www.w3.org/1999/xhtml"` on `<html>`. Include both `xml:lang` and `lang` for the document language, and add `xmlns:epub="http://www.idpf.org/2007/ops"` whenever the file uses [`epub:type`](/en-US/docs/Related/EPUB/Content/epub:type).
+- Close every element. Void HTML elements (`<img>`, `<meta>`, `<link>`, `<br>`, `<hr>`, `<source>`) must be self-closed (`<br />`), and non-void elements (`<p>`, `<li>`) must have closing tags (`</p>`, `</li>`).
+- Quote all attribute values (`id="ch1"`) and write boolean attributes in full XML form (`hidden=""` or `controls="controls"`, never bare `hidden`).
+- Use lowercase element and attribute names (`<p>`, not `<P>`).
+- Escape raw `&` and `<` characters as `&amp;` and `&lt;`, including `&` inside URL query strings.
+- Do not use HTML named character entities such as `&nbsp;`, `&mdash;`, or `&copy;`. XML only defines `&amp;`, `&lt;`, `&gt;`, `&quot;`, and `&apos;`, so write Unicode characters directly in UTF-8 (`—`, `©`) or use numeric references (`&#160;` for a non-breaking space).
 
 ## Embedded MathML
 
-XHTML content documents in EPUB 3 can include inline or block mathematical notation using [MathML](/en-US/docs/Web/MathML):
+XHTML content documents can include mathematical notation using [MathML](/en-US/docs/Web/MathML):
 
 ```xml
 <p>
@@ -40,31 +41,30 @@ XHTML content documents in EPUB 3 can include inline or block mathematical notat
 </p>
 ```
 
-When embedding MathML in an EPUB XHTML document, follow two rules:
+Follow three rules when including `<math>` elements:
 
-1. **Declare `properties="mathml"` in `<manifest>`**: Any XHTML `<item>` in [`<manifest>`](/en-US/docs/Related/EPUB/Package/Manifest) that contains `<math>` markup **must** include the `mathml` token in its `properties` attribute:
+- Add `properties="mathml"` to the XHTML file's `<item>` in [`<manifest>`](/en-US/docs/Related/EPUB/Package/Manifest):
 
-   ```xml
-   <item id="ch2" href="text/chapter-2.xhtml" media-type="application/xhtml+xml" properties="mathml" />
-   ```
+  ```xml
+  <item id="ch2" href="text/chapter-2.xhtml" media-type="application/xhtml+xml" properties="mathml" />
+  ```
 
-2. **Use Presentation MathML**: Direct children of `<math>` must use Presentation MathML elements (`<mrow>`, `<mi>`, `<mn>`, `<mo>`, `<mfrac>`, `<msup>`, etc.). Content MathML is only permitted inside an `<annotation-xml>` child of a `<semantics>` element (with `encoding="MathML-Content"` or `encoding="application/mathml-content+xml"` and `name="contentequiv"`).
+- Use Presentation MathML (`<mrow>`, `<mi>`, `<mn>`, `<mo>`, `<mfrac>`, `<msup>`, and related elements) for `<math>` children. Content MathML is allowed only inside `<annotation-xml>` within `<semantics>` (with `encoding="MathML-Content"` or `encoding="application/mathml-content+xml"` and `name="contentequiv"`).
+- Avoid adding `alttext` or `aria-label` to `<math>` elements; assistive technologies navigate Presentation MathML directly, and extra text labels can cause equations to be read twice or prevent term-by-term exploration.
 
 ## EPUB extensions and discouraged HTML elements
 
-Aside from XML syntax rules, XHTML content documents support the full HTML standard with a few EPUB-specific additions and constraints:
+XHTML content documents support standard HTML along with [`epub:type`](/en-US/docs/Related/EPUB/Content/epub:type) (allowed on `<body>` and its descendants, not inside `<head>`), `epub:prefix`, and RDFa attributes. Two early EPUB 3 elements—`<epub:switch>` and `<epub:trigger>`—are deprecated and should not be used.
 
-- **Allowed EPUB extensions**: You can annotate elements with [`epub:type`](/en-US/docs/Related/EPUB/Content/epub:type) (except on `<head>` and metadata elements), `epub:prefix`, and RDFa attributes (in addition to native HTML microdata and JSON-LD). Two older EPUB 3.0 elements—`<epub:switch>` and `<epub:trigger>`—are deprecated and should not be used.
-- **Discouraged HTML elements**:
-  - `<base>`: Avoid using `<base>`, because setting a document base URL can cause reading systems to misinterpret relative internal links as remote web resources.
-  - `<rp>`: Avoid ruby fallback parentheses (`<rp>`) inside `<ruby>` annotations, since EPUB 3 reading systems natively support ruby rendering.
-  - `<embed>`: Prefer [`<object>`](/en-US/docs/Web/HTML/Reference/Elements/object) over `<embed>`, because `<object>` provides built-in fallback markup when a reading system does not support scripting or a foreign media type.
+EPUB 3.3 also discourages three HTML elements:
+
+- `<base>`, because changing the document base URL can break internal relative links or cause reading systems to treat internal paths as remote resources.
+- `<rp>`, because EPUB 3 reading systems support `<ruby>` annotations natively without fallback parentheses.
+- `<embed>` for scripted resources, because [`<object>`](/en-US/docs/Web/HTML/Reference/Elements/object) provides built-in fallback content when scripting is unavailable.
 
 ## Examples
 
-### Minimal XHTML chapter document
-
-The following example shows a complete, valid XHTML chapter file ready to be declared in `<manifest>` and referenced in `<spine>`:
+### Minimal XHTML chapter
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
@@ -100,7 +100,7 @@ The following example shows a complete, valid XHTML chapter file ready to be dec
 
 ## See also
 
-- [EPUB publication content overview](/en-US/docs/Related/EPUB/Content)
-- [XHTML glossary entry](/en-US/docs/Glossary/XHTML)
+- [EPUB publication content](/en-US/docs/Related/EPUB/Content)
+- [XHTML](/en-US/docs/Glossary/XHTML)
 - [EPUB `epub:type` attribute](/en-US/docs/Related/EPUB/Content/epub:type)
 - [MathML](/en-US/docs/Web/MathML)

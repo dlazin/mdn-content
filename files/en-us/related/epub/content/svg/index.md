@@ -6,50 +6,56 @@ page-type: guide
 sidebar: epub
 ---
 
-[Scalable Vector Graphics (SVG)](/en-US/docs/Web/SVG) (`image/svg+xml`) is a first-class format in EPUB 3. Because vector graphics scale cleanly to any screen resolution without blurring, SVG is widely used in ebooks for diagrams, maps, mathematical figures, publisher logos, decorative dividers, and responsive full-screen cover pages.
+[Scalable Vector Graphics (SVG)](/en-US/docs/Web/SVG) (`image/svg+xml`) is a [core media type](/en-US/docs/Related/EPUB/Content/Core_media_types) in EPUB 3. Because vector graphics scale cleanly to any screen resolution, ebooks commonly use SVG for diagrams, maps, mathematical figures, publisher logos, decorative dividers, and full-screen cover pages.
 
 ## Ways to use SVG in EPUB
 
-EPUB 3 supports three ways to include SVG in a publication:
+EPUB 3 supports three ways to include SVG in a publication.
 
-1. **Referenced from an [XHTML](/en-US/docs/Related/EPUB/Content/XHTML) document**: Embed an external `.svg` file using [`<img>`](/en-US/docs/Web/HTML/Reference/Elements/img) or [`<object>`](/en-US/docs/Web/HTML/Reference/Elements/object):
+### Referenced from XHTML
 
-   ```xml
-   <figure>
-     <img src="../images/pequod-rigging.svg" alt="Labeled diagram of the Pequod's three masts" />
-     <figcaption>Rigging plan of a three-masted whaling ship.</figcaption>
-   </figure>
-   ```
+You can embed an external `.svg` file inside an [XHTML](/en-US/docs/Related/EPUB/Content/XHTML) document using [`<img>`](/en-US/docs/Web/HTML/Reference/Elements/img) or [`<object>`](/en-US/docs/Web/HTML/Reference/Elements/object):
 
-   Both the `.svg` file (`media-type="image/svg+xml"`) and the `.xhtml` file must be declared in the package [`<manifest>`](/en-US/docs/Related/EPUB/Package/Manifest), and the `.xhtml` manifest `<item>` **must** declare `properties="svg"`.
+```xml
+<figure>
+  <img src="../images/pequod-rigging.svg" alt="Labeled diagram of the Pequod's three masts" />
+  <figcaption>Rigging plan of a three-masted whaling ship.</figcaption>
+</figure>
+```
 
-2. **Inline `<svg>` inside an XHTML document**: Place an `<svg xmlns="http://www.w3.org/2000/svg" viewBox="...">` fragment directly inside an XHTML file. Inline SVG lets your book's CSS rules (such as `fill: currentColor`) adapt line art automatically when a reader switches to sepia or dark mode. Any XHTML document containing inline `<svg>` **must** also declare `properties="svg"` on its `<item>` in `<manifest>`:
+Declare both the `.svg` file (`media-type="image/svg+xml"`) and the `.xhtml` file in the package [`<manifest>`](/en-US/docs/Related/EPUB/Package/Manifest), and include `properties="svg"` on the `.xhtml` manifest `<item>`.
 
-   ```xml
-   <item id="ch3" href="text/chapter-3.xhtml" media-type="application/xhtml+xml" properties="svg" />
-   ```
+### Inline `<svg>` in XHTML
 
-3. **Standalone SVG content documents in `<spine>`**: Alongside XHTML, `image/svg+xml` is one of the two native *EPUB content document* formats that can be referenced directly by `<itemref>` in the package [`<spine>`](/en-US/docs/Related/EPUB/Package/Spine) without a fallback. Standalone SVG spine items are primarily used for full-page cover wrappers, comics, manga, and fixed-layout graphic spreads.
+You can place an `<svg xmlns="http://www.w3.org/2000/svg" viewBox="...">` fragment directly inside an XHTML file. Inline SVG lets CSS rules (such as `fill: currentColor`) adapt line art automatically when a reader switches to sepia or dark mode.
+
+Any XHTML document containing inline `<svg>` must declare `properties="svg"` on its `<item>` in `<manifest>`:
+
+```xml
+<item id="ch3" href="text/chapter-3.xhtml" media-type="application/xhtml+xml" properties="svg" />
+```
+
+### Standalone SVG spine items
+
+Alongside XHTML, `image/svg+xml` is one of the two native EPUB content document formats that can appear directly in the package [`<spine>`](/en-US/docs/Related/EPUB/Package/Spine) without a fallback. Standalone SVG spine items are mainly used for fixed-layout graphic spreads, comics, and manga.
 
 > [!NOTE]
-> Even though standalone `.svg` files are valid in `<spine>`, wrapping an `<svg>` element inside a standard `.xhtml` document (such as `cover.xhtml`) is often preferred in reflowable ebooks because some reading systems handle pagination, zooming, and text selection more consistently on XHTML spine items than on standalone SVG spine items.
+> Even though standalone `.svg` files are valid in `<spine>`, wrapping `<svg>` inside an `.xhtml` document (such as `cover.xhtml`) is usually more reliable in reflowable ebooks. Some reading systems handle pagination, zooming, and text selection more consistently on XHTML spine items than on standalone SVG spine items.
 
 ## EPUB restrictions on SVG
 
-Whether an SVG graphic is standalone, referenced via `<img>`, or placed inline inside XHTML, EPUB 3 applies several constraints to ensure consistent rendering across reading systems:
+Whether an SVG graphic is standalone, referenced via `<img>`, or placed inline inside XHTML, EPUB 3 applies a few extra rules:
 
-- **Conforming XML and local storage**: Like images and XHTML files, SVG files must be well-formed XML and must be stored inside the EPUB container rather than loaded from remote URLs.
-- **Restrictions on `<foreignObject>`**: If an SVG uses `<foreignObject>` to embed HTML markup:
-  - Its content must conform to EPUB's [XHTML content document](/en-US/docs/Related/EPUB/Content/XHTML) rules.
-  - In a standalone or referenced `.svg` file, `<foreignObject>` must contain either HTML flow content or a single `<body>` element; in an inline `<svg>` inside XHTML, `<body>` is not allowed inside `<foreignObject>`.
-- **Plain-text `<title>` elements**: Include an accessible `<title>` (and `<desc>` where helpful) inside inline or standalone SVGs, and keep `<title>` text-only rather than nesting HTML child elements inside it, as reading system support for marked-up SVG titles is limited.
-- **`epub:type` and `epub:prefix`**: When using [`epub:type`](/en-US/docs/Related/EPUB/Content/epub:type) inside SVG, place it only on renderable SVG elements. If an inline `<svg>` inside an XHTML document uses custom vocabulary prefixes, declare `epub:prefix` on the root `<html>` element rather than on `<svg>`.
+- SVG files must be well-formed XML and stored inside the EPUB container rather than loaded from remote URLs.
+- If an SVG uses [`<foreignObject>`](/en-US/docs/Web/SVG/Reference/Element/foreignObject) to embed HTML markup, that markup must follow EPUB's [XHTML content document](/en-US/docs/Related/EPUB/Content/XHTML) rules. In a standalone or referenced `.svg` file, `<foreignObject>` must contain either HTML flow content or a single `<body>` element; in an inline `<svg>` inside XHTML, `<body>` is not allowed inside `<foreignObject>`.
+- Include an accessible `<title>` (and `<desc>` where helpful) in inline or standalone SVGs. Keep `<title>` plain text rather than nesting HTML elements inside it, because reading systems have limited support for child markup in SVG titles.
+- Place [`epub:type`](/en-US/docs/Related/EPUB/Content/epub:type) only on renderable SVG elements. If an inline `<svg>` inside XHTML uses custom vocabulary prefixes, declare `epub:prefix` on the root `<html>` element rather than on `<svg>`.
 
 ## Examples
 
 ### Inline SVG ornament that adapts to dark mode
 
-Using `fill="currentColor"` on an inline SVG lets a chapter ornament automatically match the reader's active text color in light, sepia, or dark themes:
+Setting `fill="currentColor"` on an inline SVG lets a chapter ornament match the reader's active text color in light, sepia, and dark themes:
 
 ```xml
 <div class="ornament" role="presentation" aria-hidden="true">
@@ -61,7 +67,7 @@ Using `fill="currentColor"` on an inline SVG lets a chapter ornament automatical
 
 ### Scalable cover wrapper using SVG inside XHTML
 
-Wrapping a raster cover image inside an `<svg>` element with `viewBox` set to the image's pixel dimensions scales the cover cleanly to fit any screen aspect ratio without cropping or spilling onto a second blank page:
+Wrapping a raster cover image in an `<svg>` element with `viewBox` set to the image's pixel dimensions scales the cover to fit any screen aspect ratio without cropping or spilling onto a blank second page:
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
@@ -85,7 +91,6 @@ Wrapping a raster cover image inside an `<svg>` element with `viewBox` set to th
   </head>
   <body>
     <svg xmlns="http://www.w3.org/2000/svg"
-         xmlns:xlink="http://www.w3.org/1999/xlink"
          viewBox="0 0 1600 2560"
          preserveAspectRatio="xMidYMid meet"
          role="img"
@@ -97,7 +102,9 @@ Wrapping a raster cover image inside an `<svg>` element with `viewBox` set to th
 </html>
 ```
 
-Remember to declare `properties="svg"` on the `cover.xhtml` item and `properties="cover-image"` on `images/cover.jpg` in [`<manifest>`](/en-US/docs/Related/EPUB/Package/Manifest):
+If you need compatibility with older SVG 1.1 e-readers that do not recognize bare `href` on `<image>`, declare `xmlns:xlink="http://www.w3.org/1999/xlink"` on `<svg>` and use `xlink:href="../images/cover.jpg"`.
+
+Declare `properties="svg"` on the `cover.xhtml` item and `properties="cover-image"` on `images/cover.jpg` in [`<manifest>`](/en-US/docs/Related/EPUB/Package/Manifest):
 
 ```xml
 <manifest>

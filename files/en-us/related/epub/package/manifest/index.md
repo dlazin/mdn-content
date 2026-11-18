@@ -6,90 +6,89 @@ page-type: guide
 sidebar: epub
 ---
 
-The **`<manifest>`** element is the second required child of the `<package>` element in an EPUB [package file](/en-US/docs/Related/EPUB/Package) (`.opf`), appearing immediately after [`<metadata>`](/en-US/docs/Related/EPUB/Package/Metadata) and before [`<spine>`](/en-US/docs/Related/EPUB/Package/Spine). It provides an exhaustive, unordered inventory of every publication resource included in the EPUB—such as XHTML content documents, the [navigation document](/en-US/docs/Related/EPUB/Navigation), CSS stylesheets, images, fonts, audio, video, and scripts.
+The `<manifest>` element is the second child of `<package>` in an EPUB [package file](/en-US/docs/Related/EPUB/Package) (`.opf`), placed after [`<metadata>`](/en-US/docs/Related/EPUB/Package/Metadata) and before [`<spine>`](/en-US/docs/Related/EPUB/Package/Spine). It lists every publication resource used to render the book, including XHTML chapters, the [navigation document](/en-US/docs/Related/EPUB/Navigation), CSS stylesheets, images, fonts, audio, video, and scripts.
 
-Every publication resource in the [content directory](/en-US/docs/Related/EPUB/Structure/Content) must be declared as an `<item>` element inside `<manifest>`, and no unaccounted-for content files may be included in the container (aside from container-level files like [`mimetype`](/en-US/docs/Related/EPUB/Structure/mimetype) and files in [`META-INF`](/en-US/docs/Related/EPUB/Structure/META-INF)). The order of `<item>` elements in `<manifest>` does not affect the reading order of the ebook; reading order is controlled by the [`<spine>`](/en-US/docs/Related/EPUB/Package/Spine).
+Every publication resource in the [content directory](/en-US/docs/Related/EPUB/Structure/Content) (as well as any remote audio, video, or font resource) must have an `<item>` entry in `<manifest>`. Container files ([`mimetype`](/en-US/docs/Related/EPUB/Structure/mimetype) and files in [`META-INF/`](/en-US/docs/Related/EPUB/Structure/META-INF)), the `.opf` file itself, and standalone metadata records linked from `<metadata>` must not appear in `<manifest>`.
+
+The order of `<item>` elements in `<manifest>` does not affect chapter order; reading order is set by the [`<spine>`](/en-US/docs/Related/EPUB/Package/Spine).
 
 ## Attributes
 
-The `<manifest>` element itself accepts one optional attribute:
+`<manifest>` accepts one optional attribute:
 
 - `id`
-  - : An optional XML identifier for the `<manifest>` element.
+  - : An XML identifier for the `<manifest>` element.
 
-## Child elements
+## The `<item>` element
 
-Every `<manifest>` element must contain one or more **`<item>`** elements. Each `<item>` element is an empty (self-closing) XML element that declares a single resource in the publication:
+`<manifest>` contains one or more self-closing `<item>` elements, each declaring a single resource:
 
 ```xml
 <item id="chapter-1" href="text/chapter-1.xhtml" media-type="application/xhtml+xml" />
 ```
 
-### Required `<item>` attributes
+### `<item>` attributes
 
 - `id`
-  - : A unique XML identifier for the resource within the package file. Other parts of the package file—most notably [`<itemref>`](/en-US/docs/Related/EPUB/Package/Spine) elements in the `<spine>`, `fallback` chains, and `<meta refines="#...">` elements in [`<metadata>`](/en-US/docs/Related/EPUB/Package/Metadata)—reference the resource using this `id`.
+  - : Required. A unique XML identifier within the package file, referenced by [`<itemref>`](/en-US/docs/Related/EPUB/Package/Spine) elements in `<spine>`, `fallback` chains, `media-overlay` attributes, and `<meta refines="#...">` elements.
 - `href`
-  - : The path (URL) to the resource. For files stored inside the EPUB container, this path is relative to the directory containing the `.opf` package file (not relative to the root of the EPUB container, unless the `.opf` file itself is in the root). Each `<item>` in `<manifest>` must have a unique `href`, and the `href` must not include a fragment identifier (`#...`).
+  - : Required. The URL of the resource. For files inside the EPUB archive, write the path relative to the folder containing the `.opf` file (not relative to the archive root, unless `.opf` is in the root). Every `<item>` must resolve to a unique URL and must not include a `#` fragment identifier or a `data:` or `file:` URL.
 - `media-type`
-  - : The [MIME media type](/en-US/docs/Web/HTTP/Guides/MIME_types) indicating the format of the resource. Common media types in EPUB include:
+  - : Required. The [MIME media type](/en-US/docs/Web/HTTP/Guides/MIME_types) of the resource. Common EPUB [core media types](/en-US/docs/Related/EPUB/Content/Core_media_types) include:
     - `application/xhtml+xml` for XHTML content documents and the navigation document
     - `text/css` for CSS stylesheets
-    - `image/jpeg`, `image/png`, `image/gif`, `image/webp`, and `image/svg+xml` for images
-    - `font/ttf`, `font/otf`, `font/woff`, and `font/woff2` for fonts
-    - `audio/mpeg`, `audio/mp4`, and `audio/ogg` for audio
-    - `text/javascript` for scripts
+    - `image/jpeg`, `image/png`, `image/webp`, `image/gif`, and `image/svg+xml` for images
+    - `font/woff2`, `font/woff`, `font/otf`, and `font/ttf` for fonts
+    - `audio/mpeg`, `audio/mp4`, and `audio/ogg; codecs=opus` for audio
+    - `application/javascript` (or `text/javascript`) for scripts
     - `application/smil+xml` for Media Overlay documents
-
-### Optional `<item>` attributes
-
 - `properties`
-  - : A space-separated list of property tokens that declare special roles or features of the resource (see [Manifest item properties](#manifest_item_properties) later on this page).
+  - : Optional. Space-separated tokens declaring special roles or content features of the resource (see [Manifest item properties](#manifest_item_properties)).
 - `fallback`
-  - : The `id` of another `<item>` in the manifest that serves as a fallback if a reading system does not support the current item's `media-type`. A fallback chain is required when an `<item>` with a non-core media type (see [Core media types](/en-US/docs/Related/EPUB/Content/Core_media_types)) is referenced directly in the [`<spine>`](/en-US/docs/Related/EPUB/Package/Spine) or embedded without native HTML fallback mechanisms (such as `<picture>`, `<audio>`, `<video>`, or `<object>`).
+  - : Optional (conditionally required). The `id` of another `<item>` in `<manifest>` to use if the reading system cannot render this item's `media-type`. Required when a non-core resource is referenced without a built-in HTML fallback (such as `<picture>`, `<audio>`, or `<object>`), or when anything other than XHTML or SVG is placed in `<spine>`.
 - `media-overlay`
-  - : The `id` of an `<item>` in the manifest that references a Media Overlay document (`application/smil+xml`) providing synchronized audio playback for this content document.
+  - : Optional. The `id` of a Media Overlay `<item>` (`application/smil+xml`) providing synchronized audio playback for this content document.
 
 ## Manifest item properties
 
-The `properties` attribute on `<item>` uses a controlled vocabulary to inform reading systems about special roles or content features of a resource:
+The `properties` attribute on `<item>` tells reading systems which files serve special roles or use features that require extra processing:
 
 - `nav`
-  - : Identifies the publication's [navigation document](/en-US/docs/Related/EPUB/Navigation). Exactly one `<item>` in the manifest must declare `properties="nav"`, and its `media-type` must be `application/xhtml+xml`.
+  - : Identifies the book's [navigation document](/en-US/docs/Related/EPUB/Navigation). Exactly one `<item>` in `<manifest>` must declare `properties="nav"`, and its `media-type` must be `application/xhtml+xml`.
 
     ```xml
     <item id="nav" href="nav.xhtml" media-type="application/xhtml+xml" properties="nav" />
     ```
 
 - `cover-image`
-  - : Identifies the primary raster or vector cover image for the publication, which reading systems and library views display on the bookshelf. At most one `<item>` in the manifest may declare `properties="cover-image"`.
+  - : Identifies the cover image displayed on the reading app's bookshelf. Optional; allowed on at most one `<item>`.
 
     ```xml
     <item id="cover-img" href="images/cover.jpg" media-type="image/jpeg" properties="cover-image" />
     ```
 
 - `mathml`
-  - : Must be declared on any content document `<item>` that contains embedded [MathML](/en-US/docs/Web/MathML) markup.
+  - : Required on any content document `<item>` that contains [MathML](/en-US/docs/Web/MathML) markup.
 - `svg`
-  - : Must be declared on any XHTML content document `<item>` that contains embedded [SVG](/en-US/docs/Web/SVG) markup or references SVG images.
+  - : Required on any XHTML `<item>` that embeds inline `<svg>` markup or references external `.svg` files. Do not set `properties="svg"` on standalone `image/svg+xml` items themselves.
 - `scripted`
-  - : Must be declared on any content document `<item>` that includes JavaScript or HTML interactive forms.
+  - : Required on any content document `<item>` that includes executable `<script>` elements or HTML `<form>` elements.
 - `remote-resources`
-  - : Must be declared on any `<item>` (such as an XHTML document, CSS stylesheet, or Media Overlay) that references resources located outside the EPUB container via `http:` or `https:` URLs.
+  - : Required on any `<item>` (such as an XHTML document, CSS stylesheet, or Media Overlay) that loads audio, video, fonts, or script data from external URLs. Ordinary `<a href="https://...">` hyperlinks do not trigger `remote-resources`.
 - `switch`
-  - : Deprecated in EPUB 3. Previously indicated that the content document contained `<epub:switch>` elements.
+  - : Deprecated. Previously indicated deprecated `<epub:switch>` markup.
 
-If multiple properties apply to the same `<item>`, list them separated by spaces:
+Separate multiple property tokens with spaces:
 
 ```xml
 <item id="chapter-2" href="text/chapter-2.xhtml" media-type="application/xhtml+xml" properties="mathml svg" />
 ```
 
+Item properties are not inherited across `<iframe>` boundaries: if an unscripted chapter embeds a scripted `<iframe>` document, only the embedded document's `<item>` declares `properties="scripted"`.
+
 ## Examples
 
 ### Minimal manifest
-
-The following example shows a minimal `<manifest>` declaring the required navigation document (`properties="nav"`), a CSS stylesheet, and two XHTML chapter files:
 
 ```xml
 <manifest>
@@ -100,9 +99,7 @@ The following example shows a minimal `<manifest>` declaring the required naviga
 </manifest>
 ```
 
-### Manifest with cover image, fonts, and content properties
-
-The following example shows a more complete `<manifest>` that includes a cover image (`properties="cover-image"`), a cover XHTML page, an embedded WOFF2 font, an illustration, and a chapter containing MathML and inline SVG (`properties="mathml svg"`):
+### Manifest with cover image, font, and feature properties
 
 ```xml
 <manifest>
