@@ -6,7 +6,7 @@ page-type: guide
 sidebar: epub
 ---
 
-An EPUB is a ZIP archive that follows the [Open Container Format (OCF)](/en-US/docs/Related/EPUB/Structure/OCF). When unzipped, a typical EPUB has a [`mimetype`](/en-US/docs/Related/EPUB/Structure/mimetype) file in its root directory alongside two folders: a required [`META-INF`](/en-US/docs/Related/EPUB/Structure/META-INF) directory and a [content directory](/en-US/docs/Related/EPUB/Structure/Content) (commonly named `OEBPS`, `OPS`, or `EPUB`).
+An EPUB is a ZIP archive that follows the [Open Container Format (OCF)](/en-US/docs/Related/EPUB/Structure/OCF) specification. When unzipped, an EPUB has a [`mimetype`](/en-US/docs/Related/EPUB/Structure/mimetype) file in its root directory alongside a [`META-INF`](/en-US/docs/Related/EPUB/Structure/META-INF) directory and, typically, a [content directory](/en-US/docs/Related/EPUB/Structure/Content) (commonly named `EPUB`, `OEBPS`, or `OPS`).
 
 ```plain
 book.epub/
@@ -25,34 +25,27 @@ book.epub/
         └── chapter-1.xhtml
 ```
 
-## How reading systems open an EPUB
+## Loading an EPUB
 
-When you open an EPUB, the reading system loads its files in four steps:
+When a user opens an EPUB, the reading system loads its files in four steps:
 
 1. It checks the uncompressed [`mimetype`](/en-US/docs/Related/EPUB/Structure/mimetype) file at the start of the ZIP archive for the string `application/epub+zip`, confirming the file is an EPUB.
 2. It reads [`META-INF/container.xml`](/en-US/docs/Related/EPUB/Structure/META-INF), whose `<rootfile>` element gives the path to the [package file](/en-US/docs/Related/EPUB/Package) (for example, `OEBPS/package.opf`).
-3. It parses the package file to read the [metadata](/en-US/docs/Related/EPUB/Package/Metadata) (title, author, language, identifier), [manifest](/en-US/docs/Related/EPUB/Package/Manifest) (every content file in the book, including the navigation document), and [spine](/en-US/docs/Related/EPUB/Package/Spine) (the chapter order).
-4. It uses the [navigation document](/en-US/docs/Related/EPUB/Navigation) to populate its table of contents menu and renders the [publication content](/en-US/docs/Related/EPUB/Content) in spine order.
+3. It parses the package file to read the [metadata](/en-US/docs/Related/EPUB/Package/Metadata) (title, author, language, identifier), [manifest](/en-US/docs/Related/EPUB/Package/Manifest) (every file in the book, including the navigation document), and [spine](/en-US/docs/Related/EPUB/Package/Spine) (the chapter order).
+4. It uses the [navigation document](/en-US/docs/Related/EPUB/Navigation) to populate the table of contents menu and renders the [publication content](/en-US/docs/Related/EPUB/Content) in spine order.
 
 ## Structural components
 
 - [Open Container Format](/en-US/docs/Related/EPUB/Structure/OCF)
-  - : The ZIP archive rules, filename restrictions, compression requirements, and relative URL boundaries for EPUBs.
+  - : The ZIP archive rules, filename restrictions, compression requirements, and URL boundaries.
 - [`mimetype` file](/en-US/docs/Related/EPUB/Structure/mimetype)
   - : The uncompressed first file in the root of every EPUB archive (`application/epub+zip`).
 - [`META-INF` directory](/en-US/docs/Related/EPUB/Structure/META-INF)
-  - : The root configuration directory containing `container.xml` and optional files such as `encryption.xml` and `signatures.xml`.
+  - : The folder that contains `container.xml` and optional files such as `encryption.xml` and `signatures.xml`.
 - [Content directory](/en-US/docs/Related/EPUB/Structure/Content)
-  - : The folder where the [package file](/en-US/docs/Related/EPUB/Package), [navigation document](/en-US/docs/Related/EPUB/Navigation), and [publication content](/en-US/docs/Related/EPUB/Content) files are stored.
+  - : The folder that contains the [package file](/en-US/docs/Related/EPUB/Package), [navigation document](/en-US/docs/Related/EPUB/Navigation), and [publication content](/en-US/docs/Related/EPUB/Content).
 
 ## Specifications
 
 - [EPUB 3.3: Open Container Format (OCF)](https://www.w3.org/TR/epub-33/#sec-ocf)
 - [EPUB 3.3: File and directory structure](https://www.w3.org/TR/epub-33/#sec-container-file-and-dir-structure)
-
-## See also
-
-- [Introduction to EPUB](/en-US/docs/Related/EPUB/Overview)
-- [EPUB package file](/en-US/docs/Related/EPUB/Package)
-- [EPUB navigation document](/en-US/docs/Related/EPUB/Navigation)
-- [EPUB publication content](/en-US/docs/Related/EPUB/Content)

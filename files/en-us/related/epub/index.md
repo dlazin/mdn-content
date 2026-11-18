@@ -6,7 +6,7 @@ page-type: landing-page
 sidebar: epub
 ---
 
-**EPUB** (**Electronic Publication**) is the W3C open standard file format for digital books and publications. This documentation covers **EPUB 3**, focusing on reflowable ebooks.
+EPUB (Electronic Publication) is the W3C open standard file format for digital books and publications. This documentation covers EPUB 3, focusing on reflowable ebooks.
 
 ## Guides and concepts
 

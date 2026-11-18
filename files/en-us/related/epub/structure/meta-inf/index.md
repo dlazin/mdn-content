@@ -6,20 +6,19 @@ page-type: guide
 sidebar: epub
 ---
 
-Every EPUB archive contains a `META-INF` directory at its root. This directory stores container configuration files—most importantly the required `container.xml` file that tells reading systems where to find the book's [package file](/en-US/docs/Related/EPUB/Package).
+Every EPUB archive contains a `META-INF` directory at its root that stores [XML](/en-US/docs/Web/XML/Guides/XML_introduction) configuration files—most importantly `container.xml`, which tells reading systems where to find the [package file](/en-US/docs/Related/EPUB/Package).
 
-`META-INF` only holds container-level files. Chapters, stylesheets, images, metadata records, and the package file belong outside `META-INF` in the [content directory](/en-US/docs/Related/EPUB/Structure/Content).
+`META-INF` only holds container-level files. Content and the package file go in the [content directory](/en-US/docs/Related/EPUB/Structure/Content).
 
 ## The `container.xml` file
 
-Every `META-INF` directory must contain a `container.xml` file pointing to the [package file](/en-US/docs/Related/EPUB/Package). In almost all EPUBs, `META-INF/container.xml` has the following structure, changing only the `full-path` value:
+`META-INF` must contain a `container.xml` file pointing to the [package file](/en-US/docs/Related/EPUB/Package). In almost all EPUBs, `META-INF/container.xml` has the following structure, changing only the value of `full-path`:
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
 <container xmlns="urn:oasis:names:tc:opendocument:xmlns:container" version="1.0">
   <rootfiles>
-    <rootfile full-path="OEBPS/package.opf"
-      media-type="application/oebps-package+xml" />
+    <rootfile full-path="OEBPS/package.opf" media-type="application/oebps-package+xml" />
   </rootfiles>
 </container>
 ```
@@ -43,22 +42,15 @@ EPUB reserves several optional filenames in `META-INF`. Most ebooks do not inclu
 
 - `encryption.xml`
   - : Lists encrypted or obfuscated files in the archive and how to decode them. Most commonly used for [font obfuscation](/en-US/docs/Related/EPUB/Content/Fonts#font_licensing_and_obfuscation) or vendor DRM.
-- `signatures.xml`
-  - : Stores XML digital signatures used to verify that files in the archive have not been modified.
+- `manifest.xml`
+  - : Inherited from the OpenDocument Format (ODF) container specification. EPUB reading systems ignore it and read the manifest from the [package file](/en-US/docs/Related/EPUB/Package/Manifest) instead.
 - `metadata.xml`
   - : Reserved for container-level metadata. EPUB defines no standard format for this file; place book metadata in the [package file](/en-US/docs/Related/EPUB/Package/Metadata) instead.
 - `rights.xml`
   - : Reserved for vendor-specific DRM information. EPUB does not standardize its format.
-- `manifest.xml`
-  - : Inherited from the OpenDocument Format (ODF) container specification. EPUB reading systems ignore it and read the manifest from the [package file](/en-US/docs/Related/EPUB/Package/Manifest) instead.
+- `signatures.xml`
+  - : Stores XML digital signatures used to verify that files in the archive have not been modified.
 
 ## Specifications
 
 - [EPUB 3.3: `META-INF` directory](https://www.w3.org/TR/epub-33/#sec-container-metainf)
-
-## See also
-
-- [EPUB structure](/en-US/docs/Related/EPUB/Structure)
-- [EPUB `mimetype` file](/en-US/docs/Related/EPUB/Structure/mimetype)
-- [EPUB content directory](/en-US/docs/Related/EPUB/Structure/Content)
-- [EPUB package file](/en-US/docs/Related/EPUB/Package)

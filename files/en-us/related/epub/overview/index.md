@@ -1,12 +1,11 @@
 ---
 title: Introduction to EPUB
-short-title: Introduction to EPUB
 slug: Related/EPUB/Overview
 page-type: guide
 sidebar: epub
 ---
 
-**EPUB** (**Electronic Publication**) is the open, vendor-neutral file format for digital books (ebooks) and publications, standardized by the [World Wide Web Consortium (W3C)](https://www.w3.org/TR/epub-33/). An EPUB packages [XHTML](/en-US/docs/Glossary/XHTML) text and optional [CSS](/en-US/docs/Web/CSS) stylesheets, images, fonts, audio, or video—along with [XML](/en-US/docs/Web/XML/Guides/XML_introduction) metadata and navigation files—into a single compressed archive that works offline across phones, tablets, computers, and dedicated e-readers.
+EPUB (Electronic Publication) is the open, vendor-neutral file format for digital books (ebooks) and publications, standardized by the [World Wide Web Consortium (W3C)](https://www.w3.org/TR/epub-33/). An EPUB packages [XHTML](/en-US/docs/Glossary/XHTML) text and optional [CSS](/en-US/docs/Web/CSS) stylesheets, images, fonts, audio, or video—along with [XML](/en-US/docs/Web/XML/Guides/XML_introduction) metadata and navigation files—into a single compressed archive that works offline across phones, tablets, computers, and dedicated e-readers.
 
 ## Reflow vs. fixed layout
 
@@ -32,20 +31,20 @@ Amazon Kindle devices and apps do not render EPUB directly on the device; instea
 
 ## Creating an EPUB
 
-Most commercial ebooks are exported from authoring or layout software—most commonly Adobe InDesign, after the print book has been laid out. Other tools such as Pandoc, Pressbooks, Vellum, Sigil, and Calibre also generate EPUBs directly.
+Most commercial ebooks are exported from Adobe InDesign after the print book has been laid out. Many authoring programs can also generate EPUBs, including Google Docs, Apple Pages, and Scrivener.
 
-The export operation generates the required [container structure](/en-US/docs/Related/EPUB/Structure), [package file](/en-US/docs/Related/EPUB/Package), and [navigation document](/en-US/docs/Related/EPUB/Navigation) automatically. Under the hood, every EPUB is a specialized [ZIP archive](/en-US/docs/Related/EPUB/Structure/OCF) whose XML, XHTML, CSS, and media files you can unzip, inspect, and edit directly.
+When software exports an EPUB, it generates the required [container structure](/en-US/docs/Related/EPUB/Structure), [package file](/en-US/docs/Related/EPUB/Package), and [navigation document](/en-US/docs/Related/EPUB/Navigation) automatically. Under the hood, every EPUB is a specialized [ZIP archive](/en-US/docs/Related/EPUB/Structure/OCF) whose XML, XHTML, CSS, and media files you can unzip, inspect, and edit.
 
 Because reading systems and retailer pipelines reject malformed EPUBs, completed EPUBs should always be validated with [EPUBCheck](https://www.w3.org/publishing/epubcheck/), the W3C's conformance checker.
 
 ## Specifications
 
 - [EPUB 3.3](https://www.w3.org/TR/epub-33/)
+- [EPUB 3.3 Overview](https://www.w3.org/TR/epub-overview-33/)
 - [EPUB Reading Systems 3.3](https://www.w3.org/TR/epub-rs-33/)
 - [EPUB Accessibility 1.1](https://www.w3.org/TR/epub-a11y-11/)
 
 ## See also
 
 - [EPUB's relationship to the web](/en-US/docs/Related/EPUB/Relationship_to_the_web)
-- [EPUB structure](/en-US/docs/Related/EPUB/Structure)
-- [EPUB 3 Overview](https://www.w3.org/TR/epub-overview-33/)
+- [How EPUB differs from the web](/en-US/docs/Related/EPUB/Differences_from_the_web)
